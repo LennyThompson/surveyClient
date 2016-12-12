@@ -1,0 +1,284 @@
+[
+  {
+    "ID": 1,
+    "created": "2016-11-12 06:21:48",
+    "updated": "2016-11-12 06:21:48",
+    "Name": "Test Survey",
+    "Description": "Testing...",
+    "ProjectionID": {
+      "ID": 1,
+      "created": "2016-11-12 06:21:48",
+      "updated": "2016-11-12 06:21:48",
+      "Name": "UTM XX",
+      "Date": "2000-01-01 00:00:00",
+      "Description": "Transverse Mercator Projection - TODO"
+    },
+    "SurveyPoint": [],
+    "Instrument": [],
+    "Traverse": [
+      {
+        "ID": 1,
+        "created": "2016-11-12 06:21:48",
+        "updated": "2016-11-12 06:21:48",
+        "Name": "New Traverse",
+        "Description": "A new traverse",
+        "StartPointID": {
+          "ID": 1,
+          "created": "2016-11-12 06:21:48",
+          "updated": "2016-11-12 06:21:48",
+          "X": 1000.0,
+          "Y": 2000.0,
+          "Z": 500.0,
+          "Name": "First Point",
+          "Description": "The first point in the survey",
+          "PointTypeID": {
+            "ID": 4,
+            "created": "2016-11-12 06:21:48",
+            "updated": "2016-11-12 06:21:48",
+            "Name": "Trig Point",
+            "Abbreviation": "Trig",
+            "UserDefined": false
+          },
+          "RefID": {
+            "ID": 1,
+            "created": "2016-11-12 06:21:48",
+            "updated": "2016-11-12 06:21:48",
+            "Name": "Current Survey",
+            "Description": "Current Survey",
+            "Date": "2000-01-01 00:00:00",
+            "Reference": "No Ref"
+          },
+          "SurveyImage": []
+        },
+        "EndPointID": {
+          "ID": 2,
+          "created": "2016-11-12 06:21:48",
+          "updated": "2016-11-12 06:21:48",
+          "X": 1100.0,
+          "Y": 2000.0,
+          "Z": 550.0,
+          "Name": "Second Point",
+          "Description": "The second point in the survey",
+          "PointTypeID": {
+            "ID": 8,
+            "created": "2016-11-12 06:21:48",
+            "updated": "2016-11-12 06:21:48",
+            "Name": "Boundary",
+            "Abbreviation": "Bdy",
+            "UserDefined": false
+          },
+          "RefID": {
+            "ID": 1,
+            "created": "2016-11-12 06:21:48",
+            "updated": "2016-11-12 06:21:48",
+            "Name": "Current Survey",
+            "Description": "Current Survey",
+            "Date": "2000-01-01 00:00:00",
+            "Reference": "No Ref"
+          },
+          "SurveyImage": []
+        },
+        "SurveyID": 1,
+        "TraverseClosure": [],
+        "SurveyMeasurement": [
+          {
+            "ID": 1,
+            "created": "2016-11-12 06:21:48",
+            "updated": "2016-11-12 06:21:48",
+            "HorizDistance": 100.0,
+            "VertDistance": 10.0,
+            "Bearing": 0.0,
+            "FromPtID": {
+              "ID": 1,
+              "created": "2016-11-12 06:21:48",
+              "updated": "2016-11-12 06:21:48",
+              "X": 1000.0,
+              "Y": 2000.0,
+              "Z": 500.0,
+              "Name": "First Point",
+              "Description": "The first point in the survey",
+              "PointTypeID": {
+                "ID": 4,
+                "created": "2016-11-12 06:21:48",
+                "updated": "2016-11-12 06:21:48",
+                "Name": "Trig Point",
+                "Abbreviation": "Trig",
+                "UserDefined": false
+              },
+              "RefID": {
+                "ID": 1,
+                "created": "2016-11-12 06:21:48",
+                "updated": "2016-11-12 06:21:48",
+                "Name": "Current Survey",
+                "Description": "Current Survey",
+                "Date": "2000-01-01 00:00:00",
+                "Reference": "No Ref"
+              },
+              "SurveyImage": []
+            },
+            "ToPtID": {
+              "ID": 3,
+              "created": "2016-11-12 06:21:48",
+              "updated": "2016-11-12 06:21:48",
+              "X": 1000.0,
+              "Y": 2100.0,
+              "Z": 510.0,
+              "Name": "Trav 1",
+              "Description": "First traverse point",
+              "PointTypeID": {
+                "ID": 8,
+                "created": "2016-11-12 06:21:48",
+                "updated": "2016-11-12 06:21:48",
+                "Name": "Boundary",
+                "Abbreviation": "Bdy",
+                "UserDefined": false
+              },
+              "RefID": {
+                "ID": 1,
+                "created": "2016-11-12 06:21:48",
+                "updated": "2016-11-12 06:21:48",
+                "Name": "Current Survey",
+                "Description": "Current Survey",
+                "Date": "2000-01-01 00:00:00",
+                "Reference": "No Ref"
+              },
+              "SurveyImage": []
+            },
+            "SurveyID": 0
+          },
+          {
+            "ID": 2,
+            "created": "2016-11-12 06:21:48",
+            "updated": "2016-11-12 06:21:48",
+            "HorizDistance": 100.0,
+            "VertDistance": 20.0,
+            "Bearing": 90.0,
+            "FromPtID": {
+              "ID": 3,
+              "created": "2016-11-12 06:21:48",
+              "updated": "2016-11-12 06:21:48",
+              "X": 1000.0,
+              "Y": 2100.0,
+              "Z": 510.0,
+              "Name": "Trav 1",
+              "Description": "First traverse point",
+              "PointTypeID": {
+                "ID": 8,
+                "created": "2016-11-12 06:21:48",
+                "updated": "2016-11-12 06:21:48",
+                "Name": "Boundary",
+                "Abbreviation": "Bdy",
+                "UserDefined": false
+              },
+              "RefID": {
+                "ID": 1,
+                "created": "2016-11-12 06:21:48",
+                "updated": "2016-11-12 06:21:48",
+                "Name": "Current Survey",
+                "Description": "Current Survey",
+                "Date": "2000-01-01 00:00:00",
+                "Reference": "No Ref"
+              },
+              "SurveyImage": []
+            },
+            "ToPtID": {
+              "ID": 4,
+              "created": "2016-11-12 06:21:48",
+              "updated": "2016-11-12 06:21:48",
+              "X": 1100.0,
+              "Y": 2100.0,
+              "Z": 530.0,
+              "Name": "Trav 2",
+              "Description": "Second traverse point",
+              "PointTypeID": {
+                "ID": 8,
+                "created": "2016-11-12 06:21:48",
+                "updated": "2016-11-12 06:21:48",
+                "Name": "Boundary",
+                "Abbreviation": "Bdy",
+                "UserDefined": false
+              },
+              "RefID": {
+                "ID": 1,
+                "created": "2016-11-12 06:21:48",
+                "updated": "2016-11-12 06:21:48",
+                "Name": "Current Survey",
+                "Description": "Current Survey",
+                "Date": "2000-01-01 00:00:00",
+                "Reference": "No Ref"
+              },
+              "SurveyImage": []
+            },
+            "SurveyID": 0
+          },
+          {
+            "ID": 3,
+            "created": "2016-11-12 06:21:49",
+            "updated": "2016-11-12 06:21:49",
+            "HorizDistance": 100.0,
+            "VertDistance": 20.0,
+            "Bearing": 180.0,
+            "FromPtID": {
+              "ID": 4,
+              "created": "2016-11-12 06:21:48",
+              "updated": "2016-11-12 06:21:48",
+              "X": 1100.0,
+              "Y": 2100.0,
+              "Z": 530.0,
+              "Name": "Trav 2",
+              "Description": "Second traverse point",
+              "PointTypeID": {
+                "ID": 8,
+                "created": "2016-11-12 06:21:48",
+                "updated": "2016-11-12 06:21:48",
+                "Name": "Boundary",
+                "Abbreviation": "Bdy",
+                "UserDefined": false
+              },
+              "RefID": {
+                "ID": 1,
+                "created": "2016-11-12 06:21:48",
+                "updated": "2016-11-12 06:21:48",
+                "Name": "Current Survey",
+                "Description": "Current Survey",
+                "Date": "2000-01-01 00:00:00",
+                "Reference": "No Ref"
+              },
+              "SurveyImage": []
+            },
+            "ToPtID": {
+              "ID": 2,
+              "created": "2016-11-12 06:21:48",
+              "updated": "2016-11-12 06:21:48",
+              "X": 1100.0,
+              "Y": 2000.0,
+              "Z": 550.0,
+              "Name": "Second Point",
+              "Description": "The second point in the survey",
+              "PointTypeID": {
+                "ID": 8,
+                "created": "2016-11-12 06:21:48",
+                "updated": "2016-11-12 06:21:48",
+                "Name": "Boundary",
+                "Abbreviation": "Bdy",
+                "UserDefined": false
+              },
+              "RefID": {
+                "ID": 1,
+                "created": "2016-11-12 06:21:48",
+                "updated": "2016-11-12 06:21:48",
+                "Name": "Current Survey",
+                "Description": "Current Survey",
+                "Date": "2000-01-01 00:00:00",
+                "Reference": "No Ref"
+              },
+              "SurveyImage": []
+            },
+            "SurveyID": 0
+          }
+        ]
+      }
+    ],
+    "SurveyMeasurement": []
+  }
+]

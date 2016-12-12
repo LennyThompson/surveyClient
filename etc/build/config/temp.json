@@ -1,0 +1,33 @@
+{
+  "PATHS": {
+    "webpack_entry": {
+      "main": "./app/index.ts",
+      "lib": "./app/lib.ts",
+      "data_layer": "./app/data-layer.ts"
+    },
+    "lint_path": "./app/**/*.ts",
+    "sass": [
+      "./app/**/*.scss"
+    ],
+    "templates": [
+      "./app/**/*.html"
+    ],
+    "karma_config": "./etc/build/config/karma/karma.conf.js",
+    "webpack_output": {
+      "path": "C:\\Dev\\surveyClient\\build",
+      "filename": "test.bundle.js",
+      "sourceMapFilename": "test.bundle.map"
+    },
+    "spec": [
+      "./app/**/*.spec.ts"
+    ]
+  },
+  "APP": {
+    "root": "./",
+    "path": "./app",
+    "main": "index.ts",
+    "result": "test.bundle.js",
+    "webpack_config": "./etc/build/config/webpack/webpack_test.config.js",
+    "outdir": "./www/build/bundle/"
+  }
+}
