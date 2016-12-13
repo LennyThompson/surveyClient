@@ -62,8 +62,7 @@ describe("Testing survey http service", () =>
                     }
                 );
 
-
-                expect(service.loadAllFromDatabase().first().toPromise()).to.eventually.exist;
+                return expect(service.loadAllFromDatabase().first().toPromise()).to.eventually.exist;
             }
         )
     );
@@ -102,6 +101,8 @@ describe("Testing survey http service", () =>
                             expect(survey.Projection).to.exist;
                             expect(survey.Projection.Name).to.equal("UTM XX");
                             expect(survey.Projection.Description).to.equal("Transverse Mercator Projection - TODO");
+                            expect(survey.Updated.getFullYear()).to.equal(2016);
+                            expect(survey.Updated.getHours()).to.equal(6 - (survey.Updated.getTimezoneOffset() / 60));
                             expect(survey.Traverse).to.exist;
                             expect(survey.Traverse.length).to.equal(1);
                             expect(survey.Traverse[0].Name).to.equal("New Traverse");
@@ -119,7 +120,7 @@ describe("Testing survey http service", () =>
                         }
                     );
 
-                expect(survey).to.eventually.exist;
+                return expect(survey).to.eventually.exist;
             }
         )
     );

@@ -33,7 +33,7 @@ describe("Testing survey http service", function () {
         mockBackend.connections.subscribe(function (connection) {
             connection.mockRespond(new http_1.Response(new http_1.ResponseOptions({ body: JSON.stringify(SURVEY_RESPONSE) })));
         });
-        chai_1.expect(service.loadAllFromDatabase().first().toPromise()).to.eventually.exist;
+        return chai_1.expect(service.loadAllFromDatabase().first().toPromise()).to.eventually.exist;
     }));
     it("can load valid survey from http source", testing_1.inject([SurveyServiceHttp_1.SurveyServiceHttp, testing_2.MockBackend], function (service, mockBackend) {
         chai_1.expect(service instanceof SurveyServiceHttp_1.SurveyServiceHttp).to.be.true;
@@ -52,6 +52,8 @@ describe("Testing survey http service", function () {
             chai_1.expect(survey.Projection).to.exist;
             chai_1.expect(survey.Projection.Name).to.equal("UTM XX");
             chai_1.expect(survey.Projection.Description).to.equal("Transverse Mercator Projection - TODO");
+            chai_1.expect(survey.Updated.getFullYear()).to.equal(2016);
+            chai_1.expect(survey.Updated.getHours()).to.equal(6 - (survey.Updated.getTimezoneOffset() / 60));
             chai_1.expect(survey.Traverse).to.exist;
             chai_1.expect(survey.Traverse.length).to.equal(1);
             chai_1.expect(survey.Traverse[0].Name).to.equal("New Traverse");
@@ -67,7 +69,7 @@ describe("Testing survey http service", function () {
             chai_1.expect(survey.Traverse[0].SurveyMeasurement[0].PointTo.X).to.be.closeTo(1000.0, 0.01);
             return survey;
         });
-        chai_1.expect(survey).to.eventually.exist;
+        return chai_1.expect(survey).to.eventually.exist;
     }));
 });
 //# sourceMappingURL=SurveyServiceHttp.spec.js.map
