@@ -1,7 +1,11 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
+
 import {Survey} from "./Survey";
 
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
+// declare internal types
 
 export class SurveyImage
 {
@@ -110,6 +114,14 @@ export class SurveyImage
     }
 
 
+    setSaved() : void
+    {
+        this.m_bPathUpdated = false;
+        this.m_bDescriptionUpdated = false;
+        this.m_bSurveyUpdated = false;
+        this.m_bPointAtIDUpdated = false;
+    }
+
     toFirebase() : any
     {
 
@@ -124,14 +136,6 @@ export class SurveyImage
 
         };
         return objFirebase;
-    }
-
-    setSaved() : void
-    {
-        this.m_bPathUpdated = false;
-        this.m_bDescriptionUpdated = false;
-        this.m_bSurveyUpdated = false;
-        this.m_bPointAtIDUpdated = false;
     }
 
     static fromFirebase(firebaseObj : any) : SurveyImage

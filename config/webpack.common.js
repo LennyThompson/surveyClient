@@ -102,13 +102,13 @@ module.exports = function (options) {
       //   { from: 'src/assets', to: 'assets' },
       //   { from: 'src/meta'}
       // ]),
-      // new HtmlWebpackPlugin({
-      //   template: 'src/index.html',
-      //   title: METADATA.title,
-      //   chunksSortMode: 'dependency',
-      //   metadata: METADATA,
-      //   inject: 'head'
-      // }),
+      new HtmlWebpackPlugin({
+        template: 'app/index.html',
+        title: 'Surveying app',
+        chunksSortMode: 'dependency',
+        metadata: { baseUrl: '/' },
+        inject: 'body'
+      }),
       // new ScriptExtHtmlWebpackPlugin({
       //   defaultAttribute: 'defer'
       // }),

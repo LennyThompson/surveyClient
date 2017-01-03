@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Dec 04 21:12:49 AEST 2016
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 
 import {SurveyReference} from "../types/SurveyReference";
 
@@ -25,7 +25,6 @@ export class SurveyReferenceServiceHttp
                          .map((resp : Response) => SurveyReference.arrayFromJson(resp.json()))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
-
     loadAllFromDatabase() : Observable<SurveyReference[]>
     {
         let strPath : string = SurveyReferenceServiceHttp.buildPath();
@@ -34,11 +33,11 @@ export class SurveyReferenceServiceHttp
             .catch((error : any) => Observable.throw("error"));
     }
 
-    loadSurveyReferenceServiceFromDatabase(nID : number) : Observable<SurveyReference[]>
+    loadSurveyReferenceFromDatabase(nID : number) : Observable<SurveyReference>
     {
         let strPath : string = SurveyReferenceServiceHttp.buildPath(nID);
         return this.httpService.get(strPath)
-            .map((resp : Response) => SurveyReference.arrayFromJson(resp.json()))
+            .map((resp : Response) => SurveyReference.fromJsonObject(resp.json()))
             .catch((error : any) => Observable.throw("error"));
     }
 

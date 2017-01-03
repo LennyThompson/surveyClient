@@ -1,6 +1,9 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 "use strict";
 var TimeConversion_1 = require("./../TimeConversion");
 var lodash = require("lodash");
+// declare internal types
 var SurveyReference = (function () {
     function SurveyReference() {
         this.m_ID = 0;
@@ -97,6 +100,12 @@ var SurveyReference = (function () {
         }
         return objUpdated;
     };
+    SurveyReference.prototype.setSaved = function () {
+        this.m_bNameUpdated = false;
+        this.m_bDescriptionUpdated = false;
+        this.m_bDateUpdated = false;
+        this.m_bReferenceUpdated = false;
+    };
     SurveyReference.prototype.toFirebase = function () {
         var objFirebase = {
             ID: this.m_ID,
@@ -108,12 +117,6 @@ var SurveyReference = (function () {
             Reference: this.m_Reference
         };
         return objFirebase;
-    };
-    SurveyReference.prototype.setSaved = function () {
-        this.m_bNameUpdated = false;
-        this.m_bDescriptionUpdated = false;
-        this.m_bDateUpdated = false;
-        this.m_bReferenceUpdated = false;
     };
     SurveyReference.fromFirebase = function (firebaseObj) {
         var objSurveyReference = new SurveyReference();

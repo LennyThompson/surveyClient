@@ -1,7 +1,10 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 "use strict";
 var InstrumentManufacturer_1 = require("./InstrumentManufacturer");
 var TimeConversion_1 = require("./../TimeConversion");
 var lodash = require("lodash");
+// declare internal types
 var Instrument = (function () {
     function Instrument() {
         this.m_ID = 0;
@@ -82,6 +85,11 @@ var Instrument = (function () {
         }
         return objUpdated;
     };
+    Instrument.prototype.setSaved = function () {
+        this.m_bNameUpdated = false;
+        this.m_bDescriptionUpdated = false;
+        this.m_bManufacturerUpdated = false;
+    };
     Instrument.prototype.toFirebase = function () {
         var objFirebase = {
             ID: this.m_ID,
@@ -92,11 +100,6 @@ var Instrument = (function () {
             ManufacturerID: this.m_Manufacturer.toFirebase()
         };
         return objFirebase;
-    };
-    Instrument.prototype.setSaved = function () {
-        this.m_bNameUpdated = false;
-        this.m_bDescriptionUpdated = false;
-        this.m_bManufacturerUpdated = false;
     };
     Instrument.fromFirebase = function (firebaseObj) {
         var objInstrument = new Instrument();

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Dec 04 21:12:49 AEST 2016
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 
 import {Traverse} from "../types/Traverse";
 
@@ -25,7 +25,6 @@ export class TraverseServiceHttp
                          .map((resp : Response) => Traverse.arrayFromJson(resp.json()))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
-
     loadAllFromDatabase() : Observable<Traverse[]>
     {
         let strPath : string = TraverseServiceHttp.buildPath();
@@ -34,11 +33,11 @@ export class TraverseServiceHttp
             .catch((error : any) => Observable.throw("error"));
     }
 
-    loadTraverseServiceFromDatabase(nID : number) : Observable<Traverse[]>
+    loadTraverseFromDatabase(nID : number) : Observable<Traverse>
     {
         let strPath : string = TraverseServiceHttp.buildPath(nID);
         return this.httpService.get(strPath)
-            .map((resp : Response) => Traverse.arrayFromJson(resp.json()))
+            .map((resp : Response) => Traverse.fromJsonObject(resp.json()))
             .catch((error : any) => Observable.throw("error"));
     }
 

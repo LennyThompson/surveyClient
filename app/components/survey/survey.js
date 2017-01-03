@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var Survey_1 = require("../../services/surveyDb/types/Survey");
+var SurveySummary_1 = require("../../services/surveyDb/types/SurveySummary");
 var SurveyComponent = (function () {
     function SurveyComponent() {
     }
@@ -25,6 +25,11 @@ var SurveyComponent = (function () {
     });
     return SurveyComponent;
 }());
+__decorate([
+    core_1.Input("survey"),
+    __metadata("design:type", SurveySummary_1.SurveySummary),
+    __metadata("design:paramtypes", [SurveySummary_1.SurveySummary])
+], SurveyComponent.prototype, "Survey", null);
 SurveyComponent = __decorate([
     core_1.Component({
         selector: "survey-item",

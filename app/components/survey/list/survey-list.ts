@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
-import {Survey} from "../../../services/surveyDb/types/Survey";
-import {SurveyServiceHttp} from "../../../services/surveyDb/webAPI/SurveyServiceHttp";
+import {SurveySummary} from "../../../services/surveyDb/types/SurveySummary";
 import {Observable} from "rxjs";
+import {SurveySummaryServiceHttp} from "../../../services/surveyDb/webAPI/SurveySummaryServiceHttp";
 
 @Component({
     selector: "survey-list",
@@ -9,13 +9,13 @@ import {Observable} from "rxjs";
 })
 export class SurveyListComponent
 {
-    private m_listSurveys : Observable<Survey[]>;
-    constructor(private surveyService : SurveyServiceHttp)
+    private m_listSurveys : Observable<SurveySummary[]>;
+    constructor(private surveyService : SurveySummaryServiceHttp)
     {
         this.m_listSurveys = surveyService.loadAllFromDatabase();
     }
 
-    get Surveys() : Observable<Survey[]>
+    get Surveys() : Observable<SurveySummary[]>
     {
         return this.m_listSurveys;
     }

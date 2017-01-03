@@ -1,6 +1,9 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 "use strict";
 var TimeConversion_1 = require("./../TimeConversion");
 var lodash = require("lodash");
+// declare internal types
 var TraverseClosure = (function () {
     function TraverseClosure() {
         this.m_ID = 0;
@@ -145,6 +148,15 @@ var TraverseClosure = (function () {
         }
         return objUpdated;
     };
+    TraverseClosure.prototype.setSaved = function () {
+        this.m_bMiscZUpdated = false;
+        this.m_bMiscYUpdated = false;
+        this.m_bMiscXUpdated = false;
+        this.m_bBearingMiscloseUpdated = false;
+        this.m_bTraverseLengthUpdated = false;
+        this.m_bAdjustedUpdated = false;
+        this.m_bTraverseIDUpdated = false;
+    };
     TraverseClosure.prototype.toFirebase = function () {
         var objFirebase = {
             ID: this.m_ID,
@@ -159,15 +171,6 @@ var TraverseClosure = (function () {
             TraverseID: this.m_TraverseID
         };
         return objFirebase;
-    };
-    TraverseClosure.prototype.setSaved = function () {
-        this.m_bMiscZUpdated = false;
-        this.m_bMiscYUpdated = false;
-        this.m_bMiscXUpdated = false;
-        this.m_bBearingMiscloseUpdated = false;
-        this.m_bTraverseLengthUpdated = false;
-        this.m_bAdjustedUpdated = false;
-        this.m_bTraverseIDUpdated = false;
     };
     TraverseClosure.fromFirebase = function (firebaseObj) {
         var objTraverseClosure = new TraverseClosure();

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Dec 04 21:12:49 AEST 2016
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 
 import {SurveyAdjustment} from "../types/SurveyAdjustment";
 
@@ -25,7 +25,6 @@ export class SurveyAdjustmentServiceHttp
                          .map((resp : Response) => SurveyAdjustment.arrayFromJson(resp.json()))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
-
     loadAllFromDatabase() : Observable<SurveyAdjustment[]>
     {
         let strPath : string = SurveyAdjustmentServiceHttp.buildPath();
@@ -34,11 +33,11 @@ export class SurveyAdjustmentServiceHttp
             .catch((error : any) => Observable.throw("error"));
     }
 
-    loadSurveyAdjustmentServiceFromDatabase(nID : number) : Observable<SurveyAdjustment[]>
+    loadSurveyAdjustmentFromDatabase(nID : number) : Observable<SurveyAdjustment>
     {
         let strPath : string = SurveyAdjustmentServiceHttp.buildPath(nID);
         return this.httpService.get(strPath)
-            .map((resp : Response) => SurveyAdjustment.arrayFromJson(resp.json()))
+            .map((resp : Response) => SurveyAdjustment.fromJsonObject(resp.json()))
             .catch((error : any) => Observable.throw("error"));
     }
 

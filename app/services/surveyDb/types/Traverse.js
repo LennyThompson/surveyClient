@@ -1,9 +1,12 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 "use strict";
 var SurveyPoint_1 = require("./SurveyPoint");
 var TraverseClosure_1 = require("./TraverseClosure");
 var SurveyMeasurement_1 = require("./SurveyMeasurement");
 var TimeConversion_1 = require("./../TimeConversion");
 var lodash = require("lodash");
+// declare internal types
 var Traverse = (function () {
     function Traverse() {
         this.m_ID = 0;
@@ -141,16 +144,25 @@ var Traverse = (function () {
             objUpdated["SurveyID"] = this.m_SurveyID;
         }
         if (this.m_bTraverseClosureUpdated) {
-            objUpdated["TraverseClosure"] = lodash.map(this.m_TraverseClosure, function (arrayMember) {
+            objUpdated["Traverse"] = lodash.map(this.m_TraverseClosure, function (arrayMember) {
                 return arrayMember.toJsonObject();
             });
         }
         if (this.m_bSurveyMeasurementUpdated) {
-            objUpdated["SurveyMeasurement"] = lodash.map(this.m_SurveyMeasurement, function (arrayMember) {
+            objUpdated["Traverse_SurveyMeasurement"] = lodash.map(this.m_SurveyMeasurement, function (arrayMember) {
                 return arrayMember.toJsonObject();
             });
         }
         return objUpdated;
+    };
+    Traverse.prototype.setSaved = function () {
+        this.m_bNameUpdated = false;
+        this.m_bDescriptionUpdated = false;
+        this.m_bStartPointUpdated = false;
+        this.m_bEndPointUpdated = false;
+        this.m_bSurveyIDUpdated = false;
+        this.m_bTraverseClosureUpdated = false;
+        this.m_bSurveyMeasurementUpdated = false;
     };
     Traverse.prototype.toFirebase = function () {
         var objFirebase = {
@@ -162,23 +174,14 @@ var Traverse = (function () {
             StartPointID: this.m_StartPoint.toFirebase(),
             EndPointID: this.m_EndPoint.toFirebase(),
             SurveyID: this.m_SurveyID,
-            TraverseClosure: lodash.map(this.m_TraverseClosure, function (arrayMember) {
+            Traverse: lodash.map(this.m_TraverseClosure, function (arrayMember) {
                 return arrayMember.toFirebase();
             }),
-            SurveyMeasurement: lodash.map(this.m_SurveyMeasurement, function (arrayMember) {
+            Traverse_SurveyMeasurement: lodash.map(this.m_SurveyMeasurement, function (arrayMember) {
                 return arrayMember.toFirebase();
             })
         };
         return objFirebase;
-    };
-    Traverse.prototype.setSaved = function () {
-        this.m_bNameUpdated = false;
-        this.m_bDescriptionUpdated = false;
-        this.m_bStartPointUpdated = false;
-        this.m_bEndPointUpdated = false;
-        this.m_bSurveyIDUpdated = false;
-        this.m_bTraverseClosureUpdated = false;
-        this.m_bSurveyMeasurementUpdated = false;
     };
     Traverse.fromFirebase = function (firebaseObj) {
         var objTraverse = new Traverse();
@@ -190,10 +193,10 @@ var Traverse = (function () {
         objTraverse.m_StartPoint = SurveyPoint_1.SurveyPoint.fromFirebase(firebaseObj.StartPointID);
         objTraverse.m_EndPoint = SurveyPoint_1.SurveyPoint.fromFirebase(firebaseObj.EndPointID);
         objTraverse.m_SurveyID = firebaseObj.SurveyID;
-        objTraverse.m_TraverseClosure = lodash.map(firebaseObj.TraverseClosure, function (arrayMember) {
+        objTraverse.m_TraverseClosure = lodash.map(firebaseObj.Traverse, function (arrayMember) {
             return TraverseClosure_1.TraverseClosure.fromFirebase(arrayMember);
         });
-        objTraverse.m_SurveyMeasurement = lodash.map(firebaseObj.SurveyMeasurement, function (arrayMember) {
+        objTraverse.m_SurveyMeasurement = lodash.map(firebaseObj.Traverse_SurveyMeasurement, function (arrayMember) {
             return SurveyMeasurement_1.SurveyMeasurement.fromFirebase(arrayMember);
         });
         objTraverse.setSaved();
@@ -217,10 +220,10 @@ var Traverse = (function () {
         objTraverse.m_StartPoint = SurveyPoint_1.SurveyPoint.fromJsonObject(objJson.StartPointID);
         objTraverse.m_EndPoint = SurveyPoint_1.SurveyPoint.fromJsonObject(objJson.EndPointID);
         objTraverse.m_SurveyID = objJson.SurveyID;
-        objTraverse.m_TraverseClosure = lodash.map(objJson.TraverseClosure, function (arrayMember) {
+        objTraverse.m_TraverseClosure = lodash.map(objJson.Traverse, function (arrayMember) {
             return TraverseClosure_1.TraverseClosure.fromJsonObject(arrayMember);
         });
-        objTraverse.m_SurveyMeasurement = lodash.map(objJson.SurveyMeasurement, function (arrayMember) {
+        objTraverse.m_SurveyMeasurement = lodash.map(objJson.Traverse_SurveyMeasurement, function (arrayMember) {
             return SurveyMeasurement_1.SurveyMeasurement.fromJsonObject(arrayMember);
         });
         return objTraverse;
@@ -238,10 +241,10 @@ var Traverse = (function () {
             StartPointID: this.m_StartPoint.toJsonObject(),
             EndPointID: this.m_EndPoint.toJsonObject(),
             SurveyID: this.m_SurveyID,
-            TraverseClosure: lodash.map(this.m_TraverseClosure, function (arrayMember) {
+            Traverse: lodash.map(this.m_TraverseClosure, function (arrayMember) {
                 return arrayMember.toJsonObject();
             }),
-            SurveyMeasurement: lodash.map(this.m_SurveyMeasurement, function (arrayMember) {
+            Traverse_SurveyMeasurement: lodash.map(this.m_SurveyMeasurement, function (arrayMember) {
                 return arrayMember.toJsonObject();
             })
         };

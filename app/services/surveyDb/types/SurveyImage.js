@@ -1,7 +1,10 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 "use strict";
 var Survey_1 = require("./Survey");
 var TimeConversion_1 = require("./../TimeConversion");
 var lodash = require("lodash");
+// declare internal types
 var SurveyImage = (function () {
     function SurveyImage() {
         this.m_ID = 0;
@@ -98,6 +101,12 @@ var SurveyImage = (function () {
         }
         return objUpdated;
     };
+    SurveyImage.prototype.setSaved = function () {
+        this.m_bPathUpdated = false;
+        this.m_bDescriptionUpdated = false;
+        this.m_bSurveyUpdated = false;
+        this.m_bPointAtIDUpdated = false;
+    };
     SurveyImage.prototype.toFirebase = function () {
         var objFirebase = {
             ID: this.m_ID,
@@ -109,12 +118,6 @@ var SurveyImage = (function () {
             PointAtID: this.m_PointAtID
         };
         return objFirebase;
-    };
-    SurveyImage.prototype.setSaved = function () {
-        this.m_bPathUpdated = false;
-        this.m_bDescriptionUpdated = false;
-        this.m_bSurveyUpdated = false;
-        this.m_bPointAtIDUpdated = false;
     };
     SurveyImage.fromFirebase = function (firebaseObj) {
         var objSurveyImage = new SurveyImage();

@@ -1,9 +1,12 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 "use strict";
 var SurveyPointType_1 = require("./SurveyPointType");
 var SurveyReference_1 = require("./SurveyReference");
 var SurveyImage_1 = require("./SurveyImage");
 var TimeConversion_1 = require("./../TimeConversion");
 var lodash = require("lodash");
+// declare internal types
 var SurveyPoint = (function () {
     function SurveyPoint() {
         this.m_ID = 0;
@@ -160,11 +163,21 @@ var SurveyPoint = (function () {
             objUpdated["RefID"] = this.m_Reference.toJsonObject();
         }
         if (this.m_bSurveyImageUpdated) {
-            objUpdated["SurveyImage"] = lodash.map(this.m_SurveyImage, function (arrayMember) {
+            objUpdated["PointAt"] = lodash.map(this.m_SurveyImage, function (arrayMember) {
                 return arrayMember.toJsonObject();
             });
         }
         return objUpdated;
+    };
+    SurveyPoint.prototype.setSaved = function () {
+        this.m_bXUpdated = false;
+        this.m_bYUpdated = false;
+        this.m_bZUpdated = false;
+        this.m_bNameUpdated = false;
+        this.m_bDescriptionUpdated = false;
+        this.m_bPointTypeUpdated = false;
+        this.m_bReferenceUpdated = false;
+        this.m_bSurveyImageUpdated = false;
     };
     SurveyPoint.prototype.toFirebase = function () {
         var objFirebase = {
@@ -178,21 +191,11 @@ var SurveyPoint = (function () {
             Description: this.m_Description,
             PointTypeID: this.m_PointType.toFirebase(),
             RefID: this.m_Reference.toFirebase(),
-            SurveyImage: lodash.map(this.m_SurveyImage, function (arrayMember) {
+            PointAt: lodash.map(this.m_SurveyImage, function (arrayMember) {
                 return arrayMember.toFirebase();
             })
         };
         return objFirebase;
-    };
-    SurveyPoint.prototype.setSaved = function () {
-        this.m_bXUpdated = false;
-        this.m_bYUpdated = false;
-        this.m_bZUpdated = false;
-        this.m_bNameUpdated = false;
-        this.m_bDescriptionUpdated = false;
-        this.m_bPointTypeUpdated = false;
-        this.m_bReferenceUpdated = false;
-        this.m_bSurveyImageUpdated = false;
     };
     SurveyPoint.fromFirebase = function (firebaseObj) {
         var objSurveyPoint = new SurveyPoint();
@@ -206,7 +209,7 @@ var SurveyPoint = (function () {
         objSurveyPoint.m_Description = firebaseObj.Description;
         objSurveyPoint.m_PointType = SurveyPointType_1.SurveyPointType.fromFirebase(firebaseObj.PointTypeID);
         objSurveyPoint.m_Reference = SurveyReference_1.SurveyReference.fromFirebase(firebaseObj.RefID);
-        objSurveyPoint.m_SurveyImage = lodash.map(firebaseObj.SurveyImage, function (arrayMember) {
+        objSurveyPoint.m_SurveyImage = lodash.map(firebaseObj.PointAt, function (arrayMember) {
             return SurveyImage_1.SurveyImage.fromFirebase(arrayMember);
         });
         objSurveyPoint.setSaved();
@@ -232,7 +235,7 @@ var SurveyPoint = (function () {
         objSurveyPoint.m_Description = objJson.Description;
         objSurveyPoint.m_PointType = SurveyPointType_1.SurveyPointType.fromJsonObject(objJson.PointTypeID);
         objSurveyPoint.m_Reference = SurveyReference_1.SurveyReference.fromJsonObject(objJson.RefID);
-        objSurveyPoint.m_SurveyImage = lodash.map(objJson.SurveyImage, function (arrayMember) {
+        objSurveyPoint.m_SurveyImage = lodash.map(objJson.PointAt, function (arrayMember) {
             return SurveyImage_1.SurveyImage.fromJsonObject(arrayMember);
         });
         return objSurveyPoint;
@@ -252,7 +255,7 @@ var SurveyPoint = (function () {
             Description: this.m_Description,
             PointTypeID: this.m_PointType.toJsonObject(),
             RefID: this.m_Reference.toJsonObject(),
-            SurveyImage: lodash.map(this.m_SurveyImage, function (arrayMember) {
+            PointAt: lodash.map(this.m_SurveyImage, function (arrayMember) {
                 return arrayMember.toJsonObject();
             })
         };

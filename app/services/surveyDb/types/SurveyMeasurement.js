@@ -1,7 +1,10 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 "use strict";
 var SurveyPoint_1 = require("./SurveyPoint");
 var TimeConversion_1 = require("./../TimeConversion");
 var lodash = require("lodash");
+// declare internal types
 var SurveyMeasurement = (function () {
     function SurveyMeasurement() {
         this.m_ID = 0;
@@ -130,6 +133,14 @@ var SurveyMeasurement = (function () {
         }
         return objUpdated;
     };
+    SurveyMeasurement.prototype.setSaved = function () {
+        this.m_bHorizDistanceUpdated = false;
+        this.m_bVertDistanceUpdated = false;
+        this.m_bBearingUpdated = false;
+        this.m_bPointFromUpdated = false;
+        this.m_bPointToUpdated = false;
+        this.m_bSurveyIDUpdated = false;
+    };
     SurveyMeasurement.prototype.toFirebase = function () {
         var objFirebase = {
             ID: this.m_ID,
@@ -143,14 +154,6 @@ var SurveyMeasurement = (function () {
             SurveyID: this.m_SurveyID
         };
         return objFirebase;
-    };
-    SurveyMeasurement.prototype.setSaved = function () {
-        this.m_bHorizDistanceUpdated = false;
-        this.m_bVertDistanceUpdated = false;
-        this.m_bBearingUpdated = false;
-        this.m_bPointFromUpdated = false;
-        this.m_bPointToUpdated = false;
-        this.m_bSurveyIDUpdated = false;
     };
     SurveyMeasurement.fromFirebase = function (firebaseObj) {
         var objSurveyMeasurement = new SurveyMeasurement();

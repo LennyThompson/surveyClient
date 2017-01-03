@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Dec 04 21:12:49 AEST 2016
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 
 import {TraverseClosure} from "../types/TraverseClosure";
 
@@ -25,7 +25,6 @@ export class TraverseClosureServiceHttp
                          .map((resp : Response) => TraverseClosure.arrayFromJson(resp.json()))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
-
     loadAllFromDatabase() : Observable<TraverseClosure[]>
     {
         let strPath : string = TraverseClosureServiceHttp.buildPath();
@@ -34,11 +33,11 @@ export class TraverseClosureServiceHttp
             .catch((error : any) => Observable.throw("error"));
     }
 
-    loadTraverseClosureServiceFromDatabase(nID : number) : Observable<TraverseClosure[]>
+    loadTraverseClosureFromDatabase(nID : number) : Observable<TraverseClosure>
     {
         let strPath : string = TraverseClosureServiceHttp.buildPath(nID);
         return this.httpService.get(strPath)
-            .map((resp : Response) => TraverseClosure.arrayFromJson(resp.json()))
+            .map((resp : Response) => TraverseClosure.fromJsonObject(resp.json()))
             .catch((error : any) => Observable.throw("error"));
     }
 

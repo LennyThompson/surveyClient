@@ -1,3 +1,5 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 "use strict";
 var Projection_1 = require("./Projection");
 var SurveyPoint_1 = require("./SurveyPoint");
@@ -6,6 +8,7 @@ var Traverse_1 = require("./Traverse");
 var SurveyMeasurement_1 = require("./SurveyMeasurement");
 var TimeConversion_1 = require("./../TimeConversion");
 var lodash = require("lodash");
+// declare internal types
 var Survey = (function () {
     function Survey() {
         this.m_ID = 0;
@@ -137,49 +140,26 @@ var Survey = (function () {
             objUpdated["ProjectionID"] = this.m_Projection.toJsonObject();
         }
         if (this.m_bSurveyPointUpdated) {
-            objUpdated["SurveyPoint"] = lodash.map(this.m_SurveyPoint, function (arrayMember) {
+            objUpdated["Survey_SurveyPoint"] = lodash.map(this.m_SurveyPoint, function (arrayMember) {
                 return arrayMember.toJsonObject();
             });
         }
         if (this.m_bInstrumentUpdated) {
-            objUpdated["Instrument"] = lodash.map(this.m_Instrument, function (arrayMember) {
+            objUpdated["Survey_Instrument"] = lodash.map(this.m_Instrument, function (arrayMember) {
                 return arrayMember.toJsonObject();
             });
         }
         if (this.m_bTraverseUpdated) {
-            objUpdated["Traverse"] = lodash.map(this.m_Traverse, function (arrayMember) {
+            objUpdated["Survey_Traverse"] = lodash.map(this.m_Traverse, function (arrayMember) {
                 return arrayMember.toJsonObject();
             });
         }
         if (this.m_bSurveyMeasurementUpdated) {
-            objUpdated["SurveyMeasurement"] = lodash.map(this.m_SurveyMeasurement, function (arrayMember) {
+            objUpdated["Survey_SurveyMeasurement"] = lodash.map(this.m_SurveyMeasurement, function (arrayMember) {
                 return arrayMember.toJsonObject();
             });
         }
         return objUpdated;
-    };
-    Survey.prototype.toFirebase = function () {
-        var objFirebase = {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            Name: this.m_Name,
-            Description: this.m_Description,
-            ProjectionID: this.m_Projection.toFirebase(),
-            SurveyPoint: lodash.map(this.m_SurveyPoint, function (arrayMember) {
-                return arrayMember.toFirebase();
-            }),
-            Instrument: lodash.map(this.m_Instrument, function (arrayMember) {
-                return arrayMember.toFirebase();
-            }),
-            Traverse: lodash.map(this.m_Traverse, function (arrayMember) {
-                return arrayMember.toFirebase();
-            }),
-            SurveyMeasurement: lodash.map(this.m_SurveyMeasurement, function (arrayMember) {
-                return arrayMember.toFirebase();
-            })
-        };
-        return objFirebase;
     };
     Survey.prototype.setSaved = function () {
         this.m_bNameUpdated = false;
@@ -190,6 +170,29 @@ var Survey = (function () {
         this.m_bTraverseUpdated = false;
         this.m_bSurveyMeasurementUpdated = false;
     };
+    Survey.prototype.toFirebase = function () {
+        var objFirebase = {
+            ID: this.m_ID,
+            created: this.m_Created.toISOString(),
+            updated: this.m_Updated.toISOString(),
+            Name: this.m_Name,
+            Description: this.m_Description,
+            ProjectionID: this.m_Projection.toFirebase(),
+            Survey_SurveyPoint: lodash.map(this.m_SurveyPoint, function (arrayMember) {
+                return arrayMember.toFirebase();
+            }),
+            Survey_Instrument: lodash.map(this.m_Instrument, function (arrayMember) {
+                return arrayMember.toFirebase();
+            }),
+            Survey_Traverse: lodash.map(this.m_Traverse, function (arrayMember) {
+                return arrayMember.toFirebase();
+            }),
+            Survey_SurveyMeasurement: lodash.map(this.m_SurveyMeasurement, function (arrayMember) {
+                return arrayMember.toFirebase();
+            })
+        };
+        return objFirebase;
+    };
     Survey.fromFirebase = function (firebaseObj) {
         var objSurvey = new Survey();
         objSurvey.m_ID = firebaseObj.ID;
@@ -198,16 +201,16 @@ var Survey = (function () {
         objSurvey.m_Name = firebaseObj.Name;
         objSurvey.m_Description = firebaseObj.Description;
         objSurvey.m_Projection = Projection_1.Projection.fromFirebase(firebaseObj.ProjectionID);
-        objSurvey.m_SurveyPoint = lodash.map(firebaseObj.SurveyPoint, function (arrayMember) {
+        objSurvey.m_SurveyPoint = lodash.map(firebaseObj.Survey_SurveyPoint, function (arrayMember) {
             return SurveyPoint_1.SurveyPoint.fromFirebase(arrayMember);
         });
-        objSurvey.m_Instrument = lodash.map(firebaseObj.Instrument, function (arrayMember) {
+        objSurvey.m_Instrument = lodash.map(firebaseObj.Survey_Instrument, function (arrayMember) {
             return Instrument_1.Instrument.fromFirebase(arrayMember);
         });
-        objSurvey.m_Traverse = lodash.map(firebaseObj.Traverse, function (arrayMember) {
+        objSurvey.m_Traverse = lodash.map(firebaseObj.Survey_Traverse, function (arrayMember) {
             return Traverse_1.Traverse.fromFirebase(arrayMember);
         });
-        objSurvey.m_SurveyMeasurement = lodash.map(firebaseObj.SurveyMeasurement, function (arrayMember) {
+        objSurvey.m_SurveyMeasurement = lodash.map(firebaseObj.Survey_SurveyMeasurement, function (arrayMember) {
             return SurveyMeasurement_1.SurveyMeasurement.fromFirebase(arrayMember);
         });
         objSurvey.setSaved();
@@ -229,16 +232,16 @@ var Survey = (function () {
         objSurvey.m_Name = objJson.Name;
         objSurvey.m_Description = objJson.Description;
         objSurvey.m_Projection = Projection_1.Projection.fromJsonObject(objJson.ProjectionID);
-        objSurvey.m_SurveyPoint = lodash.map(objJson.SurveyPoint, function (arrayMember) {
+        objSurvey.m_SurveyPoint = lodash.map(objJson.Survey_SurveyPoint, function (arrayMember) {
             return SurveyPoint_1.SurveyPoint.fromJsonObject(arrayMember);
         });
-        objSurvey.m_Instrument = lodash.map(objJson.Instrument, function (arrayMember) {
+        objSurvey.m_Instrument = lodash.map(objJson.Survey_Instrument, function (arrayMember) {
             return Instrument_1.Instrument.fromJsonObject(arrayMember);
         });
-        objSurvey.m_Traverse = lodash.map(objJson.Traverse, function (arrayMember) {
+        objSurvey.m_Traverse = lodash.map(objJson.Survey_Traverse, function (arrayMember) {
             return Traverse_1.Traverse.fromJsonObject(arrayMember);
         });
-        objSurvey.m_SurveyMeasurement = lodash.map(objJson.SurveyMeasurement, function (arrayMember) {
+        objSurvey.m_SurveyMeasurement = lodash.map(objJson.Survey_SurveyMeasurement, function (arrayMember) {
             return SurveyMeasurement_1.SurveyMeasurement.fromJsonObject(arrayMember);
         });
         return objSurvey;
@@ -254,16 +257,16 @@ var Survey = (function () {
             Name: this.m_Name,
             Description: this.m_Description,
             ProjectionID: this.m_Projection.toJsonObject(),
-            SurveyPoint: lodash.map(this.m_SurveyPoint, function (arrayMember) {
+            Survey_SurveyPoint: lodash.map(this.m_SurveyPoint, function (arrayMember) {
                 return arrayMember.toJsonObject();
             }),
-            Instrument: lodash.map(this.m_Instrument, function (arrayMember) {
+            Survey_Instrument: lodash.map(this.m_Instrument, function (arrayMember) {
                 return arrayMember.toJsonObject();
             }),
-            Traverse: lodash.map(this.m_Traverse, function (arrayMember) {
+            Survey_Traverse: lodash.map(this.m_Traverse, function (arrayMember) {
                 return arrayMember.toJsonObject();
             }),
-            SurveyMeasurement: lodash.map(this.m_SurveyMeasurement, function (arrayMember) {
+            Survey_SurveyMeasurement: lodash.map(this.m_SurveyMeasurement, function (arrayMember) {
                 return arrayMember.toJsonObject();
             })
         };

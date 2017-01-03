@@ -1,6 +1,9 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 "use strict";
 var TimeConversion_1 = require("./../TimeConversion");
 var lodash = require("lodash");
+// declare internal types
 var InstrumentManufacturer = (function () {
     function InstrumentManufacturer() {
         this.m_ID = 0;
@@ -65,6 +68,10 @@ var InstrumentManufacturer = (function () {
         }
         return objUpdated;
     };
+    InstrumentManufacturer.prototype.setSaved = function () {
+        this.m_bNameUpdated = false;
+        this.m_bDescriptionUpdated = false;
+    };
     InstrumentManufacturer.prototype.toFirebase = function () {
         var objFirebase = {
             ID: this.m_ID,
@@ -74,10 +81,6 @@ var InstrumentManufacturer = (function () {
             Description: this.m_Description
         };
         return objFirebase;
-    };
-    InstrumentManufacturer.prototype.setSaved = function () {
-        this.m_bNameUpdated = false;
-        this.m_bDescriptionUpdated = false;
     };
     InstrumentManufacturer.fromFirebase = function (firebaseObj) {
         var objInstrumentManufacturer = new InstrumentManufacturer();

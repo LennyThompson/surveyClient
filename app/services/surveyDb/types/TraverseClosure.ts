@@ -1,5 +1,9 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
+
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
+// declare internal types
 
 export class TraverseClosure
 {
@@ -159,6 +163,17 @@ export class TraverseClosure
     }
 
 
+    setSaved() : void
+    {
+        this.m_bMiscZUpdated = false;
+        this.m_bMiscYUpdated = false;
+        this.m_bMiscXUpdated = false;
+        this.m_bBearingMiscloseUpdated = false;
+        this.m_bTraverseLengthUpdated = false;
+        this.m_bAdjustedUpdated = false;
+        this.m_bTraverseIDUpdated = false;
+    }
+
     toFirebase() : any
     {
 
@@ -176,17 +191,6 @@ export class TraverseClosure
 
         };
         return objFirebase;
-    }
-
-    setSaved() : void
-    {
-        this.m_bMiscZUpdated = false;
-        this.m_bMiscYUpdated = false;
-        this.m_bMiscXUpdated = false;
-        this.m_bBearingMiscloseUpdated = false;
-        this.m_bTraverseLengthUpdated = false;
-        this.m_bAdjustedUpdated = false;
-        this.m_bTraverseIDUpdated = false;
     }
 
     static fromFirebase(firebaseObj : any) : TraverseClosure

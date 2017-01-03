@@ -1,5 +1,9 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
+
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
+// declare internal types
 
 export class SurveyReference
 {
@@ -108,6 +112,14 @@ export class SurveyReference
     }
 
 
+    setSaved() : void
+    {
+        this.m_bNameUpdated = false;
+        this.m_bDescriptionUpdated = false;
+        this.m_bDateUpdated = false;
+        this.m_bReferenceUpdated = false;
+    }
+
     toFirebase() : any
     {
 
@@ -122,14 +134,6 @@ export class SurveyReference
 
         };
         return objFirebase;
-    }
-
-    setSaved() : void
-    {
-        this.m_bNameUpdated = false;
-        this.m_bDescriptionUpdated = false;
-        this.m_bDateUpdated = false;
-        this.m_bReferenceUpdated = false;
     }
 
     static fromFirebase(firebaseObj : any) : SurveyReference

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Dec 04 21:12:49 AEST 2016
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -33,10 +33,10 @@ var SurveyPointServiceHttp = SurveyPointServiceHttp_1 = (function () {
             .map(function (resp) { return SurveyPoint_1.SurveyPoint.arrayFromJson(resp.json()); })
             .catch(function (error) { return Rx_1.Observable.throw("error"); });
     };
-    SurveyPointServiceHttp.prototype.loadSurveyPointServiceFromDatabase = function (nID) {
+    SurveyPointServiceHttp.prototype.loadSurveyPointFromDatabase = function (nID) {
         var strPath = SurveyPointServiceHttp_1.buildPath(nID);
         return this.httpService.get(strPath)
-            .map(function (resp) { return SurveyPoint_1.SurveyPoint.arrayFromJson(resp.json()); })
+            .map(function (resp) { return SurveyPoint_1.SurveyPoint.fromJsonObject(resp.json()); })
             .catch(function (error) { return Rx_1.Observable.throw("error"); });
     };
     SurveyPointServiceHttp.buildPath = function (nID) {

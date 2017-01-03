@@ -10,6 +10,7 @@ var plumber = require('gulp-plumber');
 var karma = require("karma");
 var karmaParseConfig = require("karma/lib/config").parseConfig;
 const webpack = require("webpack");
+var WebpackDevServer = require("webpack-dev-server");
 var webpackTask = require("./etc/build/tasks/webpack");
 var webpackWatchTask = require("./etc/build/tasks/webpackWatch");
 
@@ -59,6 +60,36 @@ gulp.task("webpack", function(callback)
         }
     );
 });
+
+gulp.task
+(
+    "webpack-dev-server",
+    function(callback)
+    {
+        // modify some webpack config options
+
+        var myConfig = require('./config/webpack.dev')({env: 'development'});
+        // Start a webpack-dev-server
+        new WebpackDevServer(
+            webpack(myConfig),
+            {
+                publicPath: "/" + myConfig.output.publicPath,
+                stats: {
+                    colors: true
+                }
+            }
+        )
+        .listen(
+            3000, "localhost",
+            function(err)
+            {
+                if(err) throw new gutil.PluginError("webpack-dev-server", err);
+                gutil.log("[webpack-dev-server]", "http://localhost:3000/webpack-dev-server/build/index.html");
+            }
+        );
+    }
+);
+
 gulp.task("sass", function (done) {
 
     gulp.src(configSrc(configContext.DEV).PATHS.sass)

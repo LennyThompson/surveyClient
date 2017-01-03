@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var SurveyServiceHttp_1 = require("../../../services/surveyDb/webAPI/SurveyServiceHttp");
+var SurveySummaryServiceHttp_1 = require("../../../services/surveyDb/webAPI/SurveySummaryServiceHttp");
 var SurveyListComponent = (function () {
     function SurveyListComponent(surveyService) {
         this.surveyService = surveyService;
@@ -29,7 +29,7 @@ SurveyListComponent = __decorate([
         selector: "survey-list",
         templateUrl: "./survey-list.html",
     }),
-    __metadata("design:paramtypes", [SurveyServiceHttp_1.SurveyServiceHttp])
+    __metadata("design:paramtypes", [SurveySummaryServiceHttp_1.SurveySummaryServiceHttp])
 ], SurveyListComponent);
 exports.SurveyListComponent = SurveyListComponent;
 //# sourceMappingURL=survey-list.js.map

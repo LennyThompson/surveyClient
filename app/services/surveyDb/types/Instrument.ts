@@ -1,7 +1,11 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
+
 import {InstrumentManufacturer} from "./InstrumentManufacturer";
 
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
+// declare internal types
 
 export class Instrument
 {
@@ -93,6 +97,13 @@ export class Instrument
     }
 
 
+    setSaved() : void
+    {
+        this.m_bNameUpdated = false;
+        this.m_bDescriptionUpdated = false;
+        this.m_bManufacturerUpdated = false;
+    }
+
     toFirebase() : any
     {
 
@@ -106,13 +117,6 @@ export class Instrument
 
         };
         return objFirebase;
-    }
-
-    setSaved() : void
-    {
-        this.m_bNameUpdated = false;
-        this.m_bDescriptionUpdated = false;
-        this.m_bManufacturerUpdated = false;
     }
 
     static fromFirebase(firebaseObj : any) : Instrument

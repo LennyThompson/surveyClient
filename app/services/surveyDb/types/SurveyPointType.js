@@ -1,6 +1,9 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 "use strict";
 var TimeConversion_1 = require("./../TimeConversion");
 var lodash = require("lodash");
+// declare internal types
 var SurveyPointType = (function () {
     function SurveyPointType() {
         this.m_ID = 0;
@@ -81,6 +84,11 @@ var SurveyPointType = (function () {
         }
         return objUpdated;
     };
+    SurveyPointType.prototype.setSaved = function () {
+        this.m_bNameUpdated = false;
+        this.m_bAbbreviationUpdated = false;
+        this.m_bUserDefinedUpdated = false;
+    };
     SurveyPointType.prototype.toFirebase = function () {
         var objFirebase = {
             ID: this.m_ID,
@@ -91,11 +99,6 @@ var SurveyPointType = (function () {
             UserDefined: this.m_UserDefined
         };
         return objFirebase;
-    };
-    SurveyPointType.prototype.setSaved = function () {
-        this.m_bNameUpdated = false;
-        this.m_bAbbreviationUpdated = false;
-        this.m_bUserDefinedUpdated = false;
     };
     SurveyPointType.fromFirebase = function (firebaseObj) {
         var objSurveyPointType = new SurveyPointType();

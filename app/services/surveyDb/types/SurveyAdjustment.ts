@@ -1,7 +1,11 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
+
 import {SurveyMeasurement} from "./SurveyMeasurement";
 
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
+// declare internal types
 
 export class SurveyAdjustment
 {
@@ -127,6 +131,15 @@ export class SurveyAdjustment
     }
 
 
+    setSaved() : void
+    {
+        this.m_bDeltaXUpdated = false;
+        this.m_bDeltaYUpdated = false;
+        this.m_bDeltaZUpdated = false;
+        this.m_bBearingAdjUpdated = false;
+        this.m_bMeasurementUpdated = false;
+    }
+
     toFirebase() : any
     {
 
@@ -142,15 +155,6 @@ export class SurveyAdjustment
 
         };
         return objFirebase;
-    }
-
-    setSaved() : void
-    {
-        this.m_bDeltaXUpdated = false;
-        this.m_bDeltaYUpdated = false;
-        this.m_bDeltaZUpdated = false;
-        this.m_bBearingAdjUpdated = false;
-        this.m_bMeasurementUpdated = false;
     }
 
     static fromFirebase(firebaseObj : any) : SurveyAdjustment

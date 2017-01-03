@@ -1,9 +1,13 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
+
 import {SurveyPoint} from "./SurveyPoint";
 import {TraverseClosure} from "./TraverseClosure";
 import {SurveyMeasurement} from "./SurveyMeasurement";
 
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
+// declare internal types
 
 export class Traverse
 {
@@ -153,7 +157,7 @@ export class Traverse
         }
         if (this.m_bTraverseClosureUpdated)
         {
-            objUpdated["TraverseClosure"] = lodash.map(
+            objUpdated["Traverse"] = lodash.map(
                 this.m_TraverseClosure,
                 (arrayMember) =>
                 {
@@ -163,7 +167,7 @@ export class Traverse
         }
         if (this.m_bSurveyMeasurementUpdated)
         {
-            objUpdated["SurveyMeasurement"] = lodash.map(
+            objUpdated["Traverse_SurveyMeasurement"] = lodash.map(
                 this.m_SurveyMeasurement,
                 (arrayMember) =>
                 {
@@ -175,6 +179,17 @@ export class Traverse
         return objUpdated;
     }
 
+
+    setSaved() : void
+    {
+        this.m_bNameUpdated = false;
+        this.m_bDescriptionUpdated = false;
+        this.m_bStartPointUpdated = false;
+        this.m_bEndPointUpdated = false;
+        this.m_bSurveyIDUpdated = false;
+        this.m_bTraverseClosureUpdated = false;
+        this.m_bSurveyMeasurementUpdated = false;
+    }
 
     toFirebase() : any
     {
@@ -188,14 +203,14 @@ export class Traverse
             StartPointID: this.m_StartPoint.toFirebase(),
             EndPointID: this.m_EndPoint.toFirebase(),
             SurveyID: this.m_SurveyID,
-            TraverseClosure: lodash.map(
+            Traverse: lodash.map(
                     this.m_TraverseClosure,
                     (arrayMember) =>
                     {
                         return arrayMember.toFirebase();
                     }
                 ),
-            SurveyMeasurement: lodash.map(
+            Traverse_SurveyMeasurement: lodash.map(
                     this.m_SurveyMeasurement,
                     (arrayMember) =>
                     {
@@ -205,17 +220,6 @@ export class Traverse
 
         };
         return objFirebase;
-    }
-
-    setSaved() : void
-    {
-        this.m_bNameUpdated = false;
-        this.m_bDescriptionUpdated = false;
-        this.m_bStartPointUpdated = false;
-        this.m_bEndPointUpdated = false;
-        this.m_bSurveyIDUpdated = false;
-        this.m_bTraverseClosureUpdated = false;
-        this.m_bSurveyMeasurementUpdated = false;
     }
 
     static fromFirebase(firebaseObj : any) : Traverse
@@ -230,14 +234,14 @@ export class Traverse
         objTraverse.m_EndPoint = SurveyPoint.fromFirebase(firebaseObj.EndPointID);
         objTraverse.m_SurveyID = firebaseObj.SurveyID;
         objTraverse.m_TraverseClosure = lodash.map(
-                firebaseObj.TraverseClosure,
+                firebaseObj.Traverse,
                 (arrayMember) =>
                 {
                     return TraverseClosure.fromFirebase(arrayMember);
                 }
             );
         objTraverse.m_SurveyMeasurement = lodash.map(
-                firebaseObj.SurveyMeasurement,
+                firebaseObj.Traverse_SurveyMeasurement,
                 (arrayMember) =>
                 {
                     return SurveyMeasurement.fromFirebase(arrayMember);
@@ -273,14 +277,14 @@ export class Traverse
         objTraverse.m_EndPoint = SurveyPoint.fromJsonObject(objJson.EndPointID);
         objTraverse.m_SurveyID = objJson.SurveyID;
         objTraverse.m_TraverseClosure = lodash.map(
-                objJson.TraverseClosure,
+                objJson.Traverse,
                 (arrayMember) =>
                 {
                     return TraverseClosure.fromJsonObject(arrayMember);
                 }
             );
         objTraverse.m_SurveyMeasurement = lodash.map(
-                objJson.SurveyMeasurement,
+                objJson.Traverse_SurveyMeasurement,
                 (arrayMember) =>
                 {
                     return SurveyMeasurement.fromJsonObject(arrayMember);
@@ -306,14 +310,14 @@ export class Traverse
             StartPointID: this.m_StartPoint.toJsonObject(),
             EndPointID: this.m_EndPoint.toJsonObject(),
             SurveyID: this.m_SurveyID,
-            TraverseClosure: lodash.map(
+            Traverse: lodash.map(
                     this.m_TraverseClosure,
                     (arrayMember) =>
                     {
                         return arrayMember.toJsonObject();
                     }
                 ),
-            SurveyMeasurement: lodash.map(
+            Traverse_SurveyMeasurement: lodash.map(
                     this.m_SurveyMeasurement,
                     (arrayMember) =>
                     {

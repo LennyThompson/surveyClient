@@ -1,5 +1,9 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
+
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
+// declare internal types
 
 export class InstrumentManufacturer
 {
@@ -74,6 +78,12 @@ export class InstrumentManufacturer
     }
 
 
+    setSaved() : void
+    {
+        this.m_bNameUpdated = false;
+        this.m_bDescriptionUpdated = false;
+    }
+
     toFirebase() : any
     {
 
@@ -86,12 +96,6 @@ export class InstrumentManufacturer
 
         };
         return objFirebase;
-    }
-
-    setSaved() : void
-    {
-        this.m_bNameUpdated = false;
-        this.m_bDescriptionUpdated = false;
     }
 
     static fromFirebase(firebaseObj : any) : InstrumentManufacturer

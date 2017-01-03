@@ -1,4 +1,5 @@
 "use strict";
+require("polyfills");
 require("@angular/core");
 require("@angular/platform-browser");
 require("@angular/forms");

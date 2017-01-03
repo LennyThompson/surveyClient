@@ -1,7 +1,11 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
+
 import {SurveyPoint} from "./SurveyPoint";
 
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
+// declare internal types
 
 export class SurveyMeasurement
 {
@@ -144,6 +148,16 @@ export class SurveyMeasurement
     }
 
 
+    setSaved() : void
+    {
+        this.m_bHorizDistanceUpdated = false;
+        this.m_bVertDistanceUpdated = false;
+        this.m_bBearingUpdated = false;
+        this.m_bPointFromUpdated = false;
+        this.m_bPointToUpdated = false;
+        this.m_bSurveyIDUpdated = false;
+    }
+
     toFirebase() : any
     {
 
@@ -160,16 +174,6 @@ export class SurveyMeasurement
 
         };
         return objFirebase;
-    }
-
-    setSaved() : void
-    {
-        this.m_bHorizDistanceUpdated = false;
-        this.m_bVertDistanceUpdated = false;
-        this.m_bBearingUpdated = false;
-        this.m_bPointFromUpdated = false;
-        this.m_bPointToUpdated = false;
-        this.m_bSurveyIDUpdated = false;
     }
 
     static fromFirebase(firebaseObj : any) : SurveyMeasurement

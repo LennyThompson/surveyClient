@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Dec 04 21:12:49 AEST 2016
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 
 import {Survey} from "../types/Survey";
 
@@ -25,7 +25,6 @@ export class SurveyServiceHttp
                          .map((resp : Response) => Survey.arrayFromJson(resp.json()))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
-
     loadAllFromDatabase() : Observable<Survey[]>
     {
         let strPath : string = SurveyServiceHttp.buildPath();
@@ -34,11 +33,11 @@ export class SurveyServiceHttp
             .catch((error : any) => Observable.throw("error"));
     }
 
-    loadSurveyServiceFromDatabase(nID : number) : Observable<Survey[]>
+    loadSurveyFromDatabase(nID : number) : Observable<Survey>
     {
         let strPath : string = SurveyServiceHttp.buildPath(nID);
         return this.httpService.get(strPath)
-            .map((resp : Response) => Survey.arrayFromJson(resp.json()))
+            .map((resp : Response) => Survey.fromJsonObject(resp.json()))
             .catch((error : any) => Observable.throw("error"));
     }
 

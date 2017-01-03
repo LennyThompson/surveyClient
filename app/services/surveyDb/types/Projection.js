@@ -1,6 +1,9 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 "use strict";
 var TimeConversion_1 = require("./../TimeConversion");
 var lodash = require("lodash");
+// declare internal types
 var Projection = (function () {
     function Projection() {
         this.m_ID = 0;
@@ -89,6 +92,12 @@ var Projection = (function () {
         }
         return objUpdated;
     };
+    Projection.prototype.setSaved = function () {
+        this.m_bIDUpdated = false;
+        this.m_bNameUpdated = false;
+        this.m_bDateUpdated = false;
+        this.m_bDescriptionUpdated = false;
+    };
     Projection.prototype.toFirebase = function () {
         var objFirebase = {
             ID: this.m_ID,
@@ -99,12 +108,6 @@ var Projection = (function () {
             Description: this.m_Description
         };
         return objFirebase;
-    };
-    Projection.prototype.setSaved = function () {
-        this.m_bIDUpdated = false;
-        this.m_bNameUpdated = false;
-        this.m_bDateUpdated = false;
-        this.m_bDescriptionUpdated = false;
     };
     Projection.fromFirebase = function (firebaseObj) {
         var objProjection = new Projection();

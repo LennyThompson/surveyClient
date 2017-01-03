@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Dec 04 21:12:49 AEST 2016
+// Generated on Mon Jan 02 18:28:05 AEST 2017
 
 import {InstrumentManufacturer} from "../types/InstrumentManufacturer";
 
@@ -25,7 +25,6 @@ export class InstrumentManufacturerServiceHttp
                          .map((resp : Response) => InstrumentManufacturer.arrayFromJson(resp.json()))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
-
     loadAllFromDatabase() : Observable<InstrumentManufacturer[]>
     {
         let strPath : string = InstrumentManufacturerServiceHttp.buildPath();
@@ -34,11 +33,11 @@ export class InstrumentManufacturerServiceHttp
             .catch((error : any) => Observable.throw("error"));
     }
 
-    loadInstrumentManufacturerServiceFromDatabase(nID : number) : Observable<InstrumentManufacturer[]>
+    loadInstrumentManufacturerFromDatabase(nID : number) : Observable<InstrumentManufacturer>
     {
         let strPath : string = InstrumentManufacturerServiceHttp.buildPath(nID);
         return this.httpService.get(strPath)
-            .map((resp : Response) => InstrumentManufacturer.arrayFromJson(resp.json()))
+            .map((resp : Response) => InstrumentManufacturer.fromJsonObject(resp.json()))
             .catch((error : any) => Observable.throw("error"));
     }
 

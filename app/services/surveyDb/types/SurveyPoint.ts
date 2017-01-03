@@ -1,9 +1,13 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Mon Jan 02 18:28:05 AEST 2017
+
 import {SurveyPointType} from "./SurveyPointType";
 import {SurveyReference} from "./SurveyReference";
 import {SurveyImage} from "./SurveyImage";
 
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
+// declare internal types
 
 export class SurveyPoint
 {
@@ -174,7 +178,7 @@ export class SurveyPoint
         }
         if (this.m_bSurveyImageUpdated)
         {
-            objUpdated["SurveyImage"] = lodash.map(
+            objUpdated["PointAt"] = lodash.map(
                 this.m_SurveyImage,
                 (arrayMember) =>
                 {
@@ -186,6 +190,18 @@ export class SurveyPoint
         return objUpdated;
     }
 
+
+    setSaved() : void
+    {
+        this.m_bXUpdated = false;
+        this.m_bYUpdated = false;
+        this.m_bZUpdated = false;
+        this.m_bNameUpdated = false;
+        this.m_bDescriptionUpdated = false;
+        this.m_bPointTypeUpdated = false;
+        this.m_bReferenceUpdated = false;
+        this.m_bSurveyImageUpdated = false;
+    }
 
     toFirebase() : any
     {
@@ -201,7 +217,7 @@ export class SurveyPoint
             Description: this.m_Description,
             PointTypeID: this.m_PointType.toFirebase(),
             RefID: this.m_Reference.toFirebase(),
-            SurveyImage: lodash.map(
+            PointAt: lodash.map(
                     this.m_SurveyImage,
                     (arrayMember) =>
                     {
@@ -211,18 +227,6 @@ export class SurveyPoint
 
         };
         return objFirebase;
-    }
-
-    setSaved() : void
-    {
-        this.m_bXUpdated = false;
-        this.m_bYUpdated = false;
-        this.m_bZUpdated = false;
-        this.m_bNameUpdated = false;
-        this.m_bDescriptionUpdated = false;
-        this.m_bPointTypeUpdated = false;
-        this.m_bReferenceUpdated = false;
-        this.m_bSurveyImageUpdated = false;
     }
 
     static fromFirebase(firebaseObj : any) : SurveyPoint
@@ -239,7 +243,7 @@ export class SurveyPoint
         objSurveyPoint.m_PointType = SurveyPointType.fromFirebase(firebaseObj.PointTypeID);
         objSurveyPoint.m_Reference = SurveyReference.fromFirebase(firebaseObj.RefID);
         objSurveyPoint.m_SurveyImage = lodash.map(
-                firebaseObj.SurveyImage,
+                firebaseObj.PointAt,
                 (arrayMember) =>
                 {
                     return SurveyImage.fromFirebase(arrayMember);
@@ -277,7 +281,7 @@ export class SurveyPoint
         objSurveyPoint.m_PointType = SurveyPointType.fromJsonObject(objJson.PointTypeID);
         objSurveyPoint.m_Reference = SurveyReference.fromJsonObject(objJson.RefID);
         objSurveyPoint.m_SurveyImage = lodash.map(
-                objJson.SurveyImage,
+                objJson.PointAt,
                 (arrayMember) =>
                 {
                     return SurveyImage.fromJsonObject(arrayMember);
@@ -305,7 +309,7 @@ export class SurveyPoint
             Description: this.m_Description,
             PointTypeID: this.m_PointType.toJsonObject(),
             RefID: this.m_Reference.toJsonObject(),
-            SurveyImage: lodash.map(
+            PointAt: lodash.map(
                     this.m_SurveyImage,
                     (arrayMember) =>
                     {
