@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 
 import {SurveyMeasurement} from "./SurveyMeasurement";
 
@@ -108,23 +108,23 @@ export class SurveyAdjustment
         let bUpdated = false;
         if (this.m_bDeltaXUpdated)
         {
-            objUpdated["DeltaX"] = this.m_DeltaX;
+            objUpdated["DeltaX"] = lodash(this.DeltaX).isNil() ? null : this.m_DeltaX;
         }
         if (this.m_bDeltaYUpdated)
         {
-            objUpdated["DeltaY"] = this.m_DeltaY;
+            objUpdated["DeltaY"] = lodash(this.DeltaY).isNil() ? null : this.m_DeltaY;
         }
         if (this.m_bDeltaZUpdated)
         {
-            objUpdated["DeltaZ"] = this.m_DeltaZ;
+            objUpdated["DeltaZ"] = lodash(this.DeltaZ).isNil() ? null : this.m_DeltaZ;
         }
         if (this.m_bBearingAdjUpdated)
         {
-            objUpdated["BearingAdj"] = this.m_BearingAdj;
+            objUpdated["BearingAdj"] = lodash(this.BearingAdj).isNil() ? null : this.m_BearingAdj;
         }
         if (this.m_bMeasurementUpdated)
         {
-            objUpdated["MeasurementID"] = this.m_Measurement.toJsonObject();
+            objUpdated["MeasurementID"] = lodash(this.Measurement).isNil() ? null : this.m_Measurement.toJsonObject();
         }
 
         return objUpdated;
@@ -144,14 +144,14 @@ export class SurveyAdjustment
     {
 
         let objFirebase = {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            DeltaX: this.m_DeltaX,
-            DeltaY: this.m_DeltaY,
-            DeltaZ: this.m_DeltaZ,
-            BearingAdj: this.m_BearingAdj,
-            MeasurementID: this.m_Measurement.toFirebase()
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            DeltaX: lodash(this.DeltaX).isNil() ? null : this.m_DeltaX,
+            DeltaY: lodash(this.DeltaY).isNil() ? null : this.m_DeltaY,
+            DeltaZ: lodash(this.DeltaZ).isNil() ? null : this.m_DeltaZ,
+            BearingAdj: lodash(this.BearingAdj).isNil() ? null : this.m_BearingAdj,
+            MeasurementID: lodash(this.Measurement).isNil() ? null : this.m_Measurement.toFirebase()
 
         };
         return objFirebase;
@@ -209,14 +209,14 @@ export class SurveyAdjustment
     toJsonObject() : any
     {
         return {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            DeltaX: this.m_DeltaX,
-            DeltaY: this.m_DeltaY,
-            DeltaZ: this.m_DeltaZ,
-            BearingAdj: this.m_BearingAdj,
-            MeasurementID: this.m_Measurement.toJsonObject()
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            DeltaX: lodash(this.DeltaX).isNil() ? null : this.m_DeltaX,
+            DeltaY: lodash(this.DeltaY).isNil() ? null : this.m_DeltaY,
+            DeltaZ: lodash(this.DeltaZ).isNil() ? null : this.m_DeltaZ,
+            BearingAdj: lodash(this.BearingAdj).isNil() ? null : this.m_BearingAdj,
+            MeasurementID: lodash(this.Measurement).isNil() ? null : this.m_Measurement.toJsonObject()
 
         };
     }

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 "use strict";
 var TimeConversion_1 = require("./../TimeConversion");
 var lodash = require("lodash");
@@ -126,25 +126,25 @@ var TraverseClosure = (function () {
         var objUpdated = {};
         var bUpdated = false;
         if (this.m_bMiscZUpdated) {
-            objUpdated["MiscZ"] = this.m_MiscZ;
+            objUpdated["MiscZ"] = lodash(this.MiscZ).isNil() ? null : this.m_MiscZ;
         }
         if (this.m_bMiscYUpdated) {
-            objUpdated["MiscY"] = this.m_MiscY;
+            objUpdated["MiscY"] = lodash(this.MiscY).isNil() ? null : this.m_MiscY;
         }
         if (this.m_bMiscXUpdated) {
-            objUpdated["MiscX"] = this.m_MiscX;
+            objUpdated["MiscX"] = lodash(this.MiscX).isNil() ? null : this.m_MiscX;
         }
         if (this.m_bBearingMiscloseUpdated) {
-            objUpdated["BearingMisclose"] = this.m_BearingMisclose;
+            objUpdated["BearingMisclose"] = lodash(this.BearingMisclose).isNil() ? null : this.m_BearingMisclose;
         }
         if (this.m_bTraverseLengthUpdated) {
-            objUpdated["TraverseLength"] = this.m_TraverseLength;
+            objUpdated["TraverseLength"] = lodash(this.TraverseLength).isNil() ? null : this.m_TraverseLength;
         }
         if (this.m_bAdjustedUpdated) {
-            objUpdated["Adjusted"] = this.m_Adjusted;
+            objUpdated["Adjusted"] = lodash(this.Adjusted).isNil() ? null : this.m_Adjusted;
         }
         if (this.m_bTraverseIDUpdated) {
-            objUpdated["TraverseID"] = this.m_TraverseID;
+            objUpdated["TraverseID"] = lodash(this.TraverseID).isNil() ? null : this.m_TraverseID;
         }
         return objUpdated;
     };
@@ -159,16 +159,16 @@ var TraverseClosure = (function () {
     };
     TraverseClosure.prototype.toFirebase = function () {
         var objFirebase = {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            MiscZ: this.m_MiscZ,
-            MiscY: this.m_MiscY,
-            MiscX: this.m_MiscX,
-            BearingMisclose: this.m_BearingMisclose,
-            TraverseLength: this.m_TraverseLength,
-            Adjusted: this.m_Adjusted,
-            TraverseID: this.m_TraverseID
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            MiscZ: lodash(this.MiscZ).isNil() ? null : this.m_MiscZ,
+            MiscY: lodash(this.MiscY).isNil() ? null : this.m_MiscY,
+            MiscX: lodash(this.MiscX).isNil() ? null : this.m_MiscX,
+            BearingMisclose: lodash(this.BearingMisclose).isNil() ? null : this.m_BearingMisclose,
+            TraverseLength: lodash(this.TraverseLength).isNil() ? null : this.m_TraverseLength,
+            Adjusted: lodash(this.Adjusted).isNil() ? null : this.m_Adjusted,
+            TraverseID: lodash(this.TraverseID).isNil() ? null : this.m_TraverseID
         };
         return objFirebase;
     };
@@ -214,16 +214,16 @@ var TraverseClosure = (function () {
     };
     TraverseClosure.prototype.toJsonObject = function () {
         return {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            MiscZ: this.m_MiscZ,
-            MiscY: this.m_MiscY,
-            MiscX: this.m_MiscX,
-            BearingMisclose: this.m_BearingMisclose,
-            TraverseLength: this.m_TraverseLength,
-            Adjusted: this.m_Adjusted,
-            TraverseID: this.m_TraverseID
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            MiscZ: lodash(this.MiscZ).isNil() ? null : this.m_MiscZ,
+            MiscY: lodash(this.MiscY).isNil() ? null : this.m_MiscY,
+            MiscX: lodash(this.MiscX).isNil() ? null : this.m_MiscX,
+            BearingMisclose: lodash(this.BearingMisclose).isNil() ? null : this.m_BearingMisclose,
+            TraverseLength: lodash(this.TraverseLength).isNil() ? null : this.m_TraverseLength,
+            Adjusted: lodash(this.Adjusted).isNil() ? null : this.m_Adjusted,
+            TraverseID: lodash(this.TraverseID).isNil() ? null : this.m_TraverseID
         };
     };
     return TraverseClosure;

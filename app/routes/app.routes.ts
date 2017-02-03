@@ -1,19 +1,28 @@
 import { Routes, RouterModule } from "@angular/router";
 
 import { HomeComponent } from "./../components/home/home";
+import {NgModule} from "@angular/core";
 
 const appRoutes : Routes = [
     {
-        path: "home",
-        component: HomeComponent
+        path: "",
+        redirectTo: "surveys",
+        pathMatch: "full"
     },
     {
-        path: "",
-        redirectTo: "/home",
-        pathMatch: "prefix"
+        path: "home",
+        component: HomeComponent
     }
 ];
 
-export const routing = RouterModule.forRoot(appRoutes);
-
-export const routedComponents = [HomeComponent];
+@NgModule (
+    {
+        imports: [
+            RouterModule.forRoot(appRoutes)
+        ],
+        exports: [
+            RouterModule
+        ]
+    }
+)
+export class AppMainRouter {}

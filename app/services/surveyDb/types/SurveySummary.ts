@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
@@ -69,11 +69,11 @@ export class SurveySummary_Trav
     toJsonObject() : any
     {
         return {
-            travID: this.m_TravID,
-            travName: this.m_TravName,
-            travUpdated: this.m_TravUpdated,
-            ptTravStart: this.m_PtTravStart,
-            ptTravEnd: this.m_PtTravEnd
+            travID: lodash(this.TravID).isNil() ? null : this.m_TravID,
+            travName: lodash(this.TravName).isNil() ? null : this.m_TravName,
+            travUpdated: lodash(this.TravUpdated).isNil() ? null : this.m_TravUpdated,
+            ptTravStart: lodash(this.PtTravStart).isNil() ? null : this.m_PtTravStart,
+            ptTravEnd: lodash(this.PtTravEnd).isNil() ? null : this.m_PtTravEnd
 
         };
     }
@@ -143,11 +143,11 @@ export class SurveySummary_PtSurv
     toJsonObject() : any
     {
         return {
-            ptID: this.m_PtID,
-            ptName: this.m_PtName,
-            ptX: this.m_PtX,
-            ptY: this.m_PtY,
-            ptZ: this.m_PtZ
+            ptID: lodash(this.PtID).isNil() ? null : this.m_PtID,
+            ptName: lodash(this.PtName).isNil() ? null : this.m_PtName,
+            ptX: lodash(this.PtX).isNil() ? null : this.m_PtX,
+            ptY: lodash(this.PtY).isNil() ? null : this.m_PtY,
+            ptZ: lodash(this.PtZ).isNil() ? null : this.m_PtZ
 
         };
     }
@@ -196,8 +196,8 @@ export class SurveySummary_Proj
     toJsonObject() : any
     {
         return {
-            projID: this.m_ProjID,
-            projName: this.m_ProjName
+            projID: lodash(this.ProjID).isNil() ? null : this.m_ProjID,
+            projName: lodash(this.ProjName).isNil() ? null : this.m_ProjName
 
         };
     }
@@ -212,8 +212,8 @@ export class SurveySummary
     private m_Updated : number;
     private m_Description : string;
     private m_Proj : SurveySummary_Proj;
-    private m_Travs : SurveySummary_Trav;
-    private m_PtSurvs : SurveySummary_PtSurv;
+    private m_Travs : SurveySummary_Trav[];
+    private m_PtSurvs : SurveySummary_PtSurv[];
 
 
     constructor()
@@ -224,8 +224,8 @@ export class SurveySummary
         this.m_Updated = 0;
         this.m_Description = "";
         this.m_Proj = new SurveySummary_Proj();
-        this.m_Travs = new SurveySummary_Trav();
-        this.m_PtSurvs = new SurveySummary_PtSurv();
+        this.m_Travs = [];
+        this.m_PtSurvs = [];
     }
 
     get ID() : number
@@ -252,11 +252,11 @@ export class SurveySummary
     {
         return this.m_Proj;
     }
-    get Travs() : SurveySummary_Trav
+    get Travs() : SurveySummary_Trav[]
     {
         return this.m_Travs;
     }
-    get PtSurvs() : SurveySummary_PtSurv
+    get PtSurvs() : SurveySummary_PtSurv[]
     {
         return this.m_PtSurvs;
     }
@@ -296,8 +296,20 @@ export class SurveySummary
         objSurveySummary.m_Updated = objJson.updated;
         objSurveySummary.m_Description = objJson.Description;
         objSurveySummary.m_Proj = SurveySummary_Proj.fromJsonObject(objJson.proj);
-        objSurveySummary.m_Travs = SurveySummary_Trav.fromJsonObject(objJson.trav);
-        objSurveySummary.m_PtSurvs = SurveySummary_PtSurv.fromJsonObject(objJson.ptSurv);
+        objSurveySummary.m_Travs = lodash.map(
+                objJson.trav,
+                (arrayMember) =>
+                {
+                    return SurveySummary_Trav.fromJsonObject(arrayMember);
+                }
+            );
+        objSurveySummary.m_PtSurvs = lodash.map(
+                objJson.ptSurv,
+                (arrayMember) =>
+                {
+                    return SurveySummary_PtSurv.fromJsonObject(arrayMember);
+                }
+            );
 
         return objSurveySummary;
     }
@@ -310,14 +322,24 @@ export class SurveySummary
     toJsonObject() : any
     {
         return {
-            ID: this.m_ID,
-            Name: this.m_Name,
-            created: this.m_Created,
-            updated: this.m_Updated,
-            Description: this.m_Description,
-            proj: this.m_Proj.toJsonObject(),
-            trav: this.m_Travs.toJsonObject(),
-            ptSurv: this.m_PtSurvs.toJsonObject()
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            Name: lodash(this.Name).isNil() ? null : this.m_Name,
+            created: lodash(this.Created).isNil() ? null : this.m_Created,
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated,
+            Description: lodash(this.Description).isNil() ? null : this.m_Description,
+            proj: lodash(this.Proj).isNil() ? null : this.m_Proj.toJsonObject(),
+            trav: lodash(this.Travs).isNil() ? null : lodash(this.m_Travs).map(
+                    (arrayMember) =>
+                    {
+                        return arrayMember.toJsonObject();
+                    }
+                ),
+            ptSurv: lodash(this.PtSurvs).isNil() ? null : lodash(this.m_PtSurvs).map(
+                    (arrayMember) =>
+                    {
+                        return arrayMember.toJsonObject();
+                    }
+                )
 
         };
     }

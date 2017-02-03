@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 "use strict";
 var SurveyPoint_1 = require("./SurveyPoint");
 var TraverseClosure_1 = require("./TraverseClosure");
@@ -129,27 +129,27 @@ var Traverse = (function () {
         var objUpdated = {};
         var bUpdated = false;
         if (this.m_bNameUpdated) {
-            objUpdated["Name"] = this.m_Name;
+            objUpdated["Name"] = lodash(this.Name).isNil() ? null : this.m_Name;
         }
         if (this.m_bDescriptionUpdated) {
-            objUpdated["Description"] = this.m_Description;
+            objUpdated["Description"] = lodash(this.Description).isNil() ? null : this.m_Description;
         }
         if (this.m_bStartPointUpdated) {
-            objUpdated["StartPointID"] = this.m_StartPoint.toJsonObject();
+            objUpdated["StartPointID"] = lodash(this.StartPoint).isNil() ? null : this.m_StartPoint.toJsonObject();
         }
         if (this.m_bEndPointUpdated) {
-            objUpdated["EndPointID"] = this.m_EndPoint.toJsonObject();
+            objUpdated["EndPointID"] = lodash(this.EndPoint).isNil() ? null : this.m_EndPoint.toJsonObject();
         }
         if (this.m_bSurveyIDUpdated) {
-            objUpdated["SurveyID"] = this.m_SurveyID;
+            objUpdated["SurveyID"] = lodash(this.SurveyID).isNil() ? null : this.m_SurveyID;
         }
         if (this.m_bTraverseClosureUpdated) {
-            objUpdated["Traverse"] = lodash.map(this.m_TraverseClosure, function (arrayMember) {
+            objUpdated["Traverse"] = lodash(this.TraverseClosure).isNil() ? null : lodash(this.m_TraverseClosure).map(function (arrayMember) {
                 return arrayMember.toJsonObject();
             });
         }
         if (this.m_bSurveyMeasurementUpdated) {
-            objUpdated["Traverse_SurveyMeasurement"] = lodash.map(this.m_SurveyMeasurement, function (arrayMember) {
+            objUpdated["Traverse_SurveyMeasurement"] = lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(function (arrayMember) {
                 return arrayMember.toJsonObject();
             });
         }
@@ -166,18 +166,18 @@ var Traverse = (function () {
     };
     Traverse.prototype.toFirebase = function () {
         var objFirebase = {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            Name: this.m_Name,
-            Description: this.m_Description,
-            StartPointID: this.m_StartPoint.toFirebase(),
-            EndPointID: this.m_EndPoint.toFirebase(),
-            SurveyID: this.m_SurveyID,
-            Traverse: lodash.map(this.m_TraverseClosure, function (arrayMember) {
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            Name: lodash(this.Name).isNil() ? null : this.m_Name,
+            Description: lodash(this.Description).isNil() ? null : this.m_Description,
+            StartPointID: lodash(this.StartPoint).isNil() ? null : this.m_StartPoint.toFirebase(),
+            EndPointID: lodash(this.EndPoint).isNil() ? null : this.m_EndPoint.toFirebase(),
+            SurveyID: lodash(this.SurveyID).isNil() ? null : this.m_SurveyID,
+            Traverse: lodash(this.TraverseClosure).isNil() ? null : lodash(this.m_TraverseClosure).map(function (arrayMember) {
                 return arrayMember.toFirebase();
             }),
-            Traverse_SurveyMeasurement: lodash.map(this.m_SurveyMeasurement, function (arrayMember) {
+            Traverse_SurveyMeasurement: lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(function (arrayMember) {
                 return arrayMember.toFirebase();
             })
         };
@@ -233,18 +233,18 @@ var Traverse = (function () {
     };
     Traverse.prototype.toJsonObject = function () {
         return {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            Name: this.m_Name,
-            Description: this.m_Description,
-            StartPointID: this.m_StartPoint.toJsonObject(),
-            EndPointID: this.m_EndPoint.toJsonObject(),
-            SurveyID: this.m_SurveyID,
-            Traverse: lodash.map(this.m_TraverseClosure, function (arrayMember) {
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            Name: lodash(this.Name).isNil() ? null : this.m_Name,
+            Description: lodash(this.Description).isNil() ? null : this.m_Description,
+            StartPointID: lodash(this.StartPoint).isNil() ? null : this.m_StartPoint.toJsonObject(),
+            EndPointID: lodash(this.EndPoint).isNil() ? null : this.m_EndPoint.toJsonObject(),
+            SurveyID: lodash(this.SurveyID).isNil() ? null : this.m_SurveyID,
+            Traverse: lodash(this.TraverseClosure).isNil() ? null : lodash(this.m_TraverseClosure).map(function (arrayMember) {
                 return arrayMember.toJsonObject();
             }),
-            Traverse_SurveyMeasurement: lodash.map(this.m_SurveyMeasurement, function (arrayMember) {
+            Traverse_SurveyMeasurement: lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(function (arrayMember) {
                 return arrayMember.toJsonObject();
             })
         };

@@ -1,16 +1,24 @@
 import {Component, Input} from "@angular/core";
-import {Survey} from "../../services/surveyDb/types/Survey";
 import {SurveySummary} from "../../services/surveyDb/types/SurveySummary";
+import {Router, ActivatedRoute} from "@angular/router";
+
+require("./survey.scss");
 
 @Component({
     selector: "survey-item",
-    templateUrl: "./survey.html",
+    templateUrl: "./survey.html"
 })
 export class SurveyComponent
 {
     private m_surveyItem : SurveySummary;
-    constructor()
+    private m_showDetails: boolean;
+    constructor
+    (
+        private route: ActivatedRoute,
+        private router: Router
+    )
     {
+        this.m_showDetails = false;
     }
 
     @Input("survey")
@@ -21,6 +29,16 @@ export class SurveyComponent
     get Survey() : SurveySummary
     {
         return this.m_surveyItem;
+    }
+
+    get showDetails(): boolean
+    {
+        return this.m_showDetails;
+    }
+
+    onShowDetails(): void
+    {
+        this.m_showDetails = true;
     }
 
 }

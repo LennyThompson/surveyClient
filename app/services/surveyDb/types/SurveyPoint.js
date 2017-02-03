@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 "use strict";
 var SurveyPointType_1 = require("./SurveyPointType");
 var SurveyReference_1 = require("./SurveyReference");
@@ -142,28 +142,28 @@ var SurveyPoint = (function () {
         var objUpdated = {};
         var bUpdated = false;
         if (this.m_bXUpdated) {
-            objUpdated["X"] = this.m_X;
+            objUpdated["X"] = lodash(this.X).isNil() ? null : this.m_X;
         }
         if (this.m_bYUpdated) {
-            objUpdated["Y"] = this.m_Y;
+            objUpdated["Y"] = lodash(this.Y).isNil() ? null : this.m_Y;
         }
         if (this.m_bZUpdated) {
-            objUpdated["Z"] = this.m_Z;
+            objUpdated["Z"] = lodash(this.Z).isNil() ? null : this.m_Z;
         }
         if (this.m_bNameUpdated) {
-            objUpdated["Name"] = this.m_Name;
+            objUpdated["Name"] = lodash(this.Name).isNil() ? null : this.m_Name;
         }
         if (this.m_bDescriptionUpdated) {
-            objUpdated["Description"] = this.m_Description;
+            objUpdated["Description"] = lodash(this.Description).isNil() ? null : this.m_Description;
         }
         if (this.m_bPointTypeUpdated) {
-            objUpdated["PointTypeID"] = this.m_PointType.toJsonObject();
+            objUpdated["PointTypeID"] = lodash(this.PointType).isNil() ? null : this.m_PointType.toJsonObject();
         }
         if (this.m_bReferenceUpdated) {
-            objUpdated["RefID"] = this.m_Reference.toJsonObject();
+            objUpdated["RefID"] = lodash(this.Reference).isNil() ? null : this.m_Reference.toJsonObject();
         }
         if (this.m_bSurveyImageUpdated) {
-            objUpdated["PointAt"] = lodash.map(this.m_SurveyImage, function (arrayMember) {
+            objUpdated["Images"] = lodash(this.SurveyImage).isNil() ? null : lodash(this.m_SurveyImage).map(function (arrayMember) {
                 return arrayMember.toJsonObject();
             });
         }
@@ -181,17 +181,17 @@ var SurveyPoint = (function () {
     };
     SurveyPoint.prototype.toFirebase = function () {
         var objFirebase = {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            X: this.m_X,
-            Y: this.m_Y,
-            Z: this.m_Z,
-            Name: this.m_Name,
-            Description: this.m_Description,
-            PointTypeID: this.m_PointType.toFirebase(),
-            RefID: this.m_Reference.toFirebase(),
-            PointAt: lodash.map(this.m_SurveyImage, function (arrayMember) {
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            X: lodash(this.X).isNil() ? null : this.m_X,
+            Y: lodash(this.Y).isNil() ? null : this.m_Y,
+            Z: lodash(this.Z).isNil() ? null : this.m_Z,
+            Name: lodash(this.Name).isNil() ? null : this.m_Name,
+            Description: lodash(this.Description).isNil() ? null : this.m_Description,
+            PointTypeID: lodash(this.PointType).isNil() ? null : this.m_PointType.toFirebase(),
+            RefID: lodash(this.Reference).isNil() ? null : this.m_Reference.toFirebase(),
+            Images: lodash(this.SurveyImage).isNil() ? null : lodash(this.m_SurveyImage).map(function (arrayMember) {
                 return arrayMember.toFirebase();
             })
         };
@@ -209,7 +209,7 @@ var SurveyPoint = (function () {
         objSurveyPoint.m_Description = firebaseObj.Description;
         objSurveyPoint.m_PointType = SurveyPointType_1.SurveyPointType.fromFirebase(firebaseObj.PointTypeID);
         objSurveyPoint.m_Reference = SurveyReference_1.SurveyReference.fromFirebase(firebaseObj.RefID);
-        objSurveyPoint.m_SurveyImage = lodash.map(firebaseObj.PointAt, function (arrayMember) {
+        objSurveyPoint.m_SurveyImage = lodash.map(firebaseObj.Images, function (arrayMember) {
             return SurveyImage_1.SurveyImage.fromFirebase(arrayMember);
         });
         objSurveyPoint.setSaved();
@@ -235,7 +235,7 @@ var SurveyPoint = (function () {
         objSurveyPoint.m_Description = objJson.Description;
         objSurveyPoint.m_PointType = SurveyPointType_1.SurveyPointType.fromJsonObject(objJson.PointTypeID);
         objSurveyPoint.m_Reference = SurveyReference_1.SurveyReference.fromJsonObject(objJson.RefID);
-        objSurveyPoint.m_SurveyImage = lodash.map(objJson.PointAt, function (arrayMember) {
+        objSurveyPoint.m_SurveyImage = lodash.map(objJson.Images, function (arrayMember) {
             return SurveyImage_1.SurveyImage.fromJsonObject(arrayMember);
         });
         return objSurveyPoint;
@@ -245,17 +245,17 @@ var SurveyPoint = (function () {
     };
     SurveyPoint.prototype.toJsonObject = function () {
         return {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            X: this.m_X,
-            Y: this.m_Y,
-            Z: this.m_Z,
-            Name: this.m_Name,
-            Description: this.m_Description,
-            PointTypeID: this.m_PointType.toJsonObject(),
-            RefID: this.m_Reference.toJsonObject(),
-            PointAt: lodash.map(this.m_SurveyImage, function (arrayMember) {
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            X: lodash(this.X).isNil() ? null : this.m_X,
+            Y: lodash(this.Y).isNil() ? null : this.m_Y,
+            Z: lodash(this.Z).isNil() ? null : this.m_Z,
+            Name: lodash(this.Name).isNil() ? null : this.m_Name,
+            Description: lodash(this.Description).isNil() ? null : this.m_Description,
+            PointTypeID: lodash(this.PointType).isNil() ? null : this.m_PointType.toJsonObject(),
+            RefID: lodash(this.Reference).isNil() ? null : this.m_Reference.toJsonObject(),
+            Images: lodash(this.SurveyImage).isNil() ? null : lodash(this.m_SurveyImage).map(function (arrayMember) {
                 return arrayMember.toJsonObject();
             })
         };

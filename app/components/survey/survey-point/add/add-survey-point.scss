@@ -1,0 +1,12 @@
+add-survey-point {
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+  form {
+    & label {
+      text-align: right;
+    }
+
+    &.icon-ok {
+      color: green;
+    }
+  }
+}

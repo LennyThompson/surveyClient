@@ -2,4 +2,6 @@
     <md-card-title>{{Survey.Name}}</md-card-title>
     <md-card-subtitle>{{Survey.Description}}</md-card-subtitle>
     <md-card-subtitle>Created: {{Survey.Created | date: 'dd/MM/yyyy'}} - Last Updated: {{Survey.Updated | date: 'dd/MM/yyyy'}}</md-card-subtitle>
+    <i (click)="onShowDetails()" class="icon-plus-squared-alt">Details</i>
+    <survey-details *ngIf="showDetails" [surveyId]="Survey.ID"></survey-details>
 </md-card>

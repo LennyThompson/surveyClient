@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
@@ -93,19 +93,19 @@ export class SurveyReference
         let bUpdated = false;
         if (this.m_bNameUpdated)
         {
-            objUpdated["Name"] = this.m_Name;
+            objUpdated["Name"] = lodash(this.Name).isNil() ? null : this.m_Name;
         }
         if (this.m_bDescriptionUpdated)
         {
-            objUpdated["Description"] = this.m_Description;
+            objUpdated["Description"] = lodash(this.Description).isNil() ? null : this.m_Description;
         }
         if (this.m_bDateUpdated)
         {
-            objUpdated["Date"] = this.m_Date.toISOString();
+            objUpdated["Date"] = lodash(this.Date).isNil() ? null : this.m_Date.toISOString();
         }
         if (this.m_bReferenceUpdated)
         {
-            objUpdated["Reference"] = this.m_Reference;
+            objUpdated["Reference"] = lodash(this.Reference).isNil() ? null : this.m_Reference;
         }
 
         return objUpdated;
@@ -124,13 +124,13 @@ export class SurveyReference
     {
 
         let objFirebase = {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            Name: this.m_Name,
-            Description: this.m_Description,
-            Date: this.m_Date.toISOString(),
-            Reference: this.m_Reference
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            Name: lodash(this.Name).isNil() ? null : this.m_Name,
+            Description: lodash(this.Description).isNil() ? null : this.m_Description,
+            Date: lodash(this.Date).isNil() ? null : this.m_Date.toISOString(),
+            Reference: lodash(this.Reference).isNil() ? null : this.m_Reference
 
         };
         return objFirebase;
@@ -186,13 +186,13 @@ export class SurveyReference
     toJsonObject() : any
     {
         return {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            Name: this.m_Name,
-            Description: this.m_Description,
-            Date: this.m_Date.toISOString(),
-            Reference: this.m_Reference
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            Name: lodash(this.Name).isNil() ? null : this.m_Name,
+            Description: lodash(this.Description).isNil() ? null : this.m_Description,
+            Date: lodash(this.Date).isNil() ? null : this.m_Date.toISOString(),
+            Reference: lodash(this.Reference).isNil() ? null : this.m_Reference
 
         };
     }

@@ -1,10 +1,10 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 
 import {SurveyMeasurement} from "../types/SurveyMeasurement";
 
 import { Injectable } from "@angular/core";
-import { Http, Response, Headers, RequestOptions } from "@angular/http";
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable, Subscription } from "rxjs/Rx";
 
 @Injectable()
@@ -14,7 +14,7 @@ export class SurveyMeasurementServiceHttp
     {
     }
 
-    saveToDatabase(typeSurveyMeasurement : SurveyMeasurement) : Observable<SurveyMeasurement[]>
+    saveToDatabase(typeSurveyMeasurement : SurveyMeasurement) : Observable<SurveyMeasurement>
     {
         let strPath : string = SurveyMeasurementServiceHttp.buildPath();
         let strJsonBody : string = typeSurveyMeasurement.toJson();
@@ -22,8 +22,20 @@ export class SurveyMeasurementServiceHttp
         let options = new RequestOptions({ headers: headers });
 
         return this.httpService.post(strPath, strJsonBody, options)
-                         .map((resp : Response) => SurveyMeasurement.arrayFromJson(resp.json()))
+                         .map((resp : Response) => SurveyMeasurement.fromJsonObject(resp.json()))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
+    }
+    saveSurveyMeasurementForTraverse(typeSurveyMeasurement : SurveyMeasurement, ID: number) : Observable<SurveyMeasurement>
+    {
+            let strPath : string = SurveyMeasurementServiceHttp.buildPath();
+            strPath += "/addSurveyMeasurementToTraverse";
+            let strJsonBody : string = "{ \"ID\": " + ID + ", SurveyMeasurement: " + typeSurveyMeasurement.toJson() + " }";
+            let headers = new Headers({ "Content-Type": "application/json" });
+            let options = new RequestOptions({ headers: headers });
+
+            return this.httpService.post(strPath, strJsonBody, options)
+                             .map((resp : Response) => SurveyMeasurement.fromJsonObject(resp.json()))
+                             .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
     loadAllFromDatabase() : Observable<SurveyMeasurement[]>
     {
@@ -33,21 +45,20 @@ export class SurveyMeasurementServiceHttp
             .catch((error : any) => Observable.throw("error"));
     }
 
+
     loadSurveyMeasurementFromDatabase(nID : number) : Observable<SurveyMeasurement>
     {
-        let strPath : string = SurveyMeasurementServiceHttp.buildPath(nID);
-        return this.httpService.get(strPath)
+        let strPath : string = SurveyMeasurementServiceHttp.buildPath();
+        let params = new URLSearchParams();
+        params.set('ID', nID.toString());
+        return this.httpService.get(strPath, { search: params })
             .map((resp : Response) => SurveyMeasurement.fromJsonObject(resp.json()))
             .catch((error : any) => Observable.throw("error"));
     }
 
-    static buildPath(nID? : number) : string
+    static buildPath() : string
     {
         let strPath : string = "http://localhost:49876/api" + "/SurveyMeasurements";
-        if (nID)
-        {
-            strPath += "?ID=" + nID;
-        }
         return strPath;
     }
 }

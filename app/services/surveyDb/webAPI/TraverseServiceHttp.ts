@@ -1,10 +1,10 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 
 import {Traverse} from "../types/Traverse";
 
 import { Injectable } from "@angular/core";
-import { Http, Response, Headers, RequestOptions } from "@angular/http";
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable, Subscription } from "rxjs/Rx";
 
 @Injectable()
@@ -14,7 +14,7 @@ export class TraverseServiceHttp
     {
     }
 
-    saveToDatabase(typeTraverse : Traverse) : Observable<Traverse[]>
+    saveToDatabase(typeTraverse : Traverse) : Observable<Traverse>
     {
         let strPath : string = TraverseServiceHttp.buildPath();
         let strJsonBody : string = typeTraverse.toJson();
@@ -22,7 +22,7 @@ export class TraverseServiceHttp
         let options = new RequestOptions({ headers: headers });
 
         return this.httpService.post(strPath, strJsonBody, options)
-                         .map((resp : Response) => Traverse.arrayFromJson(resp.json()))
+                         .map((resp : Response) => Traverse.fromJsonObject(resp.json()))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
     loadAllFromDatabase() : Observable<Traverse[]>
@@ -33,21 +33,20 @@ export class TraverseServiceHttp
             .catch((error : any) => Observable.throw("error"));
     }
 
+
     loadTraverseFromDatabase(nID : number) : Observable<Traverse>
     {
-        let strPath : string = TraverseServiceHttp.buildPath(nID);
-        return this.httpService.get(strPath)
+        let strPath : string = TraverseServiceHttp.buildPath();
+        let params = new URLSearchParams();
+        params.set('ID', nID.toString());
+        return this.httpService.get(strPath, { search: params })
             .map((resp : Response) => Traverse.fromJsonObject(resp.json()))
             .catch((error : any) => Observable.throw("error"));
     }
 
-    static buildPath(nID? : number) : string
+    static buildPath() : string
     {
         let strPath : string = "http://localhost:49876/api" + "/Traverses";
-        if (nID)
-        {
-            strPath += "?ID=" + nID;
-        }
         return strPath;
     }
 }

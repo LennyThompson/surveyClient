@@ -1,0 +1,9 @@
+traverse {
+  .trav-measurement-header {
+    background-color: lightgray;
+    &>div{
+      text-align: center;
+      border-color: #f0ffff;
+    }
+  }
+}

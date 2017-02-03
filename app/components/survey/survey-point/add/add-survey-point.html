@@ -1,0 +1,47 @@
+<h1 md-dialog-title>New Survey Point</h1>
+<md-dialog-content>
+    <form>
+        {{ Point.X }} {{Point.Y}} {{Point.Z}}
+        <div class="flex-container form-group" fxLayout="row">
+            <md-input-container fxFlex="25">
+                <label >X:</label>
+                <input class="form-control" md-input placeholder="X coordinate" step="1000" type="number" [(ngModel)]="Point.X" id="X" name="X">
+            </md-input-container>
+            <md-input-container fxFlex="25">
+                <label >Y:</label>
+                <input class="form-control" md-input placeholder="Y coordinate" step="1000" type="number" [(ngModel)]="Point.Y" name="Y">
+            </md-input-container>
+            <md-input-container fxFlex="25">
+                <label >Z:</label>
+                <input class="form-control" md-input placeholder="Z coordinate" step="1000" type="number" [(ngModel)]="Point.Z" name="Z">
+            </md-input-container>
+
+        </div>
+        <div fxLayout="row"></div>
+        <div class="flex-container form-group" fxLayout="row">
+            <md-input-container fxFlex="25">
+                <label >Name:</label>
+                <input md-input placeholder="Pt name" type="text" [(ngModel)]="Point.Name" name="Name">
+            </md-input-container>
+            <md-input-container fxFlex="25">
+                <label >Description:</label>
+                <input md-input placeholder="Pt description" type="text" [(ngModel)]="Point.Description" name="Desc">
+            </md-input-container>
+
+        </div>
+        <div fxLayout="row"></div>
+        <div class="flex-container form-group" fxLayout="row">
+            <label fxFlex="25">Type:</label>
+            <survey-point-types-select [(ngModel)] = "PointType" name="Type"></survey-point-types-select>
+            <label fxFlex="25">Reference:</label>
+            <md-select placeholder="Reference" [(ngModel)]="PointRefID" name="Ref">
+                <md-option *ngFor="let ref of PointReferences" [value]="ref.ID">{{ ref.Name }}</md-option>
+            </md-select>
+
+        </div>
+    </form>
+</md-dialog-content>
+<md-dialog-actions>
+    <i class="icon-ok" (click)="m_dlgPoint.close(Point)">Ok</i>
+    <i class="icon-cancel" (click)="m_dlgPoint.close(null)">Cancel</i>
+</md-dialog-actions>

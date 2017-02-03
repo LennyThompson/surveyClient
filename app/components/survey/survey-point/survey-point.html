@@ -1,0 +1,10 @@
+<div class="flex-container survey-point" fxLayout="row">
+    <div class="flex-item survey-point-info" fxFlex="20%" >{{Point.PtName}}</div>
+    <div class="flex-item survey-point-info survey-coord" fxFlex="20%" >{{Point.X | coordFormat}}</div>
+    <div class="flex-item survey-point-info survey-coord" fxFlex="20%" >{{Point.Y | coordFormat}}</div>
+    <div class="flex-item survey-point-info survey-coord" fxFlex="20%" >{{Point.Z | coordFormat}}</div>
+    <div class="flex-item " fxFlex="20%" >
+            <i class="icon-pencil" (click)="onEditPoint()"></i>
+            <i class="icon-trash" (click)="onDeletePoint()"></i>
+    </div>
+</div>

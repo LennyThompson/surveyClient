@@ -46,13 +46,13 @@ module.exports = function (options) {
 
     plugins: [
       new DefinePlugin({
-        'ENV': JSON.stringify(METADATA.ENV),
-        'HMR': METADATA.HMR,
-        'process.env': {
-          'ENV': JSON.stringify(METADATA.ENV),
-          'NODE_ENV': JSON.stringify(METADATA.ENV),
-          'HMR': METADATA.HMR
-        }
+        // 'ENV': JSON.stringify(METADATA.ENV),
+        // // 'HMR': METADATA.HMR,
+        // 'process.env': {
+        //   'ENV': JSON.stringify(METADATA.ENV),
+        //   'NODE_ENV': JSON.stringify(METADATA.ENV),
+        //   // 'HMR': METADATA.HMR
+        // }
       }),
       new LoaderOptionsPlugin({
         debug: true,

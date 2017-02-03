@@ -10,8 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var SurveySummary_1 = require("../../services/surveyDb/types/SurveySummary");
+var router_1 = require("@angular/router");
+require("./survey.scss");
 var SurveyComponent = (function () {
-    function SurveyComponent() {
+    function SurveyComponent(route, router) {
+        this.route = route;
+        this.router = router;
+        this.m_showDetails = false;
     }
     Object.defineProperty(SurveyComponent.prototype, "Survey", {
         get: function () {
@@ -23,6 +28,16 @@ var SurveyComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(SurveyComponent.prototype, "showDetails", {
+        get: function () {
+            return this.m_showDetails;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    SurveyComponent.prototype.onShowDetails = function () {
+        this.m_showDetails = true;
+    };
     return SurveyComponent;
 }());
 __decorate([
@@ -33,9 +48,10 @@ __decorate([
 SurveyComponent = __decorate([
     core_1.Component({
         selector: "survey-item",
-        templateUrl: "./survey.html",
+        templateUrl: "./survey.html"
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [router_1.ActivatedRoute,
+        router_1.Router])
 ], SurveyComponent);
 exports.SurveyComponent = SurveyComponent;
 //# sourceMappingURL=survey.js.map

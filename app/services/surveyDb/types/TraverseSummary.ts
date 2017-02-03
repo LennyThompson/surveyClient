@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
@@ -69,11 +69,11 @@ export class TraverseSummary_PtStart
     toJsonObject() : any
     {
         return {
-            ptStartID: this.m_PtStartID,
-            ptStartName: this.m_PtStartName,
-            ptStartX: this.m_PtStartX,
-            ptStartY: this.m_PtStartY,
-            ptStartZ: this.m_PtStartZ
+            ptStartID: lodash(this.PtStartID).isNil() ? null : this.m_PtStartID,
+            ptStartName: lodash(this.PtStartName).isNil() ? null : this.m_PtStartName,
+            ptStartX: lodash(this.PtStartX).isNil() ? null : this.m_PtStartX,
+            ptStartY: lodash(this.PtStartY).isNil() ? null : this.m_PtStartY,
+            ptStartZ: lodash(this.PtStartZ).isNil() ? null : this.m_PtStartZ
 
         };
     }
@@ -143,11 +143,11 @@ export class TraverseSummary_PtEnd
     toJsonObject() : any
     {
         return {
-            ptEndID: this.m_PtEndID,
-            ptEndName: this.m_PtEndName,
-            ptEndX: this.m_PtEndX,
-            ptEndY: this.m_PtEndY,
-            ptEndZ: this.m_PtEndZ
+            ptEndID: lodash(this.PtEndID).isNil() ? null : this.m_PtEndID,
+            ptEndName: lodash(this.PtEndName).isNil() ? null : this.m_PtEndName,
+            ptEndX: lodash(this.PtEndX).isNil() ? null : this.m_PtEndX,
+            ptEndY: lodash(this.PtEndY).isNil() ? null : this.m_PtEndY,
+            ptEndZ: lodash(this.PtEndZ).isNil() ? null : this.m_PtEndZ
 
         };
     }
@@ -253,13 +253,13 @@ export class TraverseSummary
     toJsonObject() : any
     {
         return {
-            ID: this.m_ID,
-            SurveyID: this.m_SurveyID,
-            Name: this.m_Name,
-            Updated: this.m_Updated,
-            Description: this.m_Description,
-            ptStart: this.m_PtStart.toJsonObject(),
-            ptEnd: this.m_PtEnd.toJsonObject()
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            SurveyID: lodash(this.SurveyID).isNil() ? null : this.m_SurveyID,
+            Name: lodash(this.Name).isNil() ? null : this.m_Name,
+            Updated: lodash(this.Updated).isNil() ? null : this.m_Updated,
+            Description: lodash(this.Description).isNil() ? null : this.m_Description,
+            ptStart: lodash(this.PtStart).isNil() ? null : this.m_PtStart.toJsonObject(),
+            ptEnd: lodash(this.PtEnd).isNil() ? null : this.m_PtEnd.toJsonObject()
 
         };
     }

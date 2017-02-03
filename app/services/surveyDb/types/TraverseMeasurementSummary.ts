@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
@@ -69,11 +69,11 @@ export class SurvMeas_PtTo
     toJsonObject() : any
     {
         return {
-            ptToID: this.m_PtToID,
-            ptToName: this.m_PtToName,
-            ptToX: this.m_PtToX,
-            ptToY: this.m_PtToY,
-            ptToZ: this.m_PtToZ
+            ptToID: lodash(this.PtToID).isNil() ? null : this.m_PtToID,
+            ptToName: lodash(this.PtToName).isNil() ? null : this.m_PtToName,
+            ptToX: lodash(this.PtToX).isNil() ? null : this.m_PtToX,
+            ptToY: lodash(this.PtToY).isNil() ? null : this.m_PtToY,
+            ptToZ: lodash(this.PtToZ).isNil() ? null : this.m_PtToZ
 
         };
     }
@@ -143,11 +143,11 @@ export class SurvMeas_PtFrom
     toJsonObject() : any
     {
         return {
-            ptFromID: this.m_PtFromID,
-            ptFromName: this.m_PtFromName,
-            ptFromX: this.m_PtFromX,
-            ptFromY: this.m_PtFromY,
-            ptFromZ: this.m_PtFromZ
+            ptFromID: lodash(this.PtFromID).isNil() ? null : this.m_PtFromID,
+            ptFromName: lodash(this.PtFromName).isNil() ? null : this.m_PtFromName,
+            ptFromX: lodash(this.PtFromX).isNil() ? null : this.m_PtFromX,
+            ptFromY: lodash(this.PtFromY).isNil() ? null : this.m_PtFromY,
+            ptFromZ: lodash(this.PtFromZ).isNil() ? null : this.m_PtFromZ
 
         };
     }
@@ -224,12 +224,12 @@ export class TraverseMeasurementSummary_SurvMeas
     toJsonObject() : any
     {
         return {
-            measID: this.m_MeasID,
-            Horizontal: this.m_Horizontal,
-            Vertical: this.m_Vertical,
-            Bearing: this.m_Bearing,
-            ptFrom: this.m_PtFrom.toJsonObject(),
-            ptTo: this.m_PtTo.toJsonObject()
+            measID: lodash(this.MeasID).isNil() ? null : this.m_MeasID,
+            Horizontal: lodash(this.Horizontal).isNil() ? null : this.m_Horizontal,
+            Vertical: lodash(this.Vertical).isNil() ? null : this.m_Vertical,
+            Bearing: lodash(this.Bearing).isNil() ? null : this.m_Bearing,
+            ptFrom: lodash(this.PtFrom).isNil() ? null : this.m_PtFrom.toJsonObject(),
+            ptTo: lodash(this.PtTo).isNil() ? null : this.m_PtTo.toJsonObject()
 
         };
     }
@@ -240,14 +240,14 @@ export class TraverseMeasurementSummary
 {
     private m_ID : number;
     private m_SurveyID : number;
-    private m_SurvMeass : TraverseMeasurementSummary_SurvMeas;
+    private m_SurvMeass : TraverseMeasurementSummary_SurvMeas[];
 
 
     constructor()
     {
         this.m_ID = 0;
         this.m_SurveyID = 0;
-        this.m_SurvMeass = new TraverseMeasurementSummary_SurvMeas();
+        this.m_SurvMeass = [];
     }
 
     get ID() : number
@@ -258,7 +258,7 @@ export class TraverseMeasurementSummary
     {
         return this.m_SurveyID;
     }
-    get SurvMeass() : TraverseMeasurementSummary_SurvMeas
+    get SurvMeass() : TraverseMeasurementSummary_SurvMeas[]
     {
         return this.m_SurvMeass;
     }
@@ -294,7 +294,13 @@ export class TraverseMeasurementSummary
         let objTraverseMeasurementSummary = new TraverseMeasurementSummary();
         objTraverseMeasurementSummary.m_ID = objJson.ID;
         objTraverseMeasurementSummary.m_SurveyID = objJson.SurveyID;
-        objTraverseMeasurementSummary.m_SurvMeass = TraverseMeasurementSummary_SurvMeas.fromJsonObject(objJson.survMeas);
+        objTraverseMeasurementSummary.m_SurvMeass = lodash.map(
+                objJson.survMeas,
+                (arrayMember) =>
+                {
+                    return TraverseMeasurementSummary_SurvMeas.fromJsonObject(arrayMember);
+                }
+            );
 
         return objTraverseMeasurementSummary;
     }
@@ -307,9 +313,14 @@ export class TraverseMeasurementSummary
     toJsonObject() : any
     {
         return {
-            ID: this.m_ID,
-            SurveyID: this.m_SurveyID,
-            survMeas: this.m_SurvMeass.toJsonObject()
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            SurveyID: lodash(this.SurveyID).isNil() ? null : this.m_SurveyID,
+            survMeas: lodash(this.SurvMeass).isNil() ? null : lodash(this.m_SurvMeass).map(
+                    (arrayMember) =>
+                    {
+                        return arrayMember.toJsonObject();
+                    }
+                )
 
         };
     }

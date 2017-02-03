@@ -76,6 +76,12 @@ module.exports = function (options) {
           use: ['to-string-loader', 'css-loader'],
           exclude: [helpers.root('app/index.html')]
         },
+        // css-loader requires the "root=." config so that it can resolve the transformed require for url loader,
+        // and subsequently generate the content into the bundle
+        {
+            test: /\.scss$/,
+            loader: "style-loader!css-loader?root=.!sass-loader"
+        },
         {
           test: /\.html$/,
           use: 'raw-loader',

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -24,7 +24,7 @@ var InstrumentManufacturerServiceHttp = InstrumentManufacturerServiceHttp_1 = (f
         var headers = new http_1.Headers({ "Content-Type": "application/json" });
         var options = new http_1.RequestOptions({ headers: headers });
         return this.httpService.post(strPath, strJsonBody, options)
-            .map(function (resp) { return InstrumentManufacturer_1.InstrumentManufacturer.arrayFromJson(resp.json()); })
+            .map(function (resp) { return InstrumentManufacturer_1.InstrumentManufacturer.fromJsonObject(resp.json()); })
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || "Server error"); });
     };
     InstrumentManufacturerServiceHttp.prototype.loadAllFromDatabase = function () {
@@ -34,16 +34,15 @@ var InstrumentManufacturerServiceHttp = InstrumentManufacturerServiceHttp_1 = (f
             .catch(function (error) { return Rx_1.Observable.throw("error"); });
     };
     InstrumentManufacturerServiceHttp.prototype.loadInstrumentManufacturerFromDatabase = function (nID) {
-        var strPath = InstrumentManufacturerServiceHttp_1.buildPath(nID);
-        return this.httpService.get(strPath)
+        var strPath = InstrumentManufacturerServiceHttp_1.buildPath();
+        var params = new http_1.URLSearchParams();
+        params.set('ID', nID.toString());
+        return this.httpService.get(strPath, { search: params })
             .map(function (resp) { return InstrumentManufacturer_1.InstrumentManufacturer.fromJsonObject(resp.json()); })
             .catch(function (error) { return Rx_1.Observable.throw("error"); });
     };
-    InstrumentManufacturerServiceHttp.buildPath = function (nID) {
+    InstrumentManufacturerServiceHttp.buildPath = function () {
         var strPath = "http://localhost:49876/api" + "/InstrumentManufacturers";
-        if (nID) {
-            strPath += "?ID=" + nID;
-        }
         return strPath;
     };
     return InstrumentManufacturerServiceHttp;

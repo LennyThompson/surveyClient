@@ -1,10 +1,10 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 
 import {SurveyPointSummary} from "../types/SurveyPointSummary";
 
 import { Injectable } from "@angular/core";
-import { Http, Response, Headers, RequestOptions } from "@angular/http";
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable, Subscription } from "rxjs/Rx";
 
 @Injectable()
@@ -22,21 +22,20 @@ export class SurveyPointSummaryServiceHttp
             .catch((error : any) => Observable.throw("error"));
     }
 
+
     loadSurveyPointSummaryFromDatabase(nID : number) : Observable<SurveyPointSummary>
     {
-        let strPath : string = SurveyPointSummaryServiceHttp.buildPath(nID);
-        return this.httpService.get(strPath)
+        let strPath : string = SurveyPointSummaryServiceHttp.buildPath();
+        let params = new URLSearchParams();
+        params.set('ID', nID.toString());
+        return this.httpService.get(strPath, { search: params })
             .map((resp : Response) => SurveyPointSummary.fromJsonObject(resp.json()))
             .catch((error : any) => Observable.throw("error"));
     }
 
-    static buildPath(nID? : number) : string
+    static buildPath() : string
     {
         let strPath : string = "http://localhost:49876/api" + "/SurveyPointSummarys";
-        if (nID)
-        {
-            strPath += "?ID=" + nID;
-        }
         return strPath;
     }
 }

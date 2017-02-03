@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 "use strict";
 var Survey_1 = require("./Survey");
 var TimeConversion_1 = require("./../TimeConversion");
@@ -88,16 +88,16 @@ var SurveyImage = (function () {
         var objUpdated = {};
         var bUpdated = false;
         if (this.m_bPathUpdated) {
-            objUpdated["Path"] = this.m_Path;
+            objUpdated["Path"] = lodash(this.Path).isNil() ? null : this.m_Path;
         }
         if (this.m_bDescriptionUpdated) {
-            objUpdated["Description"] = this.m_Description;
+            objUpdated["Description"] = lodash(this.Description).isNil() ? null : this.m_Description;
         }
         if (this.m_bSurveyUpdated) {
-            objUpdated["SurveyID"] = this.m_Survey.toJsonObject();
+            objUpdated["SurveyID"] = lodash(this.Survey).isNil() ? null : this.m_Survey.toJsonObject();
         }
         if (this.m_bPointAtIDUpdated) {
-            objUpdated["PointAtID"] = this.m_PointAtID;
+            objUpdated["PointAtID"] = lodash(this.PointAtID).isNil() ? null : this.m_PointAtID;
         }
         return objUpdated;
     };
@@ -109,13 +109,13 @@ var SurveyImage = (function () {
     };
     SurveyImage.prototype.toFirebase = function () {
         var objFirebase = {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            Path: this.m_Path,
-            Description: this.m_Description,
-            SurveyID: this.m_Survey.toFirebase(),
-            PointAtID: this.m_PointAtID
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            Path: lodash(this.Path).isNil() ? null : this.m_Path,
+            Description: lodash(this.Description).isNil() ? null : this.m_Description,
+            SurveyID: lodash(this.Survey).isNil() ? null : this.m_Survey.toFirebase(),
+            PointAtID: lodash(this.PointAtID).isNil() ? null : this.m_PointAtID
         };
         return objFirebase;
     };
@@ -155,13 +155,13 @@ var SurveyImage = (function () {
     };
     SurveyImage.prototype.toJsonObject = function () {
         return {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            Path: this.m_Path,
-            Description: this.m_Description,
-            SurveyID: this.m_Survey.toJsonObject(),
-            PointAtID: this.m_PointAtID
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            Path: lodash(this.Path).isNil() ? null : this.m_Path,
+            Description: lodash(this.Description).isNil() ? null : this.m_Description,
+            SurveyID: lodash(this.Survey).isNil() ? null : this.m_Survey.toJsonObject(),
+            PointAtID: lodash(this.PointAtID).isNil() ? null : this.m_PointAtID
         };
     };
     return SurveyImage;

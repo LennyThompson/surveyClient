@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -24,7 +24,17 @@ var InstrumentServiceHttp = InstrumentServiceHttp_1 = (function () {
         var headers = new http_1.Headers({ "Content-Type": "application/json" });
         var options = new http_1.RequestOptions({ headers: headers });
         return this.httpService.post(strPath, strJsonBody, options)
-            .map(function (resp) { return Instrument_1.Instrument.arrayFromJson(resp.json()); })
+            .map(function (resp) { return Instrument_1.Instrument.fromJsonObject(resp.json()); })
+            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || "Server error"); });
+    };
+    InstrumentServiceHttp.prototype.saveInstrumentForSurvey = function (typeInstrument, ID) {
+        var strPath = InstrumentServiceHttp_1.buildPath();
+        strPath += "/addInstrumentToSurvey";
+        var strJsonBody = "{ \"ID\": " + ID + ", Instrument: " + typeInstrument.toJson() + " }";
+        var headers = new http_1.Headers({ "Content-Type": "application/json" });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this.httpService.post(strPath, strJsonBody, options)
+            .map(function (resp) { return Instrument_1.Instrument.fromJsonObject(resp.json()); })
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || "Server error"); });
     };
     InstrumentServiceHttp.prototype.loadAllFromDatabase = function () {
@@ -34,16 +44,15 @@ var InstrumentServiceHttp = InstrumentServiceHttp_1 = (function () {
             .catch(function (error) { return Rx_1.Observable.throw("error"); });
     };
     InstrumentServiceHttp.prototype.loadInstrumentFromDatabase = function (nID) {
-        var strPath = InstrumentServiceHttp_1.buildPath(nID);
-        return this.httpService.get(strPath)
+        var strPath = InstrumentServiceHttp_1.buildPath();
+        var params = new http_1.URLSearchParams();
+        params.set('ID', nID.toString());
+        return this.httpService.get(strPath, { search: params })
             .map(function (resp) { return Instrument_1.Instrument.fromJsonObject(resp.json()); })
             .catch(function (error) { return Rx_1.Observable.throw("error"); });
     };
-    InstrumentServiceHttp.buildPath = function (nID) {
+    InstrumentServiceHttp.buildPath = function () {
         var strPath = "http://localhost:49876/api" + "/Instruments";
-        if (nID) {
-            strPath += "?ID=" + nID;
-        }
         return strPath;
     };
     return InstrumentServiceHttp;

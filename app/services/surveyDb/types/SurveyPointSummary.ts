@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
@@ -48,8 +48,8 @@ export class Pt_Ref
     toJsonObject() : any
     {
         return {
-            refName: this.m_RefName,
-            refDescription: this.m_RefDescription
+            refName: lodash(this.RefName).isNil() ? null : this.m_RefName,
+            refDescription: lodash(this.RefDescription).isNil() ? null : this.m_RefDescription
 
         };
     }
@@ -98,8 +98,8 @@ export class Pt_PtType
     toJsonObject() : any
     {
         return {
-            ptTypeName: this.m_PtTypeName,
-            ptTypeAbbreviation: this.m_PtTypeAbbreviation
+            ptTypeName: lodash(this.PtTypeName).isNil() ? null : this.m_PtTypeName,
+            ptTypeAbbreviation: lodash(this.PtTypeAbbreviation).isNil() ? null : this.m_PtTypeAbbreviation
 
         };
     }
@@ -190,14 +190,14 @@ export class SurveyPointSummary_Pt
     toJsonObject() : any
     {
         return {
-            ptID: this.m_PtID,
-            ptName: this.m_PtName,
-            ptDesc: this.m_PtDesc,
-            X: this.m_X,
-            Y: this.m_Y,
-            Z: this.m_Z,
-            ptType: this.m_PtType.toJsonObject(),
-            ref: this.m_Ref.toJsonObject()
+            ptID: lodash(this.PtID).isNil() ? null : this.m_PtID,
+            ptName: lodash(this.PtName).isNil() ? null : this.m_PtName,
+            ptDesc: lodash(this.PtDesc).isNil() ? null : this.m_PtDesc,
+            X: lodash(this.X).isNil() ? null : this.m_X,
+            Y: lodash(this.Y).isNil() ? null : this.m_Y,
+            Z: lodash(this.Z).isNil() ? null : this.m_Z,
+            ptType: lodash(this.PtType).isNil() ? null : this.m_PtType.toJsonObject(),
+            ref: lodash(this.Ref).isNil() ? null : this.m_Ref.toJsonObject()
 
         };
     }
@@ -207,20 +207,20 @@ export class SurveyPointSummary_Pt
 export class SurveyPointSummary
 {
     private m_ID : number;
-    private m_Pts : SurveyPointSummary_Pt;
+    private m_Pts : SurveyPointSummary_Pt[];
 
 
     constructor()
     {
         this.m_ID = 0;
-        this.m_Pts = new SurveyPointSummary_Pt();
+        this.m_Pts = [];
     }
 
     get ID() : number
     {
         return this.m_ID;
     }
-    get Pts() : SurveyPointSummary_Pt
+    get Pts() : SurveyPointSummary_Pt[]
     {
         return this.m_Pts;
     }
@@ -255,7 +255,13 @@ export class SurveyPointSummary
     {
         let objSurveyPointSummary = new SurveyPointSummary();
         objSurveyPointSummary.m_ID = objJson.ID;
-        objSurveyPointSummary.m_Pts = SurveyPointSummary_Pt.fromJsonObject(objJson.pt);
+        objSurveyPointSummary.m_Pts = lodash.map(
+                objJson.pt,
+                (arrayMember) =>
+                {
+                    return SurveyPointSummary_Pt.fromJsonObject(arrayMember);
+                }
+            );
 
         return objSurveyPointSummary;
     }
@@ -268,8 +274,13 @@ export class SurveyPointSummary
     toJsonObject() : any
     {
         return {
-            ID: this.m_ID,
-            pt: this.m_Pts.toJsonObject()
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            pt: lodash(this.Pts).isNil() ? null : lodash(this.m_Pts).map(
+                    (arrayMember) =>
+                    {
+                        return arrayMember.toJsonObject();
+                    }
+                )
 
         };
     }

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 
 import {SurveyPoint} from "./SurveyPoint";
 
@@ -121,27 +121,27 @@ export class SurveyMeasurement
         let bUpdated = false;
         if (this.m_bHorizDistanceUpdated)
         {
-            objUpdated["HorizDistance"] = this.m_HorizDistance;
+            objUpdated["HorizDistance"] = lodash(this.HorizDistance).isNil() ? null : this.m_HorizDistance;
         }
         if (this.m_bVertDistanceUpdated)
         {
-            objUpdated["VertDistance"] = this.m_VertDistance;
+            objUpdated["VertDistance"] = lodash(this.VertDistance).isNil() ? null : this.m_VertDistance;
         }
         if (this.m_bBearingUpdated)
         {
-            objUpdated["Bearing"] = this.m_Bearing;
+            objUpdated["Bearing"] = lodash(this.Bearing).isNil() ? null : this.m_Bearing;
         }
         if (this.m_bPointFromUpdated)
         {
-            objUpdated["FromPtID"] = this.m_PointFrom.toJsonObject();
+            objUpdated["FromPtID"] = lodash(this.PointFrom).isNil() ? null : this.m_PointFrom.toJsonObject();
         }
         if (this.m_bPointToUpdated)
         {
-            objUpdated["ToPtID"] = this.m_PointTo.toJsonObject();
+            objUpdated["ToPtID"] = lodash(this.PointTo).isNil() ? null : this.m_PointTo.toJsonObject();
         }
         if (this.m_bSurveyIDUpdated)
         {
-            objUpdated["SurveyID"] = this.m_SurveyID;
+            objUpdated["SurveyID"] = lodash(this.SurveyID).isNil() ? null : this.m_SurveyID;
         }
 
         return objUpdated;
@@ -162,15 +162,15 @@ export class SurveyMeasurement
     {
 
         let objFirebase = {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            HorizDistance: this.m_HorizDistance,
-            VertDistance: this.m_VertDistance,
-            Bearing: this.m_Bearing,
-            FromPtID: this.m_PointFrom.toFirebase(),
-            ToPtID: this.m_PointTo.toFirebase(),
-            SurveyID: this.m_SurveyID
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            HorizDistance: lodash(this.HorizDistance).isNil() ? null : this.m_HorizDistance,
+            VertDistance: lodash(this.VertDistance).isNil() ? null : this.m_VertDistance,
+            Bearing: lodash(this.Bearing).isNil() ? null : this.m_Bearing,
+            FromPtID: lodash(this.PointFrom).isNil() ? null : this.m_PointFrom.toFirebase(),
+            ToPtID: lodash(this.PointTo).isNil() ? null : this.m_PointTo.toFirebase(),
+            SurveyID: lodash(this.SurveyID).isNil() ? null : this.m_SurveyID
 
         };
         return objFirebase;
@@ -230,15 +230,15 @@ export class SurveyMeasurement
     toJsonObject() : any
     {
         return {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            HorizDistance: this.m_HorizDistance,
-            VertDistance: this.m_VertDistance,
-            Bearing: this.m_Bearing,
-            FromPtID: this.m_PointFrom.toJsonObject(),
-            ToPtID: this.m_PointTo.toJsonObject(),
-            SurveyID: this.m_SurveyID
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            HorizDistance: lodash(this.HorizDistance).isNil() ? null : this.m_HorizDistance,
+            VertDistance: lodash(this.VertDistance).isNil() ? null : this.m_VertDistance,
+            Bearing: lodash(this.Bearing).isNil() ? null : this.m_Bearing,
+            FromPtID: lodash(this.PointFrom).isNil() ? null : this.m_PointFrom.toJsonObject(),
+            ToPtID: lodash(this.PointTo).isNil() ? null : this.m_PointTo.toJsonObject(),
+            SurveyID: lodash(this.SurveyID).isNil() ? null : this.m_SurveyID
 
         };
     }

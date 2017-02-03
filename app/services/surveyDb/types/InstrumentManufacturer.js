@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon Jan 02 18:28:05 AEST 2017
+// Generated on Sun Jan 22 21:26:43 AEST 2017
 "use strict";
 var TimeConversion_1 = require("./../TimeConversion");
 var lodash = require("lodash");
@@ -61,10 +61,10 @@ var InstrumentManufacturer = (function () {
         var objUpdated = {};
         var bUpdated = false;
         if (this.m_bNameUpdated) {
-            objUpdated["Name"] = this.m_Name;
+            objUpdated["Name"] = lodash(this.Name).isNil() ? null : this.m_Name;
         }
         if (this.m_bDescriptionUpdated) {
-            objUpdated["Description"] = this.m_Description;
+            objUpdated["Description"] = lodash(this.Description).isNil() ? null : this.m_Description;
         }
         return objUpdated;
     };
@@ -74,11 +74,11 @@ var InstrumentManufacturer = (function () {
     };
     InstrumentManufacturer.prototype.toFirebase = function () {
         var objFirebase = {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            Name: this.m_Name,
-            Description: this.m_Description
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            Name: lodash(this.Name).isNil() ? null : this.m_Name,
+            Description: lodash(this.Description).isNil() ? null : this.m_Description
         };
         return objFirebase;
     };
@@ -114,11 +114,11 @@ var InstrumentManufacturer = (function () {
     };
     InstrumentManufacturer.prototype.toJsonObject = function () {
         return {
-            ID: this.m_ID,
-            created: this.m_Created.toISOString(),
-            updated: this.m_Updated.toISOString(),
-            Name: this.m_Name,
-            Description: this.m_Description
+            ID: lodash(this.ID).isNil() ? null : this.m_ID,
+            created: lodash(this.Created).isNil() ? null : this.m_Created.toISOString(),
+            updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
+            Name: lodash(this.Name).isNil() ? null : this.m_Name,
+            Description: lodash(this.Description).isNil() ? null : this.m_Description
         };
     };
     return InstrumentManufacturer;
