@@ -65,7 +65,6 @@ export class SurveyPointTypesComponent extends ElementBase<SurveyPointType>
 
     writeValue(value: SurveyPointType)
     {
-        console.log("SurveyPointTypesComponent", value);
         this.currentType = value;
         this.updateValue();
     }

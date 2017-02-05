@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Jan 22 21:26:43 AEST 2017
+// Generated on Sun Feb 05 15:39:20 AEST 2017
 
 import {SurveyPointType} from "./SurveyPointType";
 import {SurveyReference} from "./SurveyReference";

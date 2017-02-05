@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Jan 22 21:26:43 AEST 2017
+// Generated on Sun Feb 05 15:39:20 AEST 2017
 
 import {Traverse} from "../types/Traverse";
 
@@ -22,6 +22,17 @@ export class TraverseServiceHttp
         let options = new RequestOptions({ headers: headers });
 
         return this.httpService.post(strPath, strJsonBody, options)
+                         .map((resp : Response) => Traverse.fromJsonObject(resp.json()))
+                         .catch((error : any) => Observable.throw(error.json().error || "Server error"));
+    }
+    updateToDatabase(typeTraverse : Traverse) : Observable<Traverse>
+    {
+        let strPath : string = TraverseServiceHttp.buildPath();
+        let strJsonBody : string = typeTraverse.toJson();
+        let headers = new Headers({ "Content-Type": "application/json" });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.httpService.put(strPath, strJsonBody, options)
                          .map((resp : Response) => Traverse.fromJsonObject(resp.json()))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }

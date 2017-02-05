@@ -1,11 +1,13 @@
 
-import {Component, Input} from "@angular/core";
-import {SurveyPointSummary_Pt} from "../../../services/surveyDb/types/SurveyPointSummary";
+import {Component, Input, Output} from "@angular/core";
+import {SurveyPointSummary_Pt, SurveyPointSummary} from "../../../services/surveyDb/types/SurveyPointSummary";
 import {MdDialogConfig, MdDialog} from "@angular/material";
 import {SurveyPointServiceHttp} from "../../../services/surveyDb/webAPI/SurveyPointServiceHttp";
 import {SurveyPoint} from "../../../services/surveyDb/types/SurveyPoint";
 import {EditPointProvider} from "../../../services/clientProviders/point/EditPointProvider";
 import {EditSurveyPointComponent} from "./edit/edit-survey-point";
+import {SurveyPointSummaryServiceHttp} from "../../../services/surveyDb/webAPI/SurveyPointSummaryServiceHttp";
+import {EventEmitter} from "@angular/common/src/facade/async";
 
 require("./survey-point.scss");
 
@@ -20,10 +22,14 @@ export class SurveyPointComponent
 {
     private m_point: SurveyPointSummary_Pt
 
+    @Output("update")
+    onUpdatePointEvent: EventEmitter<SurveyPoint> = new EventEmitter();
+
     constructor
     (
         private dialog: MdDialog,
         private pointService: SurveyPointServiceHttp,
+        private pointSummayService: SurveyPointSummaryServiceHttp,
         private pointProvider: EditPointProvider
     )
     {
@@ -57,7 +63,15 @@ export class SurveyPointComponent
                                 if(result)
                                 {
                                     console.log(JSON.stringify(result));
-                                    this.pointService.saveToDatabase(result);
+                                    this.pointService.updateToDatabase(result)
+                                        .subscribe(
+                                            (result) =>
+                                            {
+                                                this.onUpdatePointEvent.emit(result);
+                                                // Tell parent to update...
+                                                console.log("this.pointService.updateToDatabase", result);
+                                            }
+                                        );
                                 }
                                 else
                                 {

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Jan 22 21:26:43 AEST 2017
+// Generated on Sun Feb 05 15:39:20 AEST 2017
 
 import {InstrumentManufacturer} from "../types/InstrumentManufacturer";
 
@@ -22,6 +22,17 @@ export class InstrumentManufacturerServiceHttp
         let options = new RequestOptions({ headers: headers });
 
         return this.httpService.post(strPath, strJsonBody, options)
+                         .map((resp : Response) => InstrumentManufacturer.fromJsonObject(resp.json()))
+                         .catch((error : any) => Observable.throw(error.json().error || "Server error"));
+    }
+    updateToDatabase(typeInstrumentManufacturer : InstrumentManufacturer) : Observable<InstrumentManufacturer>
+    {
+        let strPath : string = InstrumentManufacturerServiceHttp.buildPath();
+        let strJsonBody : string = typeInstrumentManufacturer.toJson();
+        let headers = new Headers({ "Content-Type": "application/json" });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.httpService.put(strPath, strJsonBody, options)
                          .map((resp : Response) => InstrumentManufacturer.fromJsonObject(resp.json()))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }

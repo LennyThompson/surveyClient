@@ -35,14 +35,4 @@ export class EditSurveyPointComponent extends AddEditSurveyPoint implements OnIn
     ngOnInit(): void
     {
     }
-
-    get PointType(): SurveyPointType
-    {
-        return this.surveyPoint.PointType;
-    }
-
-    get PointRef(): SurveyReference
-    {
-        return this.surveyPoint.Reference;
-    }
 }

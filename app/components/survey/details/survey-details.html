@@ -1,17 +1,4 @@
 <div>
-    <label>Points</label>
-    <div class="flex-container survey-point-header" fxLayout="row">
-        <div fxFlex="25" >Name</div>
-        <div fxFlex="25" >X</div>
-        <div fxFlex="25" >Y</div>
-        <div fxFlex="25" >Z</div>
-    </div>
-    <survey-point *ngFor="let item of Points; let odd=odd; let even=even; let index=index"
-                  [point]="item"
-                  [ngClass]="{odd: odd, even: even, first: index===0 }">
-    </survey-point>
-    <div class="add-new-point">
-        <i class="icon-plus" (click)="onAddSurveyPoint()"></i>
-    </div>
+    <survey-point-list [surveyId]="SurveyId"></survey-point-list>
     <traverse *ngFor="let trav of Traverses" [Traverse]="trav"></traverse>
 </div>

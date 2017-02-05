@@ -1,5 +1,5 @@
 
-import {Component, OnInit } from "@angular/core";
+import {Component, OnInit, Input} from "@angular/core";
 import {SurveyPoint} from "../../../../services/surveyDb/types/SurveyPoint";
 import {Observable} from "rxjs";
 import {SurveyPointType} from "../../../../services/surveyDb/types/SurveyPointType";
@@ -38,4 +38,23 @@ export class AddSurveyPointComponent extends AddEditSurveyPoint implements OnIni
     }
 
 
+    set PointType(value: SurveyPointType)
+    {
+        this.surveyPoint.PointType = value;
+    }
+
+    get PointType(): SurveyPointType
+    {
+        return this.surveyPoint.PointType;
+    }
+
+    set PointRef(value: SurveyReference)
+    {
+        this.surveyPoint.Reference = value;
+    }
+
+    get PointRef(): SurveyReference
+    {
+        return this.surveyPoint.Reference;
+    }
 }

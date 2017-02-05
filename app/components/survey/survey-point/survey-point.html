@@ -3,7 +3,8 @@
     <div class="flex-item survey-point-info survey-coord" fxFlex="20%" >{{Point.X | coordFormat}}</div>
     <div class="flex-item survey-point-info survey-coord" fxFlex="20%" >{{Point.Y | coordFormat}}</div>
     <div class="flex-item survey-point-info survey-coord" fxFlex="20%" >{{Point.Z | coordFormat}}</div>
-    <div class="flex-item " fxFlex="20%" >
+    <div class="flex-item survey-point-info" fxFlex="20%" >{{Point.PtType.PtTypeAbbreviation}}</div>
+    <div class="flex-item point-actions" fxFlex="20%" >
             <i class="icon-pencil" (click)="onEditPoint()"></i>
             <i class="icon-trash" (click)="onDeletePoint()"></i>
     </div>

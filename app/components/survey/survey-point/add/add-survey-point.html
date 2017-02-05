@@ -32,11 +32,9 @@
         <div fxLayout="row"></div>
         <div class="flex-container form-group" fxLayout="row">
             <label fxFlex="25">Type:</label>
-            <survey-point-types-select [(ngModel)] = "PointType" name="Type"></survey-point-types-select>
+            <survey-point-types-select [(ngModel)] = "Point.PointType" name="Type"></survey-point-types-select>
             <label fxFlex="25">Reference:</label>
-            <md-select placeholder="Reference" [(ngModel)]="PointRefID" name="Ref">
-                <md-option *ngFor="let ref of PointReferences" [value]="ref.ID">{{ ref.Name }}</md-option>
-            </md-select>
+            <survey-reference-select [(ngModel)] = "Point.Reference" name="Ref"></survey-reference-select>
 
         </div>
     </form>

@@ -19,6 +19,8 @@ import {AddSurveyPointComponent} from "./survey-point/add/add-survey-point";
 import {CLIENT_PROVIDERS} from "../../services/clientProviders/index";
 import {EditSurveyPointComponent} from "./survey-point/edit/edit-survey-point";
 import {SurveyPointTypesComponent} from "./utils/survey-point-types";
+import {SurveyReferenceSelectComponent} from "./utils/survey-reference-select";
+import {SurveyPointSummaryListComponent} from "./survey-point/list/survey-summary-point-list";
 
 @NgModule (
     {
@@ -34,11 +36,13 @@ import {SurveyPointTypesComponent} from "./utils/survey-point-types";
             SurveyComponent,
             SurveyDetailsComponent,
             SurveyPointComponent,
+            SurveyPointSummaryListComponent,
             TraverseSummaryComponent,
             TraverseMeasurementComponent,
             AddSurveyPointComponent,
             EditSurveyPointComponent,
             SurveyPointTypesComponent,
+            SurveyReferenceSelectComponent,
             CoordFormat,
             BearingFormat
         ],

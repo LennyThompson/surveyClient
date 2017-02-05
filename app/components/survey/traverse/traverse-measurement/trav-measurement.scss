@@ -8,12 +8,16 @@ trav-measurement {
     background-color: $tableOddColour;
   }
 
+  text-align: center;
+  border-color: $tableBorderColour;
   .trav-measurement {
     border-bottom: $tableBorderLine;
     border-left: $tableBorderLine;
+    border-color: $tableBorderColour;
 
     .trav-measurement-info {
       border-right: $tableBorderLine;
+      border-color: $tableBorderColour;
       text-align: center;
 
       &.survey-distance {

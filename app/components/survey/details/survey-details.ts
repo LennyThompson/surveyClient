@@ -8,6 +8,7 @@ import {SurveyPointServiceHttp} from "../../../services/surveyDb/webAPI/SurveyPo
 import {SurveyPoint} from "../../../services/surveyDb/types/SurveyPoint";
 import {MdDialog, MdDialogConfig} from "@angular/material";
 import {EditPointProvider} from "../../../services/clientProviders/point/EditPointProvider";
+import {SurveyContextProvider} from "../../../services/clientProviders/survey/surveyContextProvider";
 
 require("./survey-details.scss");
 
@@ -28,6 +29,7 @@ export class SurveyDetailsComponent implements OnInit
 
     constructor
     (
+        private surveyContext: SurveyContextProvider,
         private summaryService: SurveyPointSummaryServiceHttp,
         private travMeasService: TraverseMeasurementSummaryServiceHttp,
         private pointService: SurveyPointServiceHttp,
@@ -46,14 +48,20 @@ export class SurveyDetailsComponent implements OnInit
     set SurveyId(id: number)
     {
         this.m_surveyId = id;
+        this.surveyContext.SurveyID = id;
         this.updateSurveyPoints();
-        this.travMeasService.loadForPathKeyDatabase(-1, this.m_surveyId)
+        this.travMeasService.loadForPathKeyDatabase(-1, this.surveyContext.SurveyID)
             .subscribe(
                 (travList: TraverseMeasurementSummary[]) =>
                 {
                     this.m_traverseList = travList;
                 }
             );
+    }
+
+    get SurveyId(): number
+    {
+        return this.m_surveyId;
     }
 
     get Points(): SurveyPointSummary_Pt[]
@@ -75,6 +83,11 @@ export class SurveyDetailsComponent implements OnInit
                     this.m_surveyPoints = summary.Pts;
                 }
             );
+    }
+
+    onUpdate(pointUpdated: SurveyPoint)
+    {
+        this.updateSurveyPoints();
     }
 
     onAddSurveyPoint()

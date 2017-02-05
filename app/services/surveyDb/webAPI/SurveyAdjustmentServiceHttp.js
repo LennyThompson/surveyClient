@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Jan 22 21:26:43 AEST 2017
+// Generated on Sun Feb 05 15:39:20 AEST 2017
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -24,6 +24,15 @@ var SurveyAdjustmentServiceHttp = SurveyAdjustmentServiceHttp_1 = (function () {
         var headers = new http_1.Headers({ "Content-Type": "application/json" });
         var options = new http_1.RequestOptions({ headers: headers });
         return this.httpService.post(strPath, strJsonBody, options)
+            .map(function (resp) { return SurveyAdjustment_1.SurveyAdjustment.fromJsonObject(resp.json()); })
+            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || "Server error"); });
+    };
+    SurveyAdjustmentServiceHttp.prototype.updateToDatabase = function (typeSurveyAdjustment) {
+        var strPath = SurveyAdjustmentServiceHttp_1.buildPath();
+        var strJsonBody = typeSurveyAdjustment.toJson();
+        var headers = new http_1.Headers({ "Content-Type": "application/json" });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this.httpService.put(strPath, strJsonBody, options)
             .map(function (resp) { return SurveyAdjustment_1.SurveyAdjustment.fromJsonObject(resp.json()); })
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || "Server error"); });
     };
