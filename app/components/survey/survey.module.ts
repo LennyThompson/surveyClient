@@ -21,6 +21,8 @@ import {EditSurveyPointComponent} from "./survey-point/edit/edit-survey-point";
 import {SurveyPointTypesComponent} from "./utils/survey-point-types";
 import {SurveyReferenceSelectComponent} from "./utils/survey-reference-select";
 import {SurveyPointSummaryListComponent} from "./survey-point/list/survey-summary-point-list";
+import { FORM_COMPONENTS } from "./form";
+import { SELECT_COMPONENTS } from "./select";
 
 @NgModule (
     {
@@ -44,7 +46,9 @@ import {SurveyPointSummaryListComponent} from "./survey-point/list/survey-summar
             SurveyPointTypesComponent,
             SurveyReferenceSelectComponent,
             CoordFormat,
-            BearingFormat
+            BearingFormat,
+            FORM_COMPONENTS,
+            SELECT_COMPONENTS
         ],
         // This is where the components used in mdDialog need to be declared
         // see https://angular.io/docs/ts/latest/cookbook/ngmodule-faq.html#!#q-entry-component-defined
@@ -54,7 +58,9 @@ import {SurveyPointSummaryListComponent} from "./survey-point/list/survey-summar
         ],
         providers: [
             HTTP_PROVIDERS,
-            CLIENT_PROVIDERS
+            CLIENT_PROVIDERS,
+            CoordFormat,
+            BearingFormat
         ]
     }
 )

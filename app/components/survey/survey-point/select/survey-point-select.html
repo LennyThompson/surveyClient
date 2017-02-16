@@ -1,0 +1,3 @@
+<md-select placeholder="Survey Point" [(ngModel)]="value">
+    <md-option *ngFor="let point of Points" [value]="point" >{{ point.Name }}</md-option>
+</md-select>

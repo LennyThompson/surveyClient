@@ -21,15 +21,11 @@ export class EditSurveyPointComponent extends AddEditSurveyPoint implements OnIn
     constructor
     (
         private m_dlgPoint: MdDialogRef<EditSurveyPointComponent>,
-        private pointProvider: EditPointProvider,
-        typeService: SurveyPointTypeServiceHttp,
-        referenceService: SurveyReferenceServiceHttp
+        private pointProvider: EditPointProvider
     )
     {
-        super(typeService, referenceService);
+        super();
         this.surveyPoint = pointProvider.Point;
-        this.m_nTypeId = this.surveyPoint.PointType ? this.surveyPoint.PointType.ID : -1;
-        this.m_nRefId = this.surveyPoint.Reference ? this.surveyPoint.Reference.ID : -1;
     }
 
     ngOnInit(): void

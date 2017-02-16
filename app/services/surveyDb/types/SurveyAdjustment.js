@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Feb 05 15:39:20 AEST 2017
+// Generated on Thu Feb 16 18:39:48 AEST 2017
 "use strict";
 var SurveyMeasurement_1 = require("./SurveyMeasurement");
 var TimeConversion_1 = require("./../TimeConversion");

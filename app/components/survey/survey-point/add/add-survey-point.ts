@@ -1,7 +1,5 @@
 
 import {Component, OnInit, Input} from "@angular/core";
-import {SurveyPoint} from "../../../../services/surveyDb/types/SurveyPoint";
-import {Observable} from "rxjs";
 import {SurveyPointType} from "../../../../services/surveyDb/types/SurveyPointType";
 import {SurveyReference} from "../../../../services/surveyDb/types/SurveyReference";
 import {SurveyPointTypeServiceHttp} from "../../../../services/surveyDb/webAPI/SurveyPointTypeServiceHttp";
@@ -20,41 +18,13 @@ require("./add-survey-point.scss");
 )
 export class AddSurveyPointComponent extends AddEditSurveyPoint implements OnInit
 {
-    m_strTypeAbbr: string;
-    m_strRefName: string;
-
-    constructor
-    (
-        private m_dlgPoint: MdDialogRef<AddSurveyPointComponent>,
-        typeService: SurveyPointTypeServiceHttp,
-        referenceService: SurveyReferenceServiceHttp
-    )
+    constructor(private m_dlgPoint: MdDialogRef<AddSurveyPointComponent>)
     {
-        super(typeService, referenceService);
+        super();
     }
 
     ngOnInit(): void
     {
     }
 
-
-    set PointType(value: SurveyPointType)
-    {
-        this.surveyPoint.PointType = value;
-    }
-
-    get PointType(): SurveyPointType
-    {
-        return this.surveyPoint.PointType;
-    }
-
-    set PointRef(value: SurveyReference)
-    {
-        this.surveyPoint.Reference = value;
-    }
-
-    get PointRef(): SurveyReference
-    {
-        return this.surveyPoint.Reference;
-    }
 }
