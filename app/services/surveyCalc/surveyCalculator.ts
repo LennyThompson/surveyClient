@@ -5,13 +5,17 @@ export interface IRectangular
     X: number;
     Y: number;
     Z: number;
+
+    toPolar(): IPolar;
 }
 
 export interface IPolar
 {
     HDistance: number;
-    Bearing: number;
+    RadiansBearing: number;
     VDistance: number;
+
+    toRectangular(): IRectangular;
 }
 
 const INV_180: number = 1 / 180;
@@ -21,7 +25,7 @@ const FROM_RADIANS: number = 180.0 / Math.PI;
 class PolarImpl implements IPolar
 {
     HDistance: number;
-    Bearing: number;
+    RadiansBearing: number;
     VDistance: number;
 
     constructor();
@@ -31,7 +35,7 @@ class PolarImpl implements IPolar
         if(survMeasFrom)
         {
             this.HDistance = survMeasFrom.HorizDistance;
-            this.Bearing = PolarImpl.toRadians(survMeasFrom.Bearing);
+            this.RadiansBearing = PolarImpl.toRadians(survMeasFrom.Bearing);
             this.VDistance = survMeasFrom.VertDistance;
         }
     }
@@ -46,12 +50,11 @@ class PolarImpl implements IPolar
         return radians * FROM_RADIANS;
     }
 
-    toRectanglar(): IRectangular
+    toRectangular(): IRectangular
     {
         let rectReturn: IRectangular = new RectangularImpl();
-        let radians = PolarImpl.toRadians(this.Bearing);
-        rectReturn.X = this.HDistance * Math.sin(radians);
-        rectReturn.Y = this.HDistance * Math.cos(radians);
+        rectReturn.X = this.HDistance * Math.sin(this.RadiansBearing);
+        rectReturn.Y = this.HDistance * Math.cos(this.RadiansBearing);
         rectReturn.Z = this.VDistance;
 
         return rectReturn;
@@ -69,12 +72,11 @@ class RectangularImpl implements IRectangular
         let polarReturn = new PolarImpl();
         polarReturn.VDistance = this.Z;
         polarReturn.HDistance = Math.sqrt(this.X * this.X + this.Y * this.Y);
-        polarReturn.Bearing = Math.atan2(this.Y, this.X);
-        if(polarReturn.Bearing < 0)
+        polarReturn.RadiansBearing = Math.atan2(this.Y, this.X);
+        if(polarReturn.RadiansBearing < 0)
         {
-            polarReturn.Bearing += 2 * Math.PI;
+            polarReturn.RadiansBearing += 2 * Math.PI;
         }
-        polarReturn.Bearing = PolarImpl.fromRadians(polarReturn.Bearing);
         return polarReturn;
     }
 }
@@ -85,8 +87,26 @@ import {Injectable} from "@angular/core";
 export class SurveyCalculator
 {
 
-    static convertMeasurementToPolar(survMeas: SurveyMeasurement): IPolar
+    public convertMeasurementToPolar(survMeas: SurveyMeasurement): IPolar
     {
         return new PolarImpl(survMeas);
+    }
+
+    public toDegrees(degMinSec: number): number
+    {
+        let degrees: number = Math.floor(degMinSec);
+        let minutes: number = Math.floor((degMinSec - degrees) * 100);
+        let seconds: number = Math.floor(((degMinSec- degrees) * 100 - minutes) * 100);
+
+        return degrees + minutes / 60 + seconds / 3600;
+    }
+
+    public toDMS(degrees: number): number
+    {
+        let degs: number = Math.floor(degrees);
+        let minutes: number = Math.floor((degrees - degs) * 60);
+        let seconds: number = Math.floor(((degrees - degs) * 60 - minutes) * 60);
+
+        return degrees + minutes / 100 + seconds / 10000;
     }
 }

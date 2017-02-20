@@ -9,7 +9,7 @@ import {SurveyReferenceServiceHttp} from "../../../services/surveyDb/webAPI/Surv
 
 @Component(
     {
-        selector: "survey-reference-select",
+        selector: "survey-reference-select-old",
         templateUrl: "./survey-reference-select.html",
         providers: [
             {

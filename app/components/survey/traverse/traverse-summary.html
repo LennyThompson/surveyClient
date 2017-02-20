@@ -1,5 +1,5 @@
 <div *ngIf="Traverse">
-    <label>Traverse</label>
+    <label>{{Traverse.Name}}</label>
     <div class="flex-container trav-measurement-header" fxLayout="row">
         <div fxFlex="25">ID</div>
         <div fxFlex="25">Horizontal</div>
@@ -14,5 +14,6 @@
             [ngClass]="{odd: odd, even: even, first: index===0 }"
     >
     </trav-measurement>
+
     <div class="trav-drawing"></div>
 </div>

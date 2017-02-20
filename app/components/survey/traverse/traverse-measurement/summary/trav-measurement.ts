@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {TraverseMeasurementSummary_SurvMeas} from "../../../../services/surveyDb/types/TraverseMeasurementSummary";
+import {TraverseMeasurementSummary_SurvMeas} from "../../../../../services/surveyDb/types/TraverseMeasurementSummary";
 
 require("./trav-measurement.scss");
 
@@ -9,7 +9,7 @@ require("./trav-measurement.scss");
         templateUrl: "./trav-measurement.html"
     }
 )
-export class TraverseMeasurementComponent implements OnInit
+export class TraverseMeasurementSummaryComponent implements OnInit
 {
     m_travMeasurement: TraverseMeasurementSummary_SurvMeas;
     constructor()

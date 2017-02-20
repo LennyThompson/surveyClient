@@ -21,11 +21,7 @@ require("./survey-details.scss");
 export class SurveyDetailsComponent implements OnInit
 {
     m_surveyId: number;
-    m_surveyPoints: SurveyPointSummary_Pt[];
-    m_traverseList: TraverseMeasurementSummary[];
     m_pointEdit: SurveyPoint;
-
-    displayAddPoint: boolean;
 
     constructor
     (
@@ -49,72 +45,10 @@ export class SurveyDetailsComponent implements OnInit
     {
         this.m_surveyId = id;
         this.surveyContext.SurveyID = id;
-        this.updateSurveyPoints();
-        this.travMeasService.loadForPathKeyDatabase(-1, this.surveyContext.SurveyID)
-            .subscribe(
-                (travList: TraverseMeasurementSummary[]) =>
-                {
-                    this.m_traverseList = travList;
-                }
-            );
     }
 
     get SurveyId(): number
     {
         return this.m_surveyId;
-    }
-
-    get Points(): SurveyPointSummary_Pt[]
-    {
-        return this.m_surveyPoints;
-    }
-
-    get Traverses(): TraverseMeasurementSummary[]
-    {
-        return this.m_traverseList;
-    }
-
-    updateSurveyPoints()
-    {
-        this.summaryService.loadSurveyPointSummaryFromDatabase(this.m_surveyId)
-            .subscribe(
-                (summary: SurveyPointSummary) =>
-                {
-                    this.m_surveyPoints = summary.Pts;
-                }
-            );
-    }
-
-    onUpdate(pointUpdated: SurveyPoint)
-    {
-        this.updateSurveyPoints();
-    }
-
-    onAddSurveyPoint()
-    {
-        let config = new MdDialogConfig();
-        config.viewContainerRef = this.viewContRef;
-        this.dialog.open(AddSurveyPointComponent, config)
-            .afterClosed()
-            .subscribe(
-                (result) =>
-                {
-                    if(result)
-                    {
-                        console.log(JSON.stringify(result));
-                        this.pointService.saveSurveyPointForSurvey(result, this.m_surveyId)
-                            .subscribe(
-                                () =>
-                                {
-                                    this.updateSurveyPoints();
-                                }
-                            )
-                    }
-                    else
-                    {
-                        console.log("Cancel");
-                    }
-                }
-            );
     }
 }

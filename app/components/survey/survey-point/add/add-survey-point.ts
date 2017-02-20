@@ -1,9 +1,5 @@
 
 import {Component, OnInit, Input} from "@angular/core";
-import {SurveyPointType} from "../../../../services/surveyDb/types/SurveyPointType";
-import {SurveyReference} from "../../../../services/surveyDb/types/SurveyReference";
-import {SurveyPointTypeServiceHttp} from "../../../../services/surveyDb/webAPI/SurveyPointTypeServiceHttp";
-import {SurveyReferenceServiceHttp} from "../../../../services/surveyDb/webAPI/SurveyReferenceServiceHttp";
 import {MdDialogRef} from "@angular/material";
 
 import { AddEditSurveyPoint} from "./add-edit-survey-point";

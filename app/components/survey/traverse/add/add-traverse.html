@@ -1,44 +1,30 @@
-<h1 md-dialog-title>New Survey Point</h1>
+<h1 md-dialog-title>New Traverse</h1>
 <md-dialog-content>
     <form>
-    <label>Traverse</label>
-        <div class="flex-container form-group" fxLayout="row">
-            <md-input-container fxFlex="50">
-                <label >Name:</label>
-                <input class="form-control" md-input placeholder="Traverse name" type="text" [(ngModel)]="Traverse.Name" id="Name" name="Name">
-            </md-input-container>
-            <md-input-container fxFlex="50">
-                <label >Description:</label>
-                <input class="form-control" md-input placeholder="Traverse description" type="text" [(ngModel)]="Traverse.Description" name="Description">
-            </md-input-container>
 
-        </div>
-        <div class="flex-container form-group" fxLayout="row">
-            <md-input-container fxFlex="50">
-                <label >Name:</label>
-                <input class="form-control" md-input placeholder="Traverse name" type="text" [(ngModel)]="Traverse.Name" id="Name" name="Name">
-            </md-input-container>
-            <md-input-container fxFlex="50">
-                <label >Description:</label>
-                <input class="form-control" md-input placeholder="Traverse description" type="text" [(ngModel)]="Traverse.Description" name="Description">
-            </md-input-container>
-
-        </div>
+        <traverse-form [(Traverse)]="Traverse"></traverse-form>
 
         <div class="flex-container trav-measurement-header" fxLayout="row">
-        <div fxFlex="25">ID</div>
-        <div fxFlex="25">Horizontal</div>
-        <div fxFlex="25">Bearing</div>
-        <div fxFlex="25">Vertical</div>
-        <div fxFlex="25">From</div>
-        <div fxFlex="25">To</div>
-    </div>
-    <trav-measurement
-            *ngFor="let meas of Traverse.SurvMeass; let odd=odd; let even=even; let index=index"
-            [measurement]="meas"
-            [ngClass]="{odd: odd, even: even, first: index===0 }"
-    >
-    </trav-measurement>
-    <div class="trav-drawing"></div>
+            <div fxFlex="25">ID</div>
+            <div fxFlex="25">Horizontal</div>
+            <div fxFlex="25">Bearing</div>
+            <div fxFlex="25">Vertical</div>
+            <div fxFlex="25">From</div>
+            <div fxFlex="25">To</div>
+        </div>
+        <traverse-measurement
+                *ngFor="let meas of Traverse.SurveyMeasurement; let odd=odd; let even=even; let index=index"
+                [measurement]="meas"
+                [ngClass]="{odd: odd, even: even, first: index===0 }"
+        >
+        </traverse-measurement>
+        <div >
+            <i class="icon-plus" (click)="onAddMeasurement()"></i>
+        </div>
+        <div class="trav-drawing"></div>
     </form>
 </md-dialog-content>
+<md-dialog-actions>
+    <i class="icon-ok" (click)="_dialog.close(Traverse)">Ok</i>
+    <i class="icon-cancel" (click)="_dialog.close(null)">Cancel</i>
+</md-dialog-actions>

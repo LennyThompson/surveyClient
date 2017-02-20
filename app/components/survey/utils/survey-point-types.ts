@@ -10,7 +10,7 @@ import * as lodash from "lodash";
 
 @Component(
     {
-        selector: "survey-point-types-select",
+        selector: "survey-point-types-select-old",
         templateUrl: "./survey-point-types.html",
         providers: [
             {

@@ -1,11 +1,11 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Thu Feb 16 18:39:48 AEST 2017
+// Generated on Fri Feb 17 10:21:57 AEST 2017
 
 import {Component, OnInit, Input} from "@angular/core";
 
 import {InstrumentManufacturer} from "./../../../services/surveyDb/types/InstrumentManufacturer";
 
-require("./instrument-manufacturer-form.scss");
+require("./InstrumentManufacturer.scss");
 
 @Component (
     {

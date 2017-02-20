@@ -27,16 +27,16 @@ SurveyComponent,
 InstrumentComponent
 ];
 
-export { SurveyImageComponent } from  from "./SurveyImage";
-export { ProjectionComponent } from  from "./Projection";
-export { SurveyReferenceComponent } from  from "./SurveyReference";
-export { SurveyPointTypeComponent } from  from "./SurveyPointType";
-export { TraverseComponent } from  from "./Traverse";
-export { SurveyMeasurementComponent } from  from "./SurveyMeasurement";
-export { SurveyPointComponent } from  from "./SurveyPoint";
-export { SurveyAdjustmentComponent } from  from "./SurveyAdjustment";
-export { InstrumentManufacturerComponent } from  from "./InstrumentManufacturer";
-export { TraverseClosureComponent } from  from "./TraverseClosure";
-export { SurveyComponent } from  from "./Survey";
-export { InstrumentComponent } from  from "./Instrument";
+export { SurveyImageComponent } from "./SurveyImage";
+export { ProjectionComponent } from "./Projection";
+export { SurveyReferenceComponent } from "./SurveyReference";
+export { SurveyPointTypeComponent } from "./SurveyPointType";
+export { TraverseComponent } from "./Traverse";
+export { SurveyMeasurementComponent } from "./SurveyMeasurement";
+export { SurveyPointComponent } from "./SurveyPoint";
+export { SurveyAdjustmentComponent } from "./SurveyAdjustment";
+export { InstrumentManufacturerComponent } from "./InstrumentManufacturer";
+export { TraverseClosureComponent } from "./TraverseClosure";
+export { SurveyComponent } from "./Survey";
+export { InstrumentComponent } from "./Instrument";
 

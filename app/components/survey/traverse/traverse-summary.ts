@@ -10,8 +10,11 @@ import * as lodash from "lodash";
 import {interpolate} from "@angular/core/src/linker/view_utils";
 import {CoordFormat} from "../pipes/format-coord";
 import {BearingFormat} from "../pipes/format-bearing";
+import {MdDialogConfig, MdDialog} from "@angular/material";
+import {AddTraverseComponent} from "./add/add-traverse";
+import {TraverseServiceHttp} from "../../../services/surveyDb/webAPI/TraverseServiceHttp";
 
-require("./traverse.scss");
+require("./traverse-summary.scss");
 
 interface IPoint
 {
@@ -136,14 +139,21 @@ class LineImpl implements ILineData
 
 @Component(
     {
-        selector: "traverse",
-        templateUrl: "./traverse.html"
+        selector: "traverse-summary",
+        templateUrl: "./traverse-summary.html"
     }
 )
 export class TraverseSummaryComponent implements OnChanges
 {
     m_traverse: TraverseMeasurementSummary;
-    constructor(private element: ElementRef, private distPipe: CoordFormat, private bearingPipe: BearingFormat)
+    constructor
+    (
+        private element: ElementRef,
+        private distPipe: CoordFormat,
+        private bearingPipe: BearingFormat,
+        private traveService: TraverseServiceHttp,
+        private dialog: MdDialog
+    )
     {
     }
 
