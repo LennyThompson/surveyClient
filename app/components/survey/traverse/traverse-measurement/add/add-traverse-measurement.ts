@@ -3,6 +3,7 @@ import {Component} from "@angular/core";
 import {MdDialogRef} from "@angular/material";
 import {SurveyMeasurement} from "../../../../../services/surveyDb/types/SurveyMeasurement";
 import {FromPointProvider} from "../../../../../services/clientProviders/point/FromPointProvider";
+import {SurveyContextProvider} from "../../../../../services/clientProviders/survey/surveyContextProvider";
 
 require("./add-traverse-measurement.scss");
 
@@ -19,10 +20,12 @@ export class AddTraverseMeasurementComponent
     constructor
     (
         private _dialog: MdDialogRef<AddTraverseMeasurementComponent>,
+        private surveyContext: SurveyContextProvider,
         private fromPointProvider: FromPointProvider
     )
     {
         this._traverseMeasurement = new SurveyMeasurement();
+        this._traverseMeasurement.SurveyID = surveyContext.SurveyID;
         if(this.fromPointProvider.Point)
         {
             this._traverseMeasurement.PointFrom = this.fromPointProvider.Point;

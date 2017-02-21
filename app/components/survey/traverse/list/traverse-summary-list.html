@@ -1,5 +1,5 @@
 <label>Traverses</label>
-<traverse-summary *ngFor="let trav of Traverses" [Traverse]="trav"></traverse-summary>
+<traverse-summary *ngFor="let trav of Traverses | async" [Traverse]="trav"></traverse-summary>
 <div class="add-new-traverse">
     <i class="icon-plus" (click)="onAddTraverse()"></i>
 </div>

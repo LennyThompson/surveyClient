@@ -91,15 +91,9 @@ export class AddTraverseComponent
     {
         if(!this.isValidPoint(measAdd.PointTo))
         {
-            let polarPt: IPolar = this.surveyCalc.convertMeasurementToPolar(measAdd);
-            let rectPt: IRectangular = polarPt.toRectangular();
-            let newSurveyPt: SurveyPoint = new SurveyPoint();
+            this.surveyCalc.updateMeasurement(measAdd);
 
-            newSurveyPt.X = rectPt.X;
-            newSurveyPt.Y = rectPt.Y;
-            newSurveyPt.Z = rectPt.Z;
-
-            this.editPointProvider.Point = newSurveyPt;
+            this.editPointProvider.Point = measAdd.PointTo;
             let config = new MdDialogConfig();
             this._dialogService.open(EditSurveyPointComponent, config)
                 .afterClosed()
@@ -108,17 +102,14 @@ export class AddTraverseComponent
                     {
                         if(result)
                         {
-                            this.pointService.updateToDatabase(result)
-                                .subscribe(
-                                    (result) =>
-                                    {
-                                        // this.onUpdatePointEvent.emit(result);
-                                        // Tell parent to update...
-                                        console.log("this.pointService.updateToDatabase", result);
-                                        measAdd.PointTo = result;
-                                        this._traverse.addSurveyMeasurement(measAdd);
-                                    }
-                                );
+                            let firstReturn = this.pointService.saveSurveyPointForSurvey(result, this._traverse.SurveyID).first();
+                            firstReturn.subscribe(
+                                (point) =>
+                                {
+                                    measAdd.PointTo = point;
+                                    this._traverse.addSurveyMeasurement(measAdd);
+                                }
+                            )
                         }
                         else
                         {

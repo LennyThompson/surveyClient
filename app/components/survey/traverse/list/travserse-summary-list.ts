@@ -7,6 +7,7 @@ import {TraverseServiceHttp} from "../../../../services/surveyDb/webAPI/Traverse
 import {MdDialog, MdDialogConfig} from "@angular/material";
 import {AddTraverseComponent} from "../add/add-traverse";
 import {Traverse} from "../../../../services/surveyDb/types/Traverse";
+import {Observable} from "rxjs";
 
 require("./traverse-summary-list.scss");
 
@@ -18,7 +19,7 @@ require("./traverse-summary-list.scss");
 )
 export class TravserseSummaryListComponent
 {
-    private _traverseList: TraverseMeasurementSummary[];
+    private _traverseList: Observable<TraverseMeasurementSummary[]>;
 
     constructor(
         private surveyContext: SurveyContextProvider,
@@ -27,18 +28,13 @@ export class TravserseSummaryListComponent
         private dialog: MdDialog
     )
     {
-        this.updateTraverseList();
     }
 
-    set Traverses(value: TraverseMeasurementSummary[])
-    {
-        this._traverseList = value;
-    }
-
-    get Traverses(): TraverseMeasurementSummary[]
+    get Traverses(): Observable<TraverseMeasurementSummary[]>
     {
         if(!this._traverseList)
         {
+            console.log("Lodaing traverse list");
             this.updateTraverseList();
         }
         return this._traverseList;
@@ -48,13 +44,7 @@ export class TravserseSummaryListComponent
     {
         if(this.surveyContext.SurveyID)
         {
-            this.travMeasService.loadForPathKeyDatabase(-1, this.surveyContext.SurveyID)
-                .subscribe(
-                    (travList: TraverseMeasurementSummary[]) =>
-                    {
-                        this._traverseList = travList;
-                    }
-                );
+            this._traverseList = this.travMeasService.loadForPathKeyDatabase(-1, this.surveyContext.SurveyID);
         }
     }
 
@@ -69,9 +59,9 @@ export class TravserseSummaryListComponent
                     if(result)
                     {
                         result.SurveyID = this.surveyContext.SurveyID;
-                        if(!result.EndPoint)
+                        if(!result.EndPoint || !result.EndPoint.ID)
                         {
-                            result.EndPoint = result.SurveyMeasurement[result.SurveyMeasurement.length - -1].PointTo;
+                            result.EndPoint = result.SurveyMeasurement[result.SurveyMeasurement.length - 1].PointTo;
                         }
                         this.travService.saveToDatabase(result)
                             .subscribe(

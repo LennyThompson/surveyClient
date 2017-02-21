@@ -82,6 +82,7 @@ class RectangularImpl implements IRectangular
 }
 
 import {Injectable} from "@angular/core";
+import {SurveyPoint} from "../surveyDb/types/SurveyPoint";
 
 @Injectable()
 export class SurveyCalculator
@@ -108,5 +109,23 @@ export class SurveyCalculator
         let seconds: number = Math.floor(((degrees - degs) * 60 - minutes) * 60);
 
         return degrees + minutes / 100 + seconds / 10000;
+    }
+
+    public updateMeasurement(meas: SurveyMeasurement): boolean
+    {
+        let polarPt: IPolar = this.convertMeasurementToPolar(meas);
+        let rectPt: IRectangular = polarPt.toRectangular();
+        let newSurveyPt: SurveyPoint = new SurveyPoint();
+
+        if(!meas.PointTo)
+        {
+            meas.PointTo = new SurveyPoint();
+        }
+
+        meas.PointTo.X = meas.PointFrom.X + rectPt.X;
+        meas.PointTo.Y = meas.PointFrom.Y + rectPt.Y;
+        meas.PointTo.Z = meas.PointFrom.Z + rectPt.Z;
+
+        return true;
     }
 }
