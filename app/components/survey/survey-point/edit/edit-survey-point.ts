@@ -1,12 +1,7 @@
 
 import {Component, OnInit} from "@angular/core";
-import {SurveyPointTypeServiceHttp} from "../../../../services/surveyDb/webAPI/SurveyPointTypeServiceHttp";
-import {SurveyReferenceServiceHttp} from "../../../../services/surveyDb/webAPI/SurveyReferenceServiceHttp";
-import {MdDialogRef} from "@angular/material";
-import {EditPointProvider} from "../../../../services/clientProviders/point/EditPointProvider";
 import {AddEditSurveyPoint} from "../add/add-edit-survey-point";
-import {SurveyPointType} from "../../../../services/surveyDb/types/SurveyPointType";
-import {SurveyReference} from "../../../../services/surveyDb/types/SurveyReference";
+import {CurrentSurveyPointProvider} from "../../simple-providers";
 
 require("./../add/add-survey-point.scss");
 
@@ -20,12 +15,10 @@ export class EditSurveyPointComponent extends AddEditSurveyPoint implements OnIn
 {
     constructor
     (
-        private m_dlgPoint: MdDialogRef<EditSurveyPointComponent>,
-        private pointProvider: EditPointProvider
+        pointProvider: CurrentSurveyPointProvider
     )
     {
-        super();
-        this.surveyPoint = pointProvider.Point;
+        super(pointProvider);
     }
 
     ngOnInit(): void

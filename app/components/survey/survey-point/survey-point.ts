@@ -4,10 +4,10 @@ import {SurveyPointSummary_Pt, SurveyPointSummary} from "../../../services/surve
 import {MdDialogConfig, MdDialog} from "@angular/material";
 import {SurveyPointServiceHttp} from "../../../services/surveyDb/webAPI/SurveyPointServiceHttp";
 import {SurveyPoint} from "../../../services/surveyDb/types/SurveyPoint";
-import {EditPointProvider} from "../../../services/clientProviders/point/EditPointProvider";
 import {EditSurveyPointComponent} from "./edit/edit-survey-point";
 import {SurveyPointSummaryServiceHttp} from "../../../services/surveyDb/webAPI/SurveyPointSummaryServiceHttp";
 import {EventEmitter} from "@angular/common/src/facade/async";
+import {CurrentSurveyPointProvider} from "../simple-providers";
 
 require("./survey-point.scss");
 
@@ -30,7 +30,7 @@ export class SurveyPointComponent
         private dialog: MdDialog,
         private pointService: SurveyPointServiceHttp,
         private pointSummayService: SurveyPointSummaryServiceHttp,
-        private pointProvider: EditPointProvider
+        private pointProvider: CurrentSurveyPointProvider
     )
     {
 
@@ -54,7 +54,7 @@ export class SurveyPointComponent
                 (point: SurveyPoint) =>
                 {
                     let config = new MdDialogConfig();
-                    this.pointProvider.Point = point;
+                    this.pointProvider.SurveyPoint = point;
                     this.dialog.open(EditSurveyPointComponent, config)
                         .afterClosed()
                         .subscribe(

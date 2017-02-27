@@ -1,8 +1,9 @@
 
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {MdDialogRef} from "@angular/material";
 
 import { AddEditSurveyPoint} from "./add-edit-survey-point";
+import {CurrentSurveyPointProvider} from "../../simple-providers";
 
 require("./add-survey-point.scss");
 
@@ -14,9 +15,13 @@ require("./add-survey-point.scss");
 )
 export class AddSurveyPointComponent extends AddEditSurveyPoint implements OnInit
 {
-    constructor(private m_dlgPoint: MdDialogRef<AddSurveyPointComponent>)
+    constructor
+    (
+        pointProvider: CurrentSurveyPointProvider,
+        private m_dlgPoint: MdDialogRef<AddSurveyPointComponent>
+    )
     {
-        super();
+        super(pointProvider);
     }
 
     ngOnInit(): void

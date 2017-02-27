@@ -5,19 +5,20 @@
         <traverse-form [(Traverse)]="Traverse"></traverse-form>
 
         <div class="flex-container trav-measurement-header" fxLayout="row">
-            <div fxFlex="25">ID</div>
-            <div fxFlex="25">Horizontal</div>
-            <div fxFlex="25">Bearing</div>
-            <div fxFlex="25">Vertical</div>
-            <div fxFlex="25">From</div>
-            <div fxFlex="25">To</div>
+            <div fxFlex="20">ID</div>
+            <div fxFlex="20">Horizontal</div>
+            <div fxFlex="20">Bearing</div>
+            <div fxFlex="20">Vertical</div>
+            <div fxFlex="20">From</div>
+            <div fxFlex="20">To</div>
+            <div fxFlex="20">Action</div>
         </div>
-        <traverse-measurement
+        <survey-measurement
                 *ngFor="let meas of Traverse.SurveyMeasurement; let odd=odd; let even=even; let index=index"
                 [measurement]="meas"
                 [ngClass]="{odd: odd, even: even, first: index===0 }"
         >
-        </traverse-measurement>
+        </survey-measurement>
         <div >
             <i class="icon-plus" (click)="onAddMeasurement()"></i>
         </div>

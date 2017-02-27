@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Fri Feb 17 10:21:57 AEST 2017
+// Generated on Sat Feb 25 16:17:36 AEST 2017
 
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
@@ -240,6 +240,7 @@ export class TraverseMeasurementSummary
 {
     private m_ID : number;
     private m_SurveyID : number;
+    private m_Name : string;
     private m_SurvMeass : TraverseMeasurementSummary_SurvMeas[];
 
 
@@ -247,6 +248,7 @@ export class TraverseMeasurementSummary
     {
         this.m_ID = 0;
         this.m_SurveyID = 0;
+        this.m_Name = "";
         this.m_SurvMeass = [];
     }
 
@@ -257,6 +259,10 @@ export class TraverseMeasurementSummary
     get SurveyID() : number
     {
         return this.m_SurveyID;
+    }
+    get Name() : string
+    {
+        return this.m_Name;
     }
     get SurvMeass() : TraverseMeasurementSummary_SurvMeas[]
     {
@@ -294,6 +300,7 @@ export class TraverseMeasurementSummary
         let objTraverseMeasurementSummary = new TraverseMeasurementSummary();
         objTraverseMeasurementSummary.m_ID = objJson.ID;
         objTraverseMeasurementSummary.m_SurveyID = objJson.SurveyID;
+        objTraverseMeasurementSummary.m_Name = objJson.Name;
         objTraverseMeasurementSummary.m_SurvMeass = lodash.map(
                 objJson.survMeas,
                 (arrayMember) =>
@@ -315,6 +322,7 @@ export class TraverseMeasurementSummary
         return {
             ID: lodash(this.ID).isNil() ? null : this.m_ID,
             SurveyID: lodash(this.SurveyID).isNil() ? null : this.m_SurveyID,
+            Name: lodash(this.Name).isNil() ? null : this.m_Name,
             survMeas: lodash(this.SurvMeass).isNil() ? null : lodash(this.m_SurvMeass).map(
                     (arrayMember) =>
                     {

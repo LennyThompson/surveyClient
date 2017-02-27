@@ -1,0 +1,12 @@
+<div class="flex-container survey-measurement" fxLayout="row">
+    <div class="measurement-info" fxFlex="25" >{{SurveyMeasurement?.ID}}</div>
+    <div class="measurement-info survey-distance" fxFlex="25" >{{SurveyMeasurement?.HorizDistance | coordFormat}}</div>
+    <div class="measurement-info survey-bearing" fxFlex="25" >{{SurveyMeasurement?.Bearing | bearingFormat}}</div>
+    <div class="measurement-info survey-distance" fxFlex="25" >{{SurveyMeasurement?.VertDistance | coordFormat}}</div>
+    <div class="measurement-info" fxFlex="25" >{{SurveyMeasurement?.PointFrom.Name}}</div>
+    <div class="measurement-info" fxFlex="25" >{{SurveyMeasurement?.PointTo.Name}}</div>
+    <div class="flex-item measurement-actions" fxFlex="20%" >
+        <i class="icon-pencil" (click)="onEditMeasurement()"></i>
+        <i class="icon-trash" (click)="onDeleteMeasurement()"></i>
+    </div>
+</div>

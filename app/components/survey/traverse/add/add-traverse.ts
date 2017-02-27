@@ -1,15 +1,10 @@
 
 import {Component} from "@angular/core";
-import {Traverse} from "../../../../services/surveyDb/types/Traverse";
-import {MdDialog, MdDialogConfig, MdDialogRef} from "@angular/material";
-import {AddTraverseMeasurementComponent} from "../traverse-measurement/add/add-traverse-measurement";
-import {SurveyPoint} from "../../../../services/surveyDb/types/SurveyPoint";
-import {SurveyMeasurement} from "../../../../services/surveyDb/types/SurveyMeasurement";
-import {SurveyCalculator, IPolar, IRectangular} from "../../../../services/surveyCalc/surveyCalculator";
-import {EditPointProvider} from "../../../../services/clientProviders/point/EditPointProvider";
-import {EditSurveyPointComponent} from "../../survey-point/edit/edit-survey-point";
+import {MdDialog, MdDialogRef} from "@angular/material";
+import {SurveyCalculator} from "../../../../services/surveyCalc/surveyCalculator";
 import {SurveyPointServiceHttp} from "../../../../services/surveyDb/webAPI/SurveyPointServiceHttp";
-import {FromPointProvider} from "../../../../services/clientProviders/point/FromPointProvider";
+import {TraverseEditBaseComponent} from "./add-edit-traverse";
+import {CurrentTraverseProvider, CurrentSurveyPointProvider, CurrentSurveyMeasurementProvider} from "../../simple-providers";
 
 require("./add-traverse.scss");
 
@@ -19,109 +14,20 @@ require("./add-traverse.scss");
         templateUrl: "add-traverse.html"
     }
 )
-export class AddTraverseComponent
+export class AddTraverseComponent extends TraverseEditBaseComponent
 {
-    _traverse: Traverse;
-
     constructor
     (
         private _dialog: MdDialogRef<AddTraverseComponent>,
-        private _dialogService: MdDialog,
-        private surveyCalc: SurveyCalculator,
-        private editPointProvider: EditPointProvider,
-        private fromPointProvider: FromPointProvider,
-        private pointService: SurveyPointServiceHttp
+        _dialogService: MdDialog,
+        surveyCalc: SurveyCalculator,
+        traverseProvider: CurrentTraverseProvider,
+        measProvider: CurrentSurveyMeasurementProvider,
+        pointProvider: CurrentSurveyPointProvider,
+        pointService: SurveyPointServiceHttp
     )
     {
-        this._traverse = new Traverse();
+        super(_dialogService, surveyCalc, traverseProvider, pointProvider, measProvider, pointService);
     }
 
-    public get Traverse(): Traverse
-    {
-        return this._traverse;
-    }
-
-    public set Traverse(value: Traverse)
-    {
-        this._traverse = value;
-    }
-
-    onAddMeasurement()
-    {
-        let config = new MdDialogConfig();
-        if(this._traverse.SurveyMeasurement.length)
-        {
-            this.fromPointProvider.Point = this._traverse.SurveyMeasurement[this._traverse.SurveyMeasurement.length - 1].PointTo;
-        }
-        else if(this._traverse.StartPoint)
-        {
-            this.fromPointProvider.Point = this._traverse.StartPoint;
-        }
-
-        this._dialogService.open(AddTraverseMeasurementComponent, config)
-            .afterClosed()
-            .subscribe(
-                (result: SurveyMeasurement) =>
-                {
-                    if(result)
-                    {
-                        result.Bearing = this.surveyCalc.toDegrees(result.Bearing);
-                        this.addMeasurementTotraverse(result);
-                    }
-                    else
-                    {
-                        console.log("Cancel");
-                    }
-                }
-            );
-
-    }
-
-    isValidPoint(ptTest: SurveyPoint): boolean
-    {
-        // TODO: improve this test...
-        if(ptTest.X === 0 && ptTest.Y === 0 && ptTest.Y === 0)
-        {
-            return false;
-        }
-        return true;
-    }
-
-    addMeasurementTotraverse(measAdd: SurveyMeasurement)
-    {
-        if(!this.isValidPoint(measAdd.PointTo))
-        {
-            this.surveyCalc.updateMeasurement(measAdd);
-
-            this.editPointProvider.Point = measAdd.PointTo;
-            let config = new MdDialogConfig();
-            this._dialogService.open(EditSurveyPointComponent, config)
-                .afterClosed()
-                .subscribe(
-                    (result) =>
-                    {
-                        if(result)
-                        {
-                            let firstReturn = this.pointService.saveSurveyPointForSurvey(result, this._traverse.SurveyID).first();
-                            firstReturn.subscribe(
-                                (point) =>
-                                {
-                                    measAdd.PointTo = point;
-                                    this._traverse.addSurveyMeasurement(measAdd);
-                                }
-                            )
-                        }
-                        else
-                        {
-                            console.log("Cancel");
-                        }
-                    }
-                );
-
-        }
-        else
-        {
-            this._traverse.addSurveyMeasurement(measAdd);
-        }
-    }
 }

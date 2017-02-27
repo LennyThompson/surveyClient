@@ -1,6 +1,7 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Fri Feb 17 10:21:57 AEST 2017
+// Generated on Sat Feb 25 16:17:36 AEST 2017
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var SurveyMeasurement_1 = require("./SurveyMeasurement");
 var TimeConversion_1 = require("./../TimeConversion");
 var lodash = require("lodash");

@@ -1,0 +1,20 @@
+@import "./../../variables.scss";
+@import "./../../../../../etc/assets/fonts/fontello-16af81e0/css/survey-icons.css";
+
+add-traverse-dialog {
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+
+      .trav-measurement-header {
+        background-color: $tableHeaderColour;
+        border-color: $tableBorderColour;
+        border-bottom: $tableBorderLine;
+        border-top: $tableBorderLine;
+        border-right: $tableBorderLine;
+        & div {
+          text-align: center;
+          border-color: $tableBorderColour;
+          border-left: $tableBorderLine;
+
+        }
+      }
+}
