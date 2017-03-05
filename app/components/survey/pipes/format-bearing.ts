@@ -24,7 +24,13 @@ export class BearingFormat implements PipeTransform
         {
             let degrees: number = Math.floor(value);
             let minutes: number = Math.floor((value - degrees) * 60);
-            let seconds: number = Math.floor(((value - degrees) * 60 - minutes) * 60);
+            let seconds: number = Math.round(((value - degrees) * 60 - minutes) * 60);
+
+            if(seconds === 60)
+            {
+                ++minutes;
+                seconds = 0;
+            }
 
             return degrees.toString() + "º" +
                 this.widthTransform(minutes.toString(), 2, "0") + "'" +

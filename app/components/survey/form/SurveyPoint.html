@@ -1,11 +1,11 @@
 <!-- ****THIS IS A CODE GENERATED FILE DO NOT EDIT**** -->
-<!-- Generated on Sat Feb 25 16:17:36 AEST 2017 -->
+<!-- Generated on Wed Mar 01 20:56:07 AEST 2017 -->
 <form>
         <div class="flex-container form-group" id="coord" fxLayout="row">
             <md-input-container fxFlex="25">
                 <label >X:</label>
                 <input class="form-control"
-                    md-input placeholder=""
+                    mdInput placeholder=""
                     step="1000" type="number"
                     [(ngModel)]="SurveyPoint.X"
                     id="X" name="X">
@@ -15,7 +15,7 @@
             <md-input-container fxFlex="25">
                 <label >Y:</label>
                 <input class="form-control"
-                    md-input placeholder=""
+                    mdInput placeholder=""
                     step="1000" type="number"
                     [(ngModel)]="SurveyPoint.Y"
                     id="Y" name="Y">
@@ -25,10 +25,32 @@
             <md-input-container fxFlex="25">
                 <label >Z:</label>
                 <input class="form-control"
-                    md-input placeholder=""
+                    mdInput placeholder=""
                     step="1000" type="number"
                     [(ngModel)]="SurveyPoint.Z"
                     id="Z" name="Z">
+            </md-input-container>
+
+
+        </div>
+        <div class="flex-container form-group" id="desc" fxLayout="row">
+            <md-input-container fxFlex="25">
+                <label >Name:</label>
+                <input class="form-control"
+                    mdInput placeholder=""
+                    type="text"
+                    [(ngModel)]="SurveyPoint.Name"
+                    id="Name" name="Name">
+            </md-input-container>
+
+
+            <md-input-container fxFlex="25">
+                <label >Description:</label>
+                <input class="form-control"
+                    mdInput placeholder=""
+                    type="text"
+                    [(ngModel)]="SurveyPoint.Description"
+                    id="Description" name="Description">
             </md-input-container>
 
 
@@ -40,28 +62,6 @@
 
                 <label>Reference</label>
                 <survey-reference-select [(ngModel)]="SurveyPoint.Reference" name="Reference"></survey-reference-select>
-
-
-        </div>
-        <div class="flex-container form-group" id="desc" fxLayout="row">
-            <md-input-container fxFlex="25">
-                <label >Name:</label>
-                <input class="form-control"
-                    md-input placeholder=""
-                    type="text"
-                    [(ngModel)]="SurveyPoint.Name"
-                    id="Name" name="Name">
-            </md-input-container>
-
-
-            <md-input-container fxFlex="25">
-                <label >Description:</label>
-                <input class="form-control"
-                    md-input placeholder=""
-                    type="text"
-                    [(ngModel)]="SurveyPoint.Description"
-                    id="Description" name="Description">
-            </md-input-container>
 
 
         </div>

@@ -23,8 +23,8 @@ export abstract class ValueAccessorBase<T> implements ControlValueAccessor
 
     writeValue(value: T)
     {
-        console.log("ValueAccessorBase", value);
         this.innerValue = value;
+        console.log(this.innerValue);
     }
 
     registerOnChange(fn: (value: T) => void)

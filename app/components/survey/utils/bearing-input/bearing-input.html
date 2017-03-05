@@ -1,0 +1,31 @@
+<label>Bearing:</label>
+<div fxLayout="row">
+    <input #bearing class="form-control degrees-input"
+           mdInput
+           debounce [delay]="300"
+           type="text" maxlength="3"
+           [(ngModel)]="degrees">
+    <span>º</span>
+    <input #bearing class="form-control minutes-input"
+           mdInput
+           debounce [delay]="300"
+           type="text" maxlength="2" pattern="[0-9]{2}"
+           [(ngModel)]="minutes">
+    <span>'</span>
+    <input #bearing class="form-control seconds-input"
+           mdInput
+           debounce [delay]="300"
+           type="text" maxlength="2" pattern="[0-9]{2}"
+           [(ngModel)]="seconds">
+    <span>"</span>
+    <span class="mat-input-placeholder-wrapper">
+       <label class="mat-input-placeholder"
+              [class.mat-float]="_canPlaceholderFloat"
+              [class.mat-accent]="dividerColor == 'accent'"
+              [class.mat-warn]="dividerColor == 'warn'"
+       >
+          <ng-content select="md-placeholder, mat-placeholder"></ng-content>
+          {{placeholder}}
+        </label>
+      </span>
+</div>

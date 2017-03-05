@@ -1,7 +1,15 @@
+@import "../variables.scss";
+
 survey-measurement-form {
+  font-family: $surveyFont;
   form {
-    & label {
+    md-input-container {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    input {
       text-align: right;
     }
+
   }
 }

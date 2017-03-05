@@ -4,7 +4,6 @@ import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {SurveyRouter} from "./survey.routes";
 import {SurveyDetailsComponent} from "./details/survey-details";
-import {SurveyPointComponent} from "./survey-point/survey-point";
 import {SurveyListComponent} from "./list/survey-list";
 import {SurveyComponent} from "./survey";
 
@@ -12,6 +11,7 @@ import {HTTP_PROVIDERS} from "../../services/surveyDb/webAPI/index";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {CoordFormat} from "./pipes/format-coord";
 import {BearingFormat} from "./pipes/format-bearing";
+import {DmsBearingFormat} from "./pipes/format-dms-bearing";
 import {MaterialModule} from "@angular/material";
 import {AddSurveyPointComponent} from "./survey-point/add/add-survey-point";
 import {SIMPLE_PROVIDER_COMPONENTS} from "./simple-providers";
@@ -27,14 +27,20 @@ import {SURVEY_TRAVERSE_COMPONENTS} from "./traverse/index";
 import {SURVEY_MEASUREMENT_COMPONENTS, EditSurveyMeasurementComponent} from "./survey-measurement";
 import {SURVEY_POINT_COMPONENTS} from "./survey-point/index";
 
+import { TextMaskModule } from "angular2-text-mask";
+import { BearingInputContainer} from "./utils/bearing-input/bearing-input";
+import {Debounce} from "./utils/debounce";
+import {TraverseDrawingComponent} from "./traverse/drawing/trav-drawing";
+
 @NgModule (
     {
         imports: [
             CommonModule,
             FormsModule,
-            MaterialModule.forRoot(),
-            FlexLayoutModule.forRoot(),
-            SurveyRouter
+            MaterialModule,
+            FlexLayoutModule,
+            SurveyRouter,
+            TextMaskModule
         ],
         declarations: [
             SurveyListComponent,
@@ -45,9 +51,13 @@ import {SURVEY_POINT_COMPONENTS} from "./survey-point/index";
             SURVEY_POINT_COMPONENTS,
             CoordFormat,
             BearingFormat,
+            DmsBearingFormat,
             FORM_COMPONENTS,
             SELECT_COMPONENTS,
-            SURVEY_MEASUREMENT_COMPONENTS
+            SURVEY_MEASUREMENT_COMPONENTS,
+            BearingInputContainer,
+            Debounce,
+            TraverseDrawingComponent
         ],
         // This is where the components used in mdDialog need to be declared
         // see https://angular.io/docs/ts/latest/cookbook/ngmodule-faq.html#!#q-entry-component-defined
@@ -64,6 +74,7 @@ import {SURVEY_POINT_COMPONENTS} from "./survey-point/index";
             SIMPLE_PROVIDER_COMPONENTS,
             CoordFormat,
             BearingFormat,
+            DmsBearingFormat,
             SurveyCalculator
         ]
     }

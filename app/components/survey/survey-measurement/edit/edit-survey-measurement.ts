@@ -15,6 +15,7 @@ require("./../add/add-survey-measurement.scss");
 )
 export class EditSurveyMeasurementComponent extends AddEditSurveyMeasurement
 {
+
     constructor
     (
         _dialog: MdDialogRef<AddSurveyMeasurementComponent>,

@@ -1,10 +1,12 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sat Feb 25 16:17:36 AEST 2017
+// Generated on Wed Mar 01 20:56:07 AEST 2017
 
 import {Component, OnInit, Input} from "@angular/core";
 
 import {SurveyMeasurement} from "./../../../services/surveyDb/types/SurveyMeasurement";
 import {CoordFormat} from "../pipes/format-coord";
+import {DmsBearingFormat} from "../pipes/format-dms-bearing";
+import {BearingFormat} from "../pipes/format-bearing";
 
 require("./SurveyMeasurement.scss");
 
@@ -17,7 +19,11 @@ require("./SurveyMeasurement.scss");
 export class SurveyMeasurementComponent implements OnInit
 {
     private _SurveyMeasurement: SurveyMeasurement;
-    constructor(private coordFormat: CoordFormat)
+    private _textBearing: string;
+    constructor(
+        private coordFormat: CoordFormat,
+        private bearingFormat: BearingFormat
+    )
     {
         this._SurveyMeasurement = new SurveyMeasurement();
     }
@@ -39,10 +45,21 @@ export class SurveyMeasurementComponent implements OnInit
 
     get horizDistancePlaceholder(): string
     {
-        if(this._SurveyMeasurement.HorizDistance)
+        if (this._SurveyMeasurement.HorizDistance)
         {
             return this.coordFormat.transform(this._SurveyMeasurement.HorizDistance);
         }
         return "Horizontal distance";
     }
+
+    get bearingPlaceholder(): string
+    {
+        if (this._SurveyMeasurement.Bearing)
+        {
+            return this.bearingFormat.transform(this._SurveyMeasurement.Bearing);
+        }
+        return "Bearing";
+    }
+
+
 }
