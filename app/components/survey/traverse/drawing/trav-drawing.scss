@@ -3,13 +3,16 @@ traverse-drawing {
   .traverse-line {
     stroke: blue;
     fill: none;
+    stroke-dasharray: 5;
   }
   .traverse-point {
     stroke: red;
     fill: none;
   }
   .traverse-point-name {
-    color: blue;
+    stroke: blue;
+    opacity: 0.5;
     font-style: italic;
+    font-size: small;
   }
 }

@@ -1,4 +1,5 @@
 import * as lodash from "lodash";
+import * as d3 from "d3";
 
 export interface IStyleSource
 {
@@ -112,6 +113,16 @@ class LineImpl implements ILineData
             lineAppend.style("stroke", "blue");
             lineAppend.style("fill", "none");
         }
+        gContainer
+            .on("mouseover", () => {
+                    lineAppend.style("stroke", "red");
+                }
+            )
+            .on("mouseout", () => {
+                    lineAppend.style("stroke", "blue");
+                }
+            );
+
         let symbolStyle: IStyleSource = this.styles ? lodash(this.styles)
                 .filter((style: IStyleSource) => style.target === "point").first() : null;
 

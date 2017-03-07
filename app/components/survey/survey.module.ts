@@ -31,6 +31,9 @@ import { TextMaskModule } from "angular2-text-mask";
 import { BearingInputContainer} from "./utils/bearing-input/bearing-input";
 import {Debounce} from "./utils/debounce";
 import {TraverseDrawingComponent} from "./traverse/drawing/trav-drawing";
+import {BearingPlaceholder} from "./pipes/bearing-placeholder";
+import {HorizontalDistancePlaceholder} from "./pipes/horiz-distance-placeholder";
+import {VerticalDistancePlaceholder} from "./pipes/vert-distance-placeholder";
 
 @NgModule (
     {
@@ -51,6 +54,9 @@ import {TraverseDrawingComponent} from "./traverse/drawing/trav-drawing";
             SURVEY_POINT_COMPONENTS,
             CoordFormat,
             BearingFormat,
+            BearingPlaceholder,
+            HorizontalDistancePlaceholder,
+            VerticalDistancePlaceholder,
             DmsBearingFormat,
             FORM_COMPONENTS,
             SELECT_COMPONENTS,
@@ -74,6 +80,9 @@ import {TraverseDrawingComponent} from "./traverse/drawing/trav-drawing";
             SIMPLE_PROVIDER_COMPONENTS,
             CoordFormat,
             BearingFormat,
+            BearingPlaceholder,
+            HorizontalDistancePlaceholder,
+            VerticalDistancePlaceholder,
             DmsBearingFormat,
             SurveyCalculator
         ]

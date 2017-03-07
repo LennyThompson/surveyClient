@@ -26,6 +26,13 @@ let nextUniqueId = 0;
         '[attr.align]': 'null',
         '[class.mat-input-container]': 'true',
         '[class.mat-focused]': '_onFocussed()',
+        // '[class.ng-untouched]': '_shouldForward("untouched")',
+        // '[class.ng-touched]': '_shouldForward("touched")',
+        // '[class.ng-pristine]': '_shouldForward("pristine")',
+        // '[class.ng-dirty]': '_shouldForward("dirty")',
+        // '[class.ng-valid]': '_shouldForward("valid")',
+        // '[class.ng-invalid]': '_shouldForward("invalid")',
+        // '[class.ng-pending]': '_shouldForward("pending")',
         '(click)': '_focusInput()',
     },
     encapsulation: ViewEncapsulation.None,
@@ -53,7 +60,6 @@ export class BearingInputContainer extends ElementBase<number> implements AfterC
     set placeholder(value: string) {
         if (this._placeholder !== value) {
             this._placeholder = value;
-            console.log("placeholder: " + this._placeholder);
             this._placeholderChange.emit(this._placeholder);
         }
     }
@@ -277,6 +283,29 @@ export class BearingInputContainer extends ElementBase<number> implements AfterC
         if (this._focusChild)
         {
             this._focusChild._onFocus();
+        }
+    }
+
+    isFocussed()
+    {
+        return this._mdInputChildren
+                .filter(child => child.focused)
+                .length > 0;
+    }
+
+    _shouldForward(prop: string): boolean
+    {
+        return this._mdInputChildren
+                .map(child => child._ngControl ? child._ngControl : null)
+                .filter(control => control && (control as any)[prop])
+                .length > 0;
+    }
+
+    onKeypress(event: KeyboardEvent, source: string)
+    {
+        if(event.keyCode < 48 || event.keyCode > 57)
+        {
+            event.preventDefault();
         }
     }
 }
