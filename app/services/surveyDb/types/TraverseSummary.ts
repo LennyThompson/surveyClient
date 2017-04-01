@@ -1,9 +1,10 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:07 AEST 2017
+// Generated on Wed Mar 22 19:50:14 AEST 2017
 
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
 // declare internal types
+
 export class TraverseSummary_PtStart
 {
     private m_PtStartID : number;
@@ -78,6 +79,8 @@ export class TraverseSummary_PtStart
         };
     }
 }
+
+
 export class TraverseSummary_PtEnd
 {
     private m_PtEndID : number;

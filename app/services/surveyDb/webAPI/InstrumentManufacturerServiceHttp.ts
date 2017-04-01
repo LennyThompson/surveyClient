@@ -1,16 +1,19 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {InstrumentManufacturer} from "../types/InstrumentManufacturer";
 
 import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
-import { Observable, Subscription } from "rxjs/Rx";
+import { Observable, BehaviorSubject } from "rxjs/Rx";
 
 @Injectable()
 export class InstrumentManufacturerServiceHttp
 {
-    constructor(private httpService : Http)
+    constructor
+    (
+        private httpService : Http
+    )
     {
     }
 
@@ -23,7 +26,9 @@ export class InstrumentManufacturerServiceHttp
 
         return this.httpService.post(strPath, strJsonBody, options)
                          .map((resp : Response) => InstrumentManufacturer.fromJsonObject(resp.json()))
+                         .map(obsInstrumentManufacturer => this.notifyObservers(obsInstrumentManufacturer))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
+
     }
     updateToDatabase(typeInstrumentManufacturer : InstrumentManufacturer) : Observable<InstrumentManufacturer>
     {
@@ -34,8 +39,14 @@ export class InstrumentManufacturerServiceHttp
 
         return this.httpService.put(strPath, strJsonBody, options)
                          .map((resp : Response) => InstrumentManufacturer.fromJsonObject(resp.json()))
+                         .map(obsInstrumentManufacturer => this.notifyObservers(obsInstrumentManufacturer))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
+    private notifyObservers(updateInstrumentManufacturer: InstrumentManufacturer): InstrumentManufacturer
+    {
+        return updateInstrumentManufacturer;
+    }
+
     loadAllFromDatabase() : Observable<InstrumentManufacturer[]>
     {
         let strPath : string = InstrumentManufacturerServiceHttp.buildPath();
@@ -60,4 +71,50 @@ export class InstrumentManufacturerServiceHttp
         let strPath : string = "http://localhost:49876/api" + "/InstrumentManufacturers";
         return strPath;
     }
+}
+
+
+@Injectable()
+export class InstrumentManufacturerSubjectProvider
+{
+    private _mapSummaries: Map<number, BehaviorSubject<InstrumentManufacturer[]>>;
+
+    constructor
+    (
+        private _InstrumentManufacturerService : InstrumentManufacturerServiceHttp
+    )
+    {
+        this._mapSummaries = new Map<number, BehaviorSubject<InstrumentManufacturer[]>>();
+    }
+
+    getInstrumentManufacturer(keyID?: number): Observable<InstrumentManufacturer[]>
+    {
+        let keyLocal: number = keyID ? keyID : 0;
+        if(!this._mapSummaries.has(keyLocal))
+        {
+            this._mapSummaries.set(keyLocal, new BehaviorSubject<InstrumentManufacturer[]>([]));
+            this.update(keyLocal);
+        }
+        return this._mapSummaries.get(keyLocal).asObservable();
+    }
+
+    update(keyID?: number)
+    {
+        let keyLocal: number = keyID ? keyID : 0;
+        if(keyID)
+        {
+            this._InstrumentManufacturerService.loadInstrumentManufacturerFromDatabase(keyLocal)
+                .subscribe(
+                    result => this._mapSummaries.get(keyLocal).next([result])
+                );
+        }
+        else
+        {
+            this._InstrumentManufacturerService.loadAllFromDatabase()
+                .subscribe(
+                    result => this._mapSummaries.get(keyLocal).next(result)
+                );
+        }
+    }
+
 }

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {SurveySummary} from "./../../../services/surveyDb/types";
@@ -42,5 +42,56 @@ export class CurrentSurveySummaryListProvider
     set SurveySummarys(value: SurveySummary[])
     {
         this.m_listSurveySummary = value;
+    }
+}
+
+// Declare injectable provider for editing a form provider type
+import {MdDialogConfig, MdDialog} from "@angular/material";
+
+@Injectable()
+export class EditSurveySummaryProvider
+{
+    constructor(
+        private _dialogService: MdDialog,
+        private _SurveySummaryHttp: SurveySummaryServiceHttp,
+        private _SurveySummaryProvider: CurrentSurveySummaryProvider
+    )
+    {
+    }
+
+    edit(ID: number)
+    {
+        this._SurveySummaryHttp.loadSurveySummaryFromDatabase(ID)
+        .subscribe(
+                (localSurveySummary: SurveySummary) => edit(localSurveySummary)
+        );
+    }
+
+    edit(editSurveySummary: SurveySummary)
+    {
+        this._SurveySummaryProvider.SurveySummary = editSurveySummary;
+        this._dialogService.open(EditSurveySummaryComponent)
+            .afterClosed()
+            .subscribe(
+                (result) =>
+                {
+                    if(result)
+                    {
+                        console.log(JSON.stringify(result));
+                        this._SurveySummaryHttp.updateToDatabase(result)
+                            .subscribe(
+                                (result) =>
+                                {
+                                    // Tell parent to update...
+                                    console.log("this.pointService.updateToDatabase", result);
+                                }
+                            );
+                    }
+                    else
+                    {
+                        console.log("Cancel");
+                    }
+                }
+            );
     }
 }

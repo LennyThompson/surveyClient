@@ -34,6 +34,7 @@ import {TraverseDrawingComponent} from "./traverse/drawing/trav-drawing";
 import {BearingPlaceholder} from "./pipes/bearing-placeholder";
 import {HorizontalDistancePlaceholder} from "./pipes/horiz-distance-placeholder";
 import {VerticalDistancePlaceholder} from "./pipes/vert-distance-placeholder";
+import {TraverseMeasurementSummarySubjectService} from "../../services/surveyDb/webAPI/TraverseMeasurementSummaryServiceHttp";
 
 @NgModule (
     {
@@ -78,6 +79,7 @@ import {VerticalDistancePlaceholder} from "./pipes/vert-distance-placeholder";
         providers: [
             HTTP_PROVIDERS,
             SIMPLE_PROVIDER_COMPONENTS,
+            TraverseMeasurementSummarySubjectService,
             CoordFormat,
             BearingFormat,
             BearingPlaceholder,

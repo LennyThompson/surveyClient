@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {Projection} from "./../../../services/surveyDb/types";
@@ -68,5 +68,56 @@ export class CurrentProjectionListProvider
     set Projections(value: Projection[])
     {
         this.m_listProjection = value;
+    }
+}
+
+// Declare injectable provider for editing a form provider type
+import {MdDialogConfig, MdDialog} from "@angular/material";
+
+@Injectable()
+export class EditProjectionProvider
+{
+    constructor(
+        private _dialogService: MdDialog,
+        private _ProjectionHttp: ProjectionServiceHttp,
+        private _ProjectionProvider: CurrentProjectionProvider
+    )
+    {
+    }
+
+    edit(ID: number)
+    {
+        this._ProjectionHttp.loadProjectionFromDatabase(ID)
+        .subscribe(
+                (localProjection: Projection) => edit(localProjection)
+        );
+    }
+
+    edit(editProjection: Projection)
+    {
+        this._ProjectionProvider.Projection = editProjection;
+        this._dialogService.open(EditProjectionComponent)
+            .afterClosed()
+            .subscribe(
+                (result) =>
+                {
+                    if(result)
+                    {
+                        console.log(JSON.stringify(result));
+                        this._ProjectionHttp.updateToDatabase(result)
+                            .subscribe(
+                                (result) =>
+                                {
+                                    // Tell parent to update...
+                                    console.log("this.pointService.updateToDatabase", result);
+                                }
+                            );
+                    }
+                    else
+                    {
+                        console.log("Cancel");
+                    }
+                }
+            );
     }
 }

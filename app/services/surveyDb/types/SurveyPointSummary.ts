@@ -1,9 +1,10 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:07 AEST 2017
+// Generated on Wed Mar 22 19:50:14 AEST 2017
 
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
 // declare internal types
+
 export class Pt_Ref
 {
     private m_RefName : string;
@@ -54,6 +55,8 @@ export class Pt_Ref
         };
     }
 }
+
+
 export class Pt_PtType
 {
     private m_PtTypeName : string;
@@ -104,6 +107,8 @@ export class Pt_PtType
         };
     }
 }
+
+
 export class SurveyPointSummary_Pt
 {
     private m_PtID : number;

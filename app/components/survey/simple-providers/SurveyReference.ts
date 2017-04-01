@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {SurveyReference} from "./../../../services/surveyDb/types";
@@ -68,5 +68,56 @@ export class CurrentSurveyReferenceListProvider
     set SurveyReferences(value: SurveyReference[])
     {
         this.m_listSurveyReference = value;
+    }
+}
+
+// Declare injectable provider for editing a form provider type
+import {MdDialogConfig, MdDialog} from "@angular/material";
+
+@Injectable()
+export class EditSurveyReferenceProvider
+{
+    constructor(
+        private _dialogService: MdDialog,
+        private _SurveyReferenceHttp: SurveyReferenceServiceHttp,
+        private _SurveyReferenceProvider: CurrentSurveyReferenceProvider
+    )
+    {
+    }
+
+    edit(ID: number)
+    {
+        this._SurveyReferenceHttp.loadSurveyReferenceFromDatabase(ID)
+        .subscribe(
+                (localSurveyReference: SurveyReference) => edit(localSurveyReference)
+        );
+    }
+
+    edit(editSurveyReference: SurveyReference)
+    {
+        this._SurveyReferenceProvider.SurveyReference = editSurveyReference;
+        this._dialogService.open(EditSurveyReferenceComponent)
+            .afterClosed()
+            .subscribe(
+                (result) =>
+                {
+                    if(result)
+                    {
+                        console.log(JSON.stringify(result));
+                        this._SurveyReferenceHttp.updateToDatabase(result)
+                            .subscribe(
+                                (result) =>
+                                {
+                                    // Tell parent to update...
+                                    console.log("this.pointService.updateToDatabase", result);
+                                }
+                            );
+                    }
+                    else
+                    {
+                        console.log("Cancel");
+                    }
+                }
+            );
     }
 }

@@ -6,6 +6,7 @@ import {TraverseMeasurementSummaryServiceHttp, TraverseServiceHttp} from "./../.
 import {MdDialog, MdDialogConfig} from "@angular/material";
 import {AddTraverseComponent} from "./../../add/add-traverse";
 import {Observable} from "rxjs";
+import {TraverseMeasurementSummarySubjectService} from "../../../../../services/surveyDb/webAPI/TraverseMeasurementSummaryServiceHttp";
 
 require("./traverse-summary-list.scss");
 
@@ -21,11 +22,12 @@ export class TravserseSummaryListComponent
 
     constructor(
         private surveyContext: SurveyContextProvider,
-        private travMeasService: TraverseMeasurementSummaryServiceHttp,
+        private travMeasService: TraverseMeasurementSummarySubjectService,
         private travService: TraverseServiceHttp,
         private dialog: MdDialog
     )
     {
+        this._traverseList = this.travMeasService.getTraverseSummaries(this.surveyContext.SurveyID);
     }
 
     get Traverses(): Observable<TraverseMeasurementSummary[]>
@@ -38,11 +40,10 @@ export class TravserseSummaryListComponent
         return this._traverseList;
     }
 
-    updateTraverseList()
+    private updateTraverseList()
     {
         if(this.surveyContext.SurveyID)
         {
-            this._traverseList = this.travMeasService.loadForPathKeyDatabase(-1, this.surveyContext.SurveyID);
         }
     }
 
@@ -65,7 +66,7 @@ export class TravserseSummaryListComponent
                             .subscribe(
                                 () =>
                                 {
-                                    this.updateTraverseList();
+                                    this.travMeasService.updateTraverseSummaries(this.surveyContext.SurveyID);
                                 }
                             )
                     }

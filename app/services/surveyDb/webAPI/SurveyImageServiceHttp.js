@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -20,22 +20,29 @@ var SurveyImageServiceHttp = SurveyImageServiceHttp_1 = (function () {
         this.httpService = httpService;
     }
     SurveyImageServiceHttp.prototype.saveToDatabase = function (typeSurveyImage) {
+        var _this = this;
         var strPath = SurveyImageServiceHttp_1.buildPath();
         var strJsonBody = typeSurveyImage.toJson();
         var headers = new http_1.Headers({ "Content-Type": "application/json" });
         var options = new http_1.RequestOptions({ headers: headers });
         return this.httpService.post(strPath, strJsonBody, options)
             .map(function (resp) { return SurveyImage_1.SurveyImage.fromJsonObject(resp.json()); })
+            .map(function (obsSurveyImage) { return _this.notifyObservers(obsSurveyImage); })
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || "Server error"); });
     };
     SurveyImageServiceHttp.prototype.updateToDatabase = function (typeSurveyImage) {
+        var _this = this;
         var strPath = SurveyImageServiceHttp_1.buildPath();
         var strJsonBody = typeSurveyImage.toJson();
         var headers = new http_1.Headers({ "Content-Type": "application/json" });
         var options = new http_1.RequestOptions({ headers: headers });
         return this.httpService.put(strPath, strJsonBody, options)
             .map(function (resp) { return SurveyImage_1.SurveyImage.fromJsonObject(resp.json()); })
+            .map(function (obsSurveyImage) { return _this.notifyObservers(obsSurveyImage); })
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || "Server error"); });
+    };
+    SurveyImageServiceHttp.prototype.notifyObservers = function (updateSurveyImage) {
+        return updateSurveyImage;
     };
     SurveyImageServiceHttp.prototype.loadAllFromDatabase = function () {
         var strPath = SurveyImageServiceHttp_1.buildPath();
@@ -62,5 +69,37 @@ SurveyImageServiceHttp = SurveyImageServiceHttp_1 = __decorate([
     __metadata("design:paramtypes", [http_1.Http])
 ], SurveyImageServiceHttp);
 exports.SurveyImageServiceHttp = SurveyImageServiceHttp;
+var SurveyImageSubjectProvider = (function () {
+    function SurveyImageSubjectProvider(_SurveyImageService) {
+        this._SurveyImageService = _SurveyImageService;
+        this._mapSummaries = new Map();
+    }
+    SurveyImageSubjectProvider.prototype.getSurveyImage = function (keyID) {
+        var keyLocal = keyID ? keyID : 0;
+        if (!this._mapSummaries.has(keyLocal)) {
+            this._mapSummaries.set(keyLocal, new Rx_1.BehaviorSubject([]));
+            this.update(keyLocal);
+        }
+        return this._mapSummaries.get(keyLocal).asObservable();
+    };
+    SurveyImageSubjectProvider.prototype.update = function (keyID) {
+        var _this = this;
+        var keyLocal = keyID ? keyID : 0;
+        if (keyID) {
+            this._SurveyImageService.loadSurveyImageFromDatabase(keyLocal)
+                .subscribe(function (result) { return _this._mapSummaries.get(keyLocal).next([result]); });
+        }
+        else {
+            this._SurveyImageService.loadAllFromDatabase()
+                .subscribe(function (result) { return _this._mapSummaries.get(keyLocal).next(result); });
+        }
+    };
+    return SurveyImageSubjectProvider;
+}());
+SurveyImageSubjectProvider = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [SurveyImageServiceHttp])
+], SurveyImageSubjectProvider);
+exports.SurveyImageSubjectProvider = SurveyImageSubjectProvider;
 var SurveyImageServiceHttp_1;
 //# sourceMappingURL=SurveyImageServiceHttp.js.map

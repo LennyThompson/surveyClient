@@ -1,16 +1,27 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {SurveyMeasurement} from "../types/SurveyMeasurement";
 
 import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
-import { Observable, Subscription } from "rxjs/Rx";
+import { Observable, BehaviorSubject } from "rxjs/Rx";
+import { TraverseMeasurementSummarySubjectProvider } from "./";
+
+
 
 @Injectable()
 export class SurveyMeasurementServiceHttp
 {
-    constructor(private httpService : Http)
+    constructor
+    (
+        private httpService : Http
+        , private _TraverseProvider: CurrentTraverseProvider
+
+        , private _TraverseMeasurementSummarySubject: TraverseMeasurementSummarySubjectProvider
+
+
+    )
     {
     }
 
@@ -23,7 +34,9 @@ export class SurveyMeasurementServiceHttp
 
         return this.httpService.post(strPath, strJsonBody, options)
                          .map((resp : Response) => SurveyMeasurement.fromJsonObject(resp.json()))
+                         .map(obsSurveyMeasurement => this.notifyObservers(obsSurveyMeasurement))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
+
     }
     updateToDatabase(typeSurveyMeasurement : SurveyMeasurement) : Observable<SurveyMeasurement>
     {
@@ -34,20 +47,29 @@ export class SurveyMeasurementServiceHttp
 
         return this.httpService.put(strPath, strJsonBody, options)
                          .map((resp : Response) => SurveyMeasurement.fromJsonObject(resp.json()))
+                         .map(obsSurveyMeasurement => this.notifyObservers(obsSurveyMeasurement))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
-    saveSurveyMeasurementForTraverse(typeSurveyMeasurement : SurveyMeasurement, ID: number) : Observable<SurveyMeasurement>
+    saveSurveyMeasurementForTraverse(typeSurveyMeasurement : SurveyMeasurement) : Observable<SurveyMeasurement>
     {
             let strPath : string = SurveyMeasurementServiceHttp.buildPath();
             strPath += "/addSurveyMeasurementToTraverse";
-            let strJsonBody : string = "{ \"ID\": " + ID + ", SurveyMeasurement: " + typeSurveyMeasurement.toJson() + " }";
+            let strJsonBody : string = "{ \"ID\": " + this._TraverseProvider.Traverse.ID + ", SurveyMeasurement: " + typeSurveyMeasurement.toJson() + " }";
             let headers = new Headers({ "Content-Type": "application/json" });
             let options = new RequestOptions({ headers: headers });
 
             return this.httpService.post(strPath, strJsonBody, options)
-                             .map((resp : Response) => SurveyMeasurement.fromJsonObject(resp.json()))
+                             .map((resp : Response) => this.notifyObservers(SurveyMeasurement.fromJsonObject(resp.json()), ID))
                              .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
+
+    private notifyObservers(updateSurveyMeasurement: SurveyMeasurement): SurveyMeasurement
+    {
+        this._TraverseMeasurementSummarySubject.updateForSurveyMeasurement(updateSurveyMeasurement);
+
+        return updateSurveyMeasurement;
+    }
+
     loadAllFromDatabase() : Observable<SurveyMeasurement[]>
     {
         let strPath : string = SurveyMeasurementServiceHttp.buildPath();
@@ -72,4 +94,50 @@ export class SurveyMeasurementServiceHttp
         let strPath : string = "http://localhost:49876/api" + "/SurveyMeasurements";
         return strPath;
     }
+}
+
+
+@Injectable()
+export class SurveyMeasurementSubjectProvider
+{
+    private _mapSummaries: Map<number, BehaviorSubject<SurveyMeasurement[]>>;
+
+    constructor
+    (
+        private _SurveyMeasurementService : SurveyMeasurementServiceHttp
+    )
+    {
+        this._mapSummaries = new Map<number, BehaviorSubject<SurveyMeasurement[]>>();
+    }
+
+    getSurveyMeasurement(keyID?: number): Observable<SurveyMeasurement[]>
+    {
+        let keyLocal: number = keyID ? keyID : 0;
+        if(!this._mapSummaries.has(keyLocal))
+        {
+            this._mapSummaries.set(keyLocal, new BehaviorSubject<SurveyMeasurement[]>([]));
+            this.update(keyLocal);
+        }
+        return this._mapSummaries.get(keyLocal).asObservable();
+    }
+
+    update(keyID?: number)
+    {
+        let keyLocal: number = keyID ? keyID : 0;
+        if(keyID)
+        {
+            this._SurveyMeasurementService.loadSurveyMeasurementFromDatabase(keyLocal)
+                .subscribe(
+                    result => this._mapSummaries.get(keyLocal).next([result])
+                );
+        }
+        else
+        {
+            this._SurveyMeasurementService.loadAllFromDatabase()
+                .subscribe(
+                    result => this._mapSummaries.get(keyLocal).next(result)
+                );
+        }
+    }
+
 }

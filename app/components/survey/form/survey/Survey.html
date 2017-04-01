@@ -1,14 +1,14 @@
 <!-- ****THIS IS A CODE GENERATED FILE DO NOT EDIT**** -->
-<!-- Generated on Tue Mar 07 20:55:08 AEST 2017 -->
+<!-- Generated on Sun Mar 26 15:41:09 AEST 2017 -->
 <form>
-        <div class="flex-container form-group" id="anonymous" fxLayout="row">
+        <div class="flex-container form-group" id="desc" fxLayout="row">
                     <md-input-container fxFlex="25">
                         <label >Name:</label>
                         <input class="form-control"
                             mdInput 
                             type="text"
                             [(ngModel)]="Survey.Name"
-                            id="Name" name="Name">
+                            id="name" name="Name">
                     </md-input-container>
 
 
@@ -18,7 +18,7 @@
                             mdInput 
                             type="text"
                             [(ngModel)]="Survey.Description"
-                            id="Description" name="Description">
+                            id="desc" name="Description">
                     </md-input-container>
 
 
@@ -26,6 +26,10 @@
                         <projection-select [(ngModel)]="Survey.Projection" name="Projection"></projection-select>
 
 
+        </div>
+        <div class="flex-container form-group" id="proj" fxLayout="row">
+        </div>
+        <div class="flex-container form-group" id="instr" fxLayout="row">
         </div>
 
 </form>

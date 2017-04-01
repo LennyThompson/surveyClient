@@ -1,16 +1,19 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {SurveyImage} from "../types/SurveyImage";
 
 import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
-import { Observable, Subscription } from "rxjs/Rx";
+import { Observable, BehaviorSubject } from "rxjs/Rx";
 
 @Injectable()
 export class SurveyImageServiceHttp
 {
-    constructor(private httpService : Http)
+    constructor
+    (
+        private httpService : Http
+    )
     {
     }
 
@@ -23,7 +26,9 @@ export class SurveyImageServiceHttp
 
         return this.httpService.post(strPath, strJsonBody, options)
                          .map((resp : Response) => SurveyImage.fromJsonObject(resp.json()))
+                         .map(obsSurveyImage => this.notifyObservers(obsSurveyImage))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
+
     }
     updateToDatabase(typeSurveyImage : SurveyImage) : Observable<SurveyImage>
     {
@@ -34,8 +39,14 @@ export class SurveyImageServiceHttp
 
         return this.httpService.put(strPath, strJsonBody, options)
                          .map((resp : Response) => SurveyImage.fromJsonObject(resp.json()))
+                         .map(obsSurveyImage => this.notifyObservers(obsSurveyImage))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
+    private notifyObservers(updateSurveyImage: SurveyImage): SurveyImage
+    {
+        return updateSurveyImage;
+    }
+
     loadAllFromDatabase() : Observable<SurveyImage[]>
     {
         let strPath : string = SurveyImageServiceHttp.buildPath();
@@ -60,4 +71,50 @@ export class SurveyImageServiceHttp
         let strPath : string = "http://localhost:49876/api" + "/SurveyImages";
         return strPath;
     }
+}
+
+
+@Injectable()
+export class SurveyImageSubjectProvider
+{
+    private _mapSummaries: Map<number, BehaviorSubject<SurveyImage[]>>;
+
+    constructor
+    (
+        private _SurveyImageService : SurveyImageServiceHttp
+    )
+    {
+        this._mapSummaries = new Map<number, BehaviorSubject<SurveyImage[]>>();
+    }
+
+    getSurveyImage(keyID?: number): Observable<SurveyImage[]>
+    {
+        let keyLocal: number = keyID ? keyID : 0;
+        if(!this._mapSummaries.has(keyLocal))
+        {
+            this._mapSummaries.set(keyLocal, new BehaviorSubject<SurveyImage[]>([]));
+            this.update(keyLocal);
+        }
+        return this._mapSummaries.get(keyLocal).asObservable();
+    }
+
+    update(keyID?: number)
+    {
+        let keyLocal: number = keyID ? keyID : 0;
+        if(keyID)
+        {
+            this._SurveyImageService.loadSurveyImageFromDatabase(keyLocal)
+                .subscribe(
+                    result => this._mapSummaries.get(keyLocal).next([result])
+                );
+        }
+        else
+        {
+            this._SurveyImageService.loadAllFromDatabase()
+                .subscribe(
+                    result => this._mapSummaries.get(keyLocal).next(result)
+                );
+        }
+    }
+
 }

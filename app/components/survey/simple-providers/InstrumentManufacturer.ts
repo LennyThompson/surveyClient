@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {InstrumentManufacturer} from "./../../../services/surveyDb/types";
@@ -68,5 +68,56 @@ export class CurrentInstrumentManufacturerListProvider
     set InstrumentManufacturers(value: InstrumentManufacturer[])
     {
         this.m_listInstrumentManufacturer = value;
+    }
+}
+
+// Declare injectable provider for editing a form provider type
+import {MdDialogConfig, MdDialog} from "@angular/material";
+
+@Injectable()
+export class EditInstrumentManufacturerProvider
+{
+    constructor(
+        private _dialogService: MdDialog,
+        private _InstrumentManufacturerHttp: InstrumentManufacturerServiceHttp,
+        private _InstrumentManufacturerProvider: CurrentInstrumentManufacturerProvider
+    )
+    {
+    }
+
+    edit(ID: number)
+    {
+        this._InstrumentManufacturerHttp.loadInstrumentManufacturerFromDatabase(ID)
+        .subscribe(
+                (localInstrumentManufacturer: InstrumentManufacturer) => edit(localInstrumentManufacturer)
+        );
+    }
+
+    edit(editInstrumentManufacturer: InstrumentManufacturer)
+    {
+        this._InstrumentManufacturerProvider.InstrumentManufacturer = editInstrumentManufacturer;
+        this._dialogService.open(EditInstrumentManufacturerComponent)
+            .afterClosed()
+            .subscribe(
+                (result) =>
+                {
+                    if(result)
+                    {
+                        console.log(JSON.stringify(result));
+                        this._InstrumentManufacturerHttp.updateToDatabase(result)
+                            .subscribe(
+                                (result) =>
+                                {
+                                    // Tell parent to update...
+                                    console.log("this.pointService.updateToDatabase", result);
+                                }
+                            );
+                    }
+                    else
+                    {
+                        console.log("Cancel");
+                    }
+                }
+            );
     }
 }

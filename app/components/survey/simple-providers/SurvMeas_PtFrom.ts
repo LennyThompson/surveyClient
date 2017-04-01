@@ -1,8 +1,8 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {Injectable} from "@angular/core";
-import {SurvMeas_PtFrom} from "./../../../services/surveyDb/types/TraverseMeasurementSummary";
+import {SurvMeas_PtFrom} from "./../../../services/surveyDb/types/";
 // Declare injectable provider for simple objects of type SurvMeas_PtFrom
 
 @Injectable()
@@ -41,5 +41,56 @@ export class CurrentSurvMeas_PtFromListProvider
     set SurvMeas_PtFroms(value: SurvMeas_PtFrom[])
     {
         this.m_listSurvMeas_PtFrom = value;
+    }
+}
+
+// Declare injectable provider for editing a form provider type
+import {MdDialogConfig, MdDialog} from "@angular/material";
+
+@Injectable()
+export class EditSurvMeas_PtFromProvider
+{
+    constructor(
+        private _dialogService: MdDialog,
+        private _SurvMeas_PtFromHttp: SurvMeas_PtFromServiceHttp,
+        private _SurvMeas_PtFromProvider: CurrentSurvMeas_PtFromProvider
+    )
+    {
+    }
+
+    edit(ID: number)
+    {
+        this._SurvMeas_PtFromHttp.loadSurvMeas_PtFromFromDatabase(ID)
+        .subscribe(
+                (localSurvMeas_PtFrom: SurvMeas_PtFrom) => edit(localSurvMeas_PtFrom)
+        );
+    }
+
+    edit(editSurvMeas_PtFrom: SurvMeas_PtFrom)
+    {
+        this._SurvMeas_PtFromProvider.SurvMeas_PtFrom = editSurvMeas_PtFrom;
+        this._dialogService.open(EditSurvMeas_PtFromComponent)
+            .afterClosed()
+            .subscribe(
+                (result) =>
+                {
+                    if(result)
+                    {
+                        console.log(JSON.stringify(result));
+                        this._SurvMeas_PtFromHttp.updateToDatabase(result)
+                            .subscribe(
+                                (result) =>
+                                {
+                                    // Tell parent to update...
+                                    console.log("this.pointService.updateToDatabase", result);
+                                }
+                            );
+                    }
+                    else
+                    {
+                        console.log("Cancel");
+                    }
+                }
+            );
     }
 }

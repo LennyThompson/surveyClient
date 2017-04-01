@@ -1,16 +1,26 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {SurveyReference} from "../types/SurveyReference";
 
 import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
-import { Observable, Subscription } from "rxjs/Rx";
+import { Observable, BehaviorSubject } from "rxjs/Rx";
+import { SurveyPointSummarySubjectProvider, SurveySummarySubjectProvider } from "./";
+
+
 
 @Injectable()
 export class SurveyReferenceServiceHttp
 {
-    constructor(private httpService : Http)
+    constructor
+    (
+        private httpService : Http
+        , private _SurveyPointSummarySubject: SurveyPointSummarySubjectProvider
+        , private _SurveySummarySubject: SurveySummarySubjectProvider
+
+
+    )
     {
     }
 
@@ -23,7 +33,9 @@ export class SurveyReferenceServiceHttp
 
         return this.httpService.post(strPath, strJsonBody, options)
                          .map((resp : Response) => SurveyReference.fromJsonObject(resp.json()))
+                         .map(obsSurveyReference => this.notifyObservers(obsSurveyReference))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
+
     }
     updateToDatabase(typeSurveyReference : SurveyReference) : Observable<SurveyReference>
     {
@@ -34,8 +46,17 @@ export class SurveyReferenceServiceHttp
 
         return this.httpService.put(strPath, strJsonBody, options)
                          .map((resp : Response) => SurveyReference.fromJsonObject(resp.json()))
+                         .map(obsSurveyReference => this.notifyObservers(obsSurveyReference))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
+    private notifyObservers(updateSurveyReference: SurveyReference): SurveyReference
+    {
+        this._SurveyPointSummarySubject.updateForSurveyReference(updateSurveyReference);
+        this._SurveySummarySubject.updateForSurveyReference(updateSurveyReference);
+
+        return updateSurveyReference;
+    }
+
     loadAllFromDatabase() : Observable<SurveyReference[]>
     {
         let strPath : string = SurveyReferenceServiceHttp.buildPath();
@@ -60,4 +81,50 @@ export class SurveyReferenceServiceHttp
         let strPath : string = "http://localhost:49876/api" + "/SurveyReferences";
         return strPath;
     }
+}
+
+
+@Injectable()
+export class SurveyReferenceSubjectProvider
+{
+    private _mapSummaries: Map<number, BehaviorSubject<SurveyReference[]>>;
+
+    constructor
+    (
+        private _SurveyReferenceService : SurveyReferenceServiceHttp
+    )
+    {
+        this._mapSummaries = new Map<number, BehaviorSubject<SurveyReference[]>>();
+    }
+
+    getSurveyReference(keyID?: number): Observable<SurveyReference[]>
+    {
+        let keyLocal: number = keyID ? keyID : 0;
+        if(!this._mapSummaries.has(keyLocal))
+        {
+            this._mapSummaries.set(keyLocal, new BehaviorSubject<SurveyReference[]>([]));
+            this.update(keyLocal);
+        }
+        return this._mapSummaries.get(keyLocal).asObservable();
+    }
+
+    update(keyID?: number)
+    {
+        let keyLocal: number = keyID ? keyID : 0;
+        if(keyID)
+        {
+            this._SurveyReferenceService.loadSurveyReferenceFromDatabase(keyLocal)
+                .subscribe(
+                    result => this._mapSummaries.get(keyLocal).next([result])
+                );
+        }
+        else
+        {
+            this._SurveyReferenceService.loadAllFromDatabase()
+                .subscribe(
+                    result => this._mapSummaries.get(keyLocal).next(result)
+                );
+        }
+    }
+
 }

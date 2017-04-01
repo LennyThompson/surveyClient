@@ -1,14 +1,14 @@
 <!-- ****THIS IS A CODE GENERATED FILE DO NOT EDIT**** -->
-<!-- Generated on Tue Mar 07 20:55:08 AEST 2017 -->
+<!-- Generated on Sun Mar 26 15:41:09 AEST 2017 -->
 <form>
-        <div class="flex-container form-group" id="anonymous" fxLayout="row">
+        <div class="flex-container form-group" id="desc" fxLayout="row">
                     <md-input-container fxFlex="25">
                         <label >Name:</label>
                         <input class="form-control"
                             mdInput 
                             type="text"
                             [(ngModel)]="SurveyReference.Name"
-                            id="Name" name="Name">
+                            id="name" name="Name">
                     </md-input-container>
 
 
@@ -18,17 +18,19 @@
                             mdInput 
                             type="text"
                             [(ngModel)]="SurveyReference.Description"
-                            id="Description" name="Description">
+                            id="desc" name="Description">
                     </md-input-container>
 
 
+        </div>
+        <div class="flex-container form-group" id="ref" fxLayout="row">
                     <md-input-container fxFlex="25">
                         <label >Date:</label>
                         <input class="form-control"
                             mdInput 
                             type="text"
                             [(ngModel)]="SurveyReference.Date"
-                            id="Date" name="Date">
+                            id="date" name="Date">
                     </md-input-container>
 
 
@@ -38,7 +40,7 @@
                             mdInput 
                             type="text"
                             [(ngModel)]="SurveyReference.Reference"
-                            id="Reference" name="Reference">
+                            id="ref" name="Reference">
                     </md-input-container>
 
 

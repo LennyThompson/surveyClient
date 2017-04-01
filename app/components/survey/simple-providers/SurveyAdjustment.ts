@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {SurveyAdjustment} from "./../../../services/surveyDb/types";
@@ -68,5 +68,56 @@ export class CurrentSurveyAdjustmentListProvider
     set SurveyAdjustments(value: SurveyAdjustment[])
     {
         this.m_listSurveyAdjustment = value;
+    }
+}
+
+// Declare injectable provider for editing a form provider type
+import {MdDialogConfig, MdDialog} from "@angular/material";
+
+@Injectable()
+export class EditSurveyAdjustmentProvider
+{
+    constructor(
+        private _dialogService: MdDialog,
+        private _SurveyAdjustmentHttp: SurveyAdjustmentServiceHttp,
+        private _SurveyAdjustmentProvider: CurrentSurveyAdjustmentProvider
+    )
+    {
+    }
+
+    edit(ID: number)
+    {
+        this._SurveyAdjustmentHttp.loadSurveyAdjustmentFromDatabase(ID)
+        .subscribe(
+                (localSurveyAdjustment: SurveyAdjustment) => edit(localSurveyAdjustment)
+        );
+    }
+
+    edit(editSurveyAdjustment: SurveyAdjustment)
+    {
+        this._SurveyAdjustmentProvider.SurveyAdjustment = editSurveyAdjustment;
+        this._dialogService.open(EditSurveyAdjustmentComponent)
+            .afterClosed()
+            .subscribe(
+                (result) =>
+                {
+                    if(result)
+                    {
+                        console.log(JSON.stringify(result));
+                        this._SurveyAdjustmentHttp.updateToDatabase(result)
+                            .subscribe(
+                                (result) =>
+                                {
+                                    // Tell parent to update...
+                                    console.log("this.pointService.updateToDatabase", result);
+                                }
+                            );
+                    }
+                    else
+                    {
+                        console.log("Cancel");
+                    }
+                }
+            );
     }
 }

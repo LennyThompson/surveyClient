@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {TraverseClosure} from "./../../../services/surveyDb/types";
@@ -68,5 +68,56 @@ export class CurrentTraverseClosureListProvider
     set TraverseClosures(value: TraverseClosure[])
     {
         this.m_listTraverseClosure = value;
+    }
+}
+
+// Declare injectable provider for editing a form provider type
+import {MdDialogConfig, MdDialog} from "@angular/material";
+
+@Injectable()
+export class EditTraverseClosureProvider
+{
+    constructor(
+        private _dialogService: MdDialog,
+        private _TraverseClosureHttp: TraverseClosureServiceHttp,
+        private _TraverseClosureProvider: CurrentTraverseClosureProvider
+    )
+    {
+    }
+
+    edit(ID: number)
+    {
+        this._TraverseClosureHttp.loadTraverseClosureFromDatabase(ID)
+        .subscribe(
+                (localTraverseClosure: TraverseClosure) => edit(localTraverseClosure)
+        );
+    }
+
+    edit(editTraverseClosure: TraverseClosure)
+    {
+        this._TraverseClosureProvider.TraverseClosure = editTraverseClosure;
+        this._dialogService.open(EditTraverseClosureComponent)
+            .afterClosed()
+            .subscribe(
+                (result) =>
+                {
+                    if(result)
+                    {
+                        console.log(JSON.stringify(result));
+                        this._TraverseClosureHttp.updateToDatabase(result)
+                            .subscribe(
+                                (result) =>
+                                {
+                                    // Tell parent to update...
+                                    console.log("this.pointService.updateToDatabase", result);
+                                }
+                            );
+                    }
+                    else
+                    {
+                        console.log("Cancel");
+                    }
+                }
+            );
     }
 }

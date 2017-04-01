@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -20,22 +20,29 @@ var InstrumentManufacturerServiceHttp = InstrumentManufacturerServiceHttp_1 = (f
         this.httpService = httpService;
     }
     InstrumentManufacturerServiceHttp.prototype.saveToDatabase = function (typeInstrumentManufacturer) {
+        var _this = this;
         var strPath = InstrumentManufacturerServiceHttp_1.buildPath();
         var strJsonBody = typeInstrumentManufacturer.toJson();
         var headers = new http_1.Headers({ "Content-Type": "application/json" });
         var options = new http_1.RequestOptions({ headers: headers });
         return this.httpService.post(strPath, strJsonBody, options)
             .map(function (resp) { return InstrumentManufacturer_1.InstrumentManufacturer.fromJsonObject(resp.json()); })
+            .map(function (obsInstrumentManufacturer) { return _this.notifyObservers(obsInstrumentManufacturer); })
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || "Server error"); });
     };
     InstrumentManufacturerServiceHttp.prototype.updateToDatabase = function (typeInstrumentManufacturer) {
+        var _this = this;
         var strPath = InstrumentManufacturerServiceHttp_1.buildPath();
         var strJsonBody = typeInstrumentManufacturer.toJson();
         var headers = new http_1.Headers({ "Content-Type": "application/json" });
         var options = new http_1.RequestOptions({ headers: headers });
         return this.httpService.put(strPath, strJsonBody, options)
             .map(function (resp) { return InstrumentManufacturer_1.InstrumentManufacturer.fromJsonObject(resp.json()); })
+            .map(function (obsInstrumentManufacturer) { return _this.notifyObservers(obsInstrumentManufacturer); })
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || "Server error"); });
+    };
+    InstrumentManufacturerServiceHttp.prototype.notifyObservers = function (updateInstrumentManufacturer) {
+        return updateInstrumentManufacturer;
     };
     InstrumentManufacturerServiceHttp.prototype.loadAllFromDatabase = function () {
         var strPath = InstrumentManufacturerServiceHttp_1.buildPath();
@@ -62,5 +69,37 @@ InstrumentManufacturerServiceHttp = InstrumentManufacturerServiceHttp_1 = __deco
     __metadata("design:paramtypes", [http_1.Http])
 ], InstrumentManufacturerServiceHttp);
 exports.InstrumentManufacturerServiceHttp = InstrumentManufacturerServiceHttp;
+var InstrumentManufacturerSubjectProvider = (function () {
+    function InstrumentManufacturerSubjectProvider(_InstrumentManufacturerService) {
+        this._InstrumentManufacturerService = _InstrumentManufacturerService;
+        this._mapSummaries = new Map();
+    }
+    InstrumentManufacturerSubjectProvider.prototype.getInstrumentManufacturer = function (keyID) {
+        var keyLocal = keyID ? keyID : 0;
+        if (!this._mapSummaries.has(keyLocal)) {
+            this._mapSummaries.set(keyLocal, new Rx_1.BehaviorSubject([]));
+            this.update(keyLocal);
+        }
+        return this._mapSummaries.get(keyLocal).asObservable();
+    };
+    InstrumentManufacturerSubjectProvider.prototype.update = function (keyID) {
+        var _this = this;
+        var keyLocal = keyID ? keyID : 0;
+        if (keyID) {
+            this._InstrumentManufacturerService.loadInstrumentManufacturerFromDatabase(keyLocal)
+                .subscribe(function (result) { return _this._mapSummaries.get(keyLocal).next([result]); });
+        }
+        else {
+            this._InstrumentManufacturerService.loadAllFromDatabase()
+                .subscribe(function (result) { return _this._mapSummaries.get(keyLocal).next(result); });
+        }
+    };
+    return InstrumentManufacturerSubjectProvider;
+}());
+InstrumentManufacturerSubjectProvider = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [InstrumentManufacturerServiceHttp])
+], InstrumentManufacturerSubjectProvider);
+exports.InstrumentManufacturerSubjectProvider = InstrumentManufacturerSubjectProvider;
 var InstrumentManufacturerServiceHttp_1;
 //# sourceMappingURL=InstrumentManufacturerServiceHttp.js.map

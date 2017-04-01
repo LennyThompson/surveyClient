@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:07 AEST 2017
+// Generated on Wed Mar 22 19:50:14 AEST 2017
 
 import {SurveyPoint} from "./SurveyPoint";
 import {TraverseClosure} from "./TraverseClosure";

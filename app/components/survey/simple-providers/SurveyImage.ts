@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {SurveyImage} from "./../../../services/surveyDb/types";
@@ -68,5 +68,56 @@ export class CurrentSurveyImageListProvider
     set SurveyImages(value: SurveyImage[])
     {
         this.m_listSurveyImage = value;
+    }
+}
+
+// Declare injectable provider for editing a form provider type
+import {MdDialogConfig, MdDialog} from "@angular/material";
+
+@Injectable()
+export class EditSurveyImageProvider
+{
+    constructor(
+        private _dialogService: MdDialog,
+        private _SurveyImageHttp: SurveyImageServiceHttp,
+        private _SurveyImageProvider: CurrentSurveyImageProvider
+    )
+    {
+    }
+
+    edit(ID: number)
+    {
+        this._SurveyImageHttp.loadSurveyImageFromDatabase(ID)
+        .subscribe(
+                (localSurveyImage: SurveyImage) => edit(localSurveyImage)
+        );
+    }
+
+    edit(editSurveyImage: SurveyImage)
+    {
+        this._SurveyImageProvider.SurveyImage = editSurveyImage;
+        this._dialogService.open(EditSurveyImageComponent)
+            .afterClosed()
+            .subscribe(
+                (result) =>
+                {
+                    if(result)
+                    {
+                        console.log(JSON.stringify(result));
+                        this._SurveyImageHttp.updateToDatabase(result)
+                            .subscribe(
+                                (result) =>
+                                {
+                                    // Tell parent to update...
+                                    console.log("this.pointService.updateToDatabase", result);
+                                }
+                            );
+                    }
+                    else
+                    {
+                        console.log("Cancel");
+                    }
+                }
+            );
     }
 }

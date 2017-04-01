@@ -1,16 +1,21 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {Instrument} from "../types/Instrument";
 
 import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
-import { Observable, Subscription } from "rxjs/Rx";
+import { Observable, BehaviorSubject } from "rxjs/Rx";
 
 @Injectable()
 export class InstrumentServiceHttp
 {
-    constructor(private httpService : Http)
+    constructor
+    (
+        private httpService : Http
+        , private _SurveyProvider: CurrentSurveyProvider
+
+    )
     {
     }
 
@@ -23,7 +28,9 @@ export class InstrumentServiceHttp
 
         return this.httpService.post(strPath, strJsonBody, options)
                          .map((resp : Response) => Instrument.fromJsonObject(resp.json()))
+                         .map(obsInstrument => this.notifyObservers(obsInstrument))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
+
     }
     updateToDatabase(typeInstrument : Instrument) : Observable<Instrument>
     {
@@ -34,20 +41,27 @@ export class InstrumentServiceHttp
 
         return this.httpService.put(strPath, strJsonBody, options)
                          .map((resp : Response) => Instrument.fromJsonObject(resp.json()))
+                         .map(obsInstrument => this.notifyObservers(obsInstrument))
                          .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
-    saveInstrumentForSurvey(typeInstrument : Instrument, ID: number) : Observable<Instrument>
+    saveInstrumentForSurvey(typeInstrument : Instrument) : Observable<Instrument>
     {
             let strPath : string = InstrumentServiceHttp.buildPath();
             strPath += "/addInstrumentToSurvey";
-            let strJsonBody : string = "{ \"ID\": " + ID + ", Instrument: " + typeInstrument.toJson() + " }";
+            let strJsonBody : string = "{ \"ID\": " + this._SurveyProvider.Survey.ID + ", Instrument: " + typeInstrument.toJson() + " }";
             let headers = new Headers({ "Content-Type": "application/json" });
             let options = new RequestOptions({ headers: headers });
 
             return this.httpService.post(strPath, strJsonBody, options)
-                             .map((resp : Response) => Instrument.fromJsonObject(resp.json()))
+                             .map((resp : Response) => this.notifyObservers(Instrument.fromJsonObject(resp.json()), ID))
                              .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
+
+    private notifyObservers(updateInstrument: Instrument): Instrument
+    {
+        return updateInstrument;
+    }
+
     loadAllFromDatabase() : Observable<Instrument[]>
     {
         let strPath : string = InstrumentServiceHttp.buildPath();
@@ -72,4 +86,50 @@ export class InstrumentServiceHttp
         let strPath : string = "http://localhost:49876/api" + "/Instruments";
         return strPath;
     }
+}
+
+
+@Injectable()
+export class InstrumentSubjectProvider
+{
+    private _mapSummaries: Map<number, BehaviorSubject<Instrument[]>>;
+
+    constructor
+    (
+        private _InstrumentService : InstrumentServiceHttp
+    )
+    {
+        this._mapSummaries = new Map<number, BehaviorSubject<Instrument[]>>();
+    }
+
+    getInstrument(keyID?: number): Observable<Instrument[]>
+    {
+        let keyLocal: number = keyID ? keyID : 0;
+        if(!this._mapSummaries.has(keyLocal))
+        {
+            this._mapSummaries.set(keyLocal, new BehaviorSubject<Instrument[]>([]));
+            this.update(keyLocal);
+        }
+        return this._mapSummaries.get(keyLocal).asObservable();
+    }
+
+    update(keyID?: number)
+    {
+        let keyLocal: number = keyID ? keyID : 0;
+        if(keyID)
+        {
+            this._InstrumentService.loadInstrumentFromDatabase(keyLocal)
+                .subscribe(
+                    result => this._mapSummaries.get(keyLocal).next([result])
+                );
+        }
+        else
+        {
+            this._InstrumentService.loadAllFromDatabase()
+                .subscribe(
+                    result => this._mapSummaries.get(keyLocal).next(result)
+                );
+        }
+    }
+
 }

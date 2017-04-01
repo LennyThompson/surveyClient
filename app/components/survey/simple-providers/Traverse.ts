@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {Traverse} from "./../../../services/surveyDb/types";
@@ -68,5 +68,56 @@ export class CurrentTraverseListProvider
     set Traverses(value: Traverse[])
     {
         this.m_listTraverse = value;
+    }
+}
+
+// Declare injectable provider for editing a form provider type
+import {MdDialogConfig, MdDialog} from "@angular/material";
+
+@Injectable()
+export class EditTraverseProvider
+{
+    constructor(
+        private _dialogService: MdDialog,
+        private _TraverseHttp: TraverseServiceHttp,
+        private _TraverseProvider: CurrentTraverseProvider
+    )
+    {
+    }
+
+    edit(ID: number)
+    {
+        this._TraverseHttp.loadTraverseFromDatabase(ID)
+        .subscribe(
+                (localTraverse: Traverse) => edit(localTraverse)
+        );
+    }
+
+    edit(editTraverse: Traverse)
+    {
+        this._TraverseProvider.Traverse = editTraverse;
+        this._dialogService.open(EditTraverseComponent)
+            .afterClosed()
+            .subscribe(
+                (result) =>
+                {
+                    if(result)
+                    {
+                        console.log(JSON.stringify(result));
+                        this._TraverseHttp.updateToDatabase(result)
+                            .subscribe(
+                                (result) =>
+                                {
+                                    // Tell parent to update...
+                                    console.log("this.pointService.updateToDatabase", result);
+                                }
+                            );
+                    }
+                    else
+                    {
+                        console.log("Cancel");
+                    }
+                }
+            );
     }
 }

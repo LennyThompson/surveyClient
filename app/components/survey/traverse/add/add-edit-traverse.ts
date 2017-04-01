@@ -58,6 +58,7 @@ export class TraverseEditBaseComponent
                     if(result)
                     {
                         result.Bearing = this.surveyCalc.toDegrees(result.Bearing);
+                        result.SurveyID = 1;
                         this.addMeasurementToTraverse(result);
                     }
                     else

@@ -1,9 +1,10 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:07 AEST 2017
+// Generated on Wed Mar 22 19:50:14 AEST 2017
 
 import { TimeConversion } from "./../TimeConversion";
 import * as lodash from "lodash";
 // declare internal types
+
 export class SurvMeas_PtTo
 {
     private m_PtToID : number;
@@ -78,6 +79,8 @@ export class SurvMeas_PtTo
         };
     }
 }
+
+
 export class SurvMeas_PtFrom
 {
     private m_PtFromID : number;
@@ -152,6 +155,8 @@ export class SurvMeas_PtFrom
         };
     }
 }
+
+
 export class TraverseMeasurementSummary_SurvMeas
 {
     private m_MeasID : number;

@@ -1,6 +1,5 @@
 
 import {Component} from "@angular/core";
-import {SurveyMeasurement} from "../../../../services/surveyDb/types";
 import {CurrentSurveyPointProvider, SurveyContextProvider, CurrentSurveyMeasurementProvider} from "./../../simple-providers";
 import {MdDialog, MdDialogRef} from "@angular/material";
 import {AddEditSurveyMeasurement} from "./add-edit-survey-measurement";

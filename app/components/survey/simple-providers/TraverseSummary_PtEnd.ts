@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {TraverseSummary_PtEnd} from "./../../../services/surveyDb/types/TraverseSummary";
@@ -41,5 +41,56 @@ export class CurrentTraverseSummary_PtEndListProvider
     set TraverseSummary_PtEnds(value: TraverseSummary_PtEnd[])
     {
         this.m_listTraverseSummary_PtEnd = value;
+    }
+}
+
+// Declare injectable provider for editing a form provider type
+import {MdDialogConfig, MdDialog} from "@angular/material";
+
+@Injectable()
+export class EditTraverseSummary_PtEndProvider
+{
+    constructor(
+        private _dialogService: MdDialog,
+        private _TraverseSummary_PtEndHttp: TraverseSummary_PtEndServiceHttp,
+        private _TraverseSummary_PtEndProvider: CurrentTraverseSummary_PtEndProvider
+    )
+    {
+    }
+
+    edit(ID: number)
+    {
+        this._TraverseSummary_PtEndHttp.loadTraverseSummary_PtEndFromDatabase(ID)
+        .subscribe(
+                (localTraverseSummary_PtEnd: TraverseSummary_PtEnd) => edit(localTraverseSummary_PtEnd)
+        );
+    }
+
+    edit(editTraverseSummary_PtEnd: TraverseSummary_PtEnd)
+    {
+        this._TraverseSummary_PtEndProvider.TraverseSummary_PtEnd = editTraverseSummary_PtEnd;
+        this._dialogService.open(EditTraverseSummary_PtEndComponent)
+            .afterClosed()
+            .subscribe(
+                (result) =>
+                {
+                    if(result)
+                    {
+                        console.log(JSON.stringify(result));
+                        this._TraverseSummary_PtEndHttp.updateToDatabase(result)
+                            .subscribe(
+                                (result) =>
+                                {
+                                    // Tell parent to update...
+                                    console.log("this.pointService.updateToDatabase", result);
+                                }
+                            );
+                    }
+                    else
+                    {
+                        console.log("Cancel");
+                    }
+                }
+            );
     }
 }

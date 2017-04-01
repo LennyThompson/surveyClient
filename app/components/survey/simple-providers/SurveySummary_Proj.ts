@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Tue Mar 07 20:55:08 AEST 2017
+// Generated on Sun Mar 26 15:41:09 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {SurveySummary_Proj} from "./../../../services/surveyDb/types/SurveySummary";
@@ -41,5 +41,56 @@ export class CurrentSurveySummary_ProjListProvider
     set SurveySummary_Projs(value: SurveySummary_Proj[])
     {
         this.m_listSurveySummary_Proj = value;
+    }
+}
+
+// Declare injectable provider for editing a form provider type
+import {MdDialogConfig, MdDialog} from "@angular/material";
+
+@Injectable()
+export class EditSurveySummary_ProjProvider
+{
+    constructor(
+        private _dialogService: MdDialog,
+        private _SurveySummary_ProjHttp: SurveySummary_ProjServiceHttp,
+        private _SurveySummary_ProjProvider: CurrentSurveySummary_ProjProvider
+    )
+    {
+    }
+
+    edit(ID: number)
+    {
+        this._SurveySummary_ProjHttp.loadSurveySummary_ProjFromDatabase(ID)
+        .subscribe(
+                (localSurveySummary_Proj: SurveySummary_Proj) => edit(localSurveySummary_Proj)
+        );
+    }
+
+    edit(editSurveySummary_Proj: SurveySummary_Proj)
+    {
+        this._SurveySummary_ProjProvider.SurveySummary_Proj = editSurveySummary_Proj;
+        this._dialogService.open(EditSurveySummary_ProjComponent)
+            .afterClosed()
+            .subscribe(
+                (result) =>
+                {
+                    if(result)
+                    {
+                        console.log(JSON.stringify(result));
+                        this._SurveySummary_ProjHttp.updateToDatabase(result)
+                            .subscribe(
+                                (result) =>
+                                {
+                                    // Tell parent to update...
+                                    console.log("this.pointService.updateToDatabase", result);
+                                }
+                            );
+                    }
+                    else
+                    {
+                        console.log("Cancel");
+                    }
+                }
+            );
     }
 }
