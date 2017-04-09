@@ -1,11 +1,14 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 
 import {SurveyAdjustment} from "../types/SurveyAdjustment";
 
 import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
+import { CurrentSurveyAdjustmentProvider } from "./../../../components/survey/simple-providers";
+
+
 
 @Injectable()
 export class SurveyAdjustmentServiceHttp
@@ -77,42 +80,68 @@ export class SurveyAdjustmentServiceHttp
 @Injectable()
 export class SurveyAdjustmentSubjectProvider
 {
-    private _mapSummaries: Map<number, BehaviorSubject<SurveyAdjustment[]>>;
+    private _summary: BehaviorSubject<SurveyAdjustment[]>;
+    private _SurveyAdjustmentSummaries: Map<number, BehaviorSubject<SurveyAdjustment>>;
 
     constructor
     (
         private _SurveyAdjustmentService : SurveyAdjustmentServiceHttp
+        , private _SurveyAdjustmentCurrent: CurrentSurveyAdjustmentProvider
+
     )
     {
-        this._mapSummaries = new Map<number, BehaviorSubject<SurveyAdjustment[]>>();
     }
 
-    getSurveyAdjustment(keyID?: number): Observable<SurveyAdjustment[]>
+    getSurveyAdjustmentSummaries(): Observable<SurveyAdjustment[]>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(!this._mapSummaries.has(keyLocal))
+        if(!this._summary)
         {
-            this._mapSummaries.set(keyLocal, new BehaviorSubject<SurveyAdjustment[]>([]));
-            this.update(keyLocal);
+            this._summary = new BehaviorSubject<SurveyAdjustment[]>([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     }
 
-    update(keyID?: number)
+    getSurveyAdjustmentSummary(): Observable<SurveyAdjustment>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(keyID)
+        if(this._SurveyAdjustmentCurrent.SurveyAdjustment)
         {
-            this._SurveyAdjustmentService.loadSurveyAdjustmentFromDatabase(keyLocal)
+            let key: number = this._SurveyAdjustmentCurrent.SurveyAdjustment.ID;
+            if(!this._SurveyAdjustmentSummaries)
+            {
+                this._SurveyAdjustmentSummaries = new Map<number, BehaviorSubject<SurveyAdjustment>>();
+            }
+            if(!this._SurveyAdjustmentSummaries.has(key))
+            {
+                this._SurveyAdjustmentSummaries.set(key, new BehaviorSubject<SurveyAdjustment>(null));
+            }
+
+            this.update();
+            return this._SurveyAdjustmentSummaries.get(key).asObservable();
+        }
+        throw new Error("No SurveyAdjustment current context is provided");
+    }
+
+
+    update()
+    {
+        if
+        (
+            this._SurveyAdjustmentCurrent.SurveyAdjustment
+            &&
+            this._SurveyAdjustmentSummaries.has(this._SurveyAdjustmentCurrent.SurveyAdjustment.ID)
+        )
+        {
+            this._SurveyAdjustmentService.loadSurveyAdjustmentFromDatabase(this._SurveyAdjustmentCurrent.SurveyAdjustment.ID)
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next([result])
+                    result => this._SurveyAdjustmentSummaries.get(this._SurveyAdjustmentCurrent.SurveyAdjustment.ID).next(result)
                 );
         }
-        else
+        if(this._summary)
         {
             this._SurveyAdjustmentService.loadAllFromDatabase()
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next(result)
+                    result => this._summary.next(result)
                 );
         }
     }

@@ -1,11 +1,16 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 
 import {Instrument} from "../types/Instrument";
 
 import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
+import { CurrentInstrumentProvider } from "./../../../components/survey/simple-providers";
+
+import { CurrentSurveyProvider } from "./../../../components/survey/simple-providers";
+
+
 
 @Injectable()
 export class InstrumentServiceHttp
@@ -53,7 +58,7 @@ export class InstrumentServiceHttp
             let options = new RequestOptions({ headers: headers });
 
             return this.httpService.post(strPath, strJsonBody, options)
-                             .map((resp : Response) => this.notifyObservers(Instrument.fromJsonObject(resp.json()), ID))
+                             .map((resp : Response) => this.notifyObservers(Instrument.fromJsonObject(resp.json())))
                              .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
 
@@ -92,42 +97,68 @@ export class InstrumentServiceHttp
 @Injectable()
 export class InstrumentSubjectProvider
 {
-    private _mapSummaries: Map<number, BehaviorSubject<Instrument[]>>;
+    private _summary: BehaviorSubject<Instrument[]>;
+    private _InstrumentSummaries: Map<number, BehaviorSubject<Instrument>>;
 
     constructor
     (
         private _InstrumentService : InstrumentServiceHttp
+        , private _InstrumentCurrent: CurrentInstrumentProvider
+
     )
     {
-        this._mapSummaries = new Map<number, BehaviorSubject<Instrument[]>>();
     }
 
-    getInstrument(keyID?: number): Observable<Instrument[]>
+    getInstrumentSummaries(): Observable<Instrument[]>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(!this._mapSummaries.has(keyLocal))
+        if(!this._summary)
         {
-            this._mapSummaries.set(keyLocal, new BehaviorSubject<Instrument[]>([]));
-            this.update(keyLocal);
+            this._summary = new BehaviorSubject<Instrument[]>([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     }
 
-    update(keyID?: number)
+    getInstrumentSummary(): Observable<Instrument>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(keyID)
+        if(this._InstrumentCurrent.Instrument)
         {
-            this._InstrumentService.loadInstrumentFromDatabase(keyLocal)
+            let key: number = this._InstrumentCurrent.Instrument.ID;
+            if(!this._InstrumentSummaries)
+            {
+                this._InstrumentSummaries = new Map<number, BehaviorSubject<Instrument>>();
+            }
+            if(!this._InstrumentSummaries.has(key))
+            {
+                this._InstrumentSummaries.set(key, new BehaviorSubject<Instrument>(null));
+            }
+
+            this.update();
+            return this._InstrumentSummaries.get(key).asObservable();
+        }
+        throw new Error("No Instrument current context is provided");
+    }
+
+
+    update()
+    {
+        if
+        (
+            this._InstrumentCurrent.Instrument
+            &&
+            this._InstrumentSummaries.has(this._InstrumentCurrent.Instrument.ID)
+        )
+        {
+            this._InstrumentService.loadInstrumentFromDatabase(this._InstrumentCurrent.Instrument.ID)
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next([result])
+                    result => this._InstrumentSummaries.get(this._InstrumentCurrent.Instrument.ID).next(result)
                 );
         }
-        else
+        if(this._summary)
         {
             this._InstrumentService.loadAllFromDatabase()
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next(result)
+                    result => this._summary.next(result)
                 );
         }
     }

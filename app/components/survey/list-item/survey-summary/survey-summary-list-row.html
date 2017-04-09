@@ -1,0 +1,15 @@
+<!-- ****THIS IS A CODE GENERATED FILE DO NOT EDIT**** -->
+<!-- Generated on Sun Apr 09 17:23:48 AEST 2017 -->
+<div class="flex-container survey-summary" fxLayout="row">
+
+    <div class="survey-summary-info" fxFlex="25" >{{SurveySummary.ID}}</div>
+    <div class="survey-summary-info" fxFlex="25" >{{SurveySummary.Name}}</div>
+    <div class="survey-summary-info" fxFlex="25" >{{SurveySummary.Description}}</div>
+    <div class="survey-summary-info" fxFlex="25" >{{SurveySummary.Proj.ProjName}}</div>
+    <div class="survey-summary-info" fxFlex="25" >{{SurveySummary.Updated}}</div>
+
+    <div class="flex-item survey-summary-actions" fxFlex="20%" >
+        <i class="icon-pencil" (click)="onEdit()"></i>
+        <i class="icon-trash" (click)="onDelete()"></i>
+    </div>
+</div>

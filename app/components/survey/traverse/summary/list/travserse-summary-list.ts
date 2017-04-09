@@ -1,12 +1,12 @@
 
 import {Component} from "@angular/core";
 import {TraverseMeasurementSummary, Traverse} from "./../../../../../services/surveyDb/types";
-import {SurveyContextProvider} from "./../../../simple-providers";
+import {CurrentSurveyProvider} from "./../../../simple-providers";
 import {TraverseMeasurementSummaryServiceHttp, TraverseServiceHttp} from "./../../../../../services/surveyDb/webAPI";
 import {MdDialog, MdDialogConfig} from "@angular/material";
 import {AddTraverseComponent} from "./../../add/add-traverse";
 import {Observable} from "rxjs";
-import {TraverseMeasurementSummarySubjectService} from "../../../../../services/surveyDb/webAPI/TraverseMeasurementSummaryServiceHttp";
+import {TraverseMeasurementSummarySubjectProvider} from "../../../../../services/surveyDb/webAPI";
 
 require("./traverse-summary-list.scss");
 
@@ -21,13 +21,13 @@ export class TravserseSummaryListComponent
     private _traverseList: Observable<TraverseMeasurementSummary[]>;
 
     constructor(
-        private surveyContext: SurveyContextProvider,
-        private travMeasService: TraverseMeasurementSummarySubjectService,
+        private surveyContext: CurrentSurveyProvider,
+        private travMeasService: TraverseMeasurementSummarySubjectProvider,
         private travService: TraverseServiceHttp,
         private dialog: MdDialog
     )
     {
-        this._traverseList = this.travMeasService.getTraverseSummaries(this.surveyContext.SurveyID);
+        this._traverseList = this.travMeasService.getTraverseMeasurementSummarySummaries();
     }
 
     get Traverses(): Observable<TraverseMeasurementSummary[]>
@@ -42,9 +42,6 @@ export class TravserseSummaryListComponent
 
     private updateTraverseList()
     {
-        if(this.surveyContext.SurveyID)
-        {
-        }
     }
 
     onAddTraverse()
@@ -57,7 +54,7 @@ export class TravserseSummaryListComponent
                 {
                     if(result)
                     {
-                        result.SurveyID = this.surveyContext.SurveyID;
+                        result.SurveyID = this.surveyContext.Survey.ID;
                         if(!result.EndPoint || !result.EndPoint.ID)
                         {
                             result.EndPoint = result.SurveyMeasurement[result.SurveyMeasurement.length - 1].PointTo;
@@ -66,7 +63,7 @@ export class TravserseSummaryListComponent
                             .subscribe(
                                 () =>
                                 {
-                                    this.travMeasService.updateTraverseSummaries(this.surveyContext.SurveyID);
+                                    // this.travMeasService.updateTraverseSummaries(this.surveyContext.SurveyID);
                                 }
                             )
                     }

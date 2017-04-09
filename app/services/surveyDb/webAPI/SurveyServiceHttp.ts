@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 
 import {Survey} from "../types/Survey";
 
@@ -7,6 +7,8 @@ import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
 import { SurveyPointSummarySubjectProvider, SurveySummarySubjectProvider } from "./";
+
+import { CurrentSurveyProvider } from "./../../../components/survey/simple-providers";
 
 
 
@@ -51,8 +53,8 @@ export class SurveyServiceHttp
     }
     private notifyObservers(updateSurvey: Survey): Survey
     {
-        this._SurveyPointSummarySubject.updateForSurvey(updateSurvey);
-        this._SurveySummarySubject.updateForSurvey(updateSurvey);
+        this._SurveyPointSummarySubject.updateForSurvey();
+        this._SurveySummarySubject.updateForSurvey();
 
         return updateSurvey;
     }
@@ -87,42 +89,68 @@ export class SurveyServiceHttp
 @Injectable()
 export class SurveySubjectProvider
 {
-    private _mapSummaries: Map<number, BehaviorSubject<Survey[]>>;
+    private _summary: BehaviorSubject<Survey[]>;
+    private _SurveySummaries: Map<number, BehaviorSubject<Survey>>;
 
     constructor
     (
         private _SurveyService : SurveyServiceHttp
+        , private _SurveyCurrent: CurrentSurveyProvider
+
     )
     {
-        this._mapSummaries = new Map<number, BehaviorSubject<Survey[]>>();
     }
 
-    getSurvey(keyID?: number): Observable<Survey[]>
+    getSurveySummaries(): Observable<Survey[]>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(!this._mapSummaries.has(keyLocal))
+        if(!this._summary)
         {
-            this._mapSummaries.set(keyLocal, new BehaviorSubject<Survey[]>([]));
-            this.update(keyLocal);
+            this._summary = new BehaviorSubject<Survey[]>([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     }
 
-    update(keyID?: number)
+    getSurveySummary(): Observable<Survey>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(keyID)
+        if(this._SurveyCurrent.Survey)
         {
-            this._SurveyService.loadSurveyFromDatabase(keyLocal)
+            let key: number = this._SurveyCurrent.Survey.ID;
+            if(!this._SurveySummaries)
+            {
+                this._SurveySummaries = new Map<number, BehaviorSubject<Survey>>();
+            }
+            if(!this._SurveySummaries.has(key))
+            {
+                this._SurveySummaries.set(key, new BehaviorSubject<Survey>(null));
+            }
+
+            this.update();
+            return this._SurveySummaries.get(key).asObservable();
+        }
+        throw new Error("No Survey current context is provided");
+    }
+
+
+    update()
+    {
+        if
+        (
+            this._SurveyCurrent.Survey
+            &&
+            this._SurveySummaries.has(this._SurveyCurrent.Survey.ID)
+        )
+        {
+            this._SurveyService.loadSurveyFromDatabase(this._SurveyCurrent.Survey.ID)
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next([result])
+                    result => this._SurveySummaries.get(this._SurveyCurrent.Survey.ID).next(result)
                 );
         }
-        else
+        if(this._summary)
         {
             this._SurveyService.loadAllFromDatabase()
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next(result)
+                    result => this._summary.next(result)
                 );
         }
     }

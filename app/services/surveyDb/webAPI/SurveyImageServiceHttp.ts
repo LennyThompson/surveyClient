@@ -1,11 +1,14 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 
 import {SurveyImage} from "../types/SurveyImage";
 
 import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
+import { CurrentSurveyImageProvider } from "./../../../components/survey/simple-providers";
+
+
 
 @Injectable()
 export class SurveyImageServiceHttp
@@ -77,42 +80,68 @@ export class SurveyImageServiceHttp
 @Injectable()
 export class SurveyImageSubjectProvider
 {
-    private _mapSummaries: Map<number, BehaviorSubject<SurveyImage[]>>;
+    private _summary: BehaviorSubject<SurveyImage[]>;
+    private _SurveyImageSummaries: Map<number, BehaviorSubject<SurveyImage>>;
 
     constructor
     (
         private _SurveyImageService : SurveyImageServiceHttp
+        , private _SurveyImageCurrent: CurrentSurveyImageProvider
+
     )
     {
-        this._mapSummaries = new Map<number, BehaviorSubject<SurveyImage[]>>();
     }
 
-    getSurveyImage(keyID?: number): Observable<SurveyImage[]>
+    getSurveyImageSummaries(): Observable<SurveyImage[]>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(!this._mapSummaries.has(keyLocal))
+        if(!this._summary)
         {
-            this._mapSummaries.set(keyLocal, new BehaviorSubject<SurveyImage[]>([]));
-            this.update(keyLocal);
+            this._summary = new BehaviorSubject<SurveyImage[]>([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     }
 
-    update(keyID?: number)
+    getSurveyImageSummary(): Observable<SurveyImage>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(keyID)
+        if(this._SurveyImageCurrent.SurveyImage)
         {
-            this._SurveyImageService.loadSurveyImageFromDatabase(keyLocal)
+            let key: number = this._SurveyImageCurrent.SurveyImage.ID;
+            if(!this._SurveyImageSummaries)
+            {
+                this._SurveyImageSummaries = new Map<number, BehaviorSubject<SurveyImage>>();
+            }
+            if(!this._SurveyImageSummaries.has(key))
+            {
+                this._SurveyImageSummaries.set(key, new BehaviorSubject<SurveyImage>(null));
+            }
+
+            this.update();
+            return this._SurveyImageSummaries.get(key).asObservable();
+        }
+        throw new Error("No SurveyImage current context is provided");
+    }
+
+
+    update()
+    {
+        if
+        (
+            this._SurveyImageCurrent.SurveyImage
+            &&
+            this._SurveyImageSummaries.has(this._SurveyImageCurrent.SurveyImage.ID)
+        )
+        {
+            this._SurveyImageService.loadSurveyImageFromDatabase(this._SurveyImageCurrent.SurveyImage.ID)
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next([result])
+                    result => this._SurveyImageSummaries.get(this._SurveyImageCurrent.SurveyImage.ID).next(result)
                 );
         }
-        else
+        if(this._summary)
         {
             this._SurveyImageService.loadAllFromDatabase()
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next(result)
+                    result => this._summary.next(result)
                 );
         }
     }

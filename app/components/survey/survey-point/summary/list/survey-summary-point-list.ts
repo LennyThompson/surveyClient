@@ -7,7 +7,7 @@ import {SurveyPoint} from "./../../../../../services/surveyDb/types/SurveyPoint"
 import {MdDialogConfig, MdDialog} from "@angular/material";
 import {AddSurveyPointComponent} from "./../../add/add-survey-point";
 import {SurveyPointServiceHttp} from "./../../../../../services/surveyDb/webAPI";
-import {SurveyContextProvider} from "../../../simple-providers";
+import {CurrentSurveyProvider} from "../../../simple-providers";
 
 require("./survey-point-summary-list.scss");
 
@@ -19,12 +19,11 @@ require("./survey-point-summary-list.scss");
 )
 export class SurveyPointSummaryListComponent
 {
-    m_surveyId: number;
     m_surveyPoints: SurveyPointSummary_Pt[];
 
     constructor
     (
-        private surveyContext: SurveyContextProvider,
+        private surveyContext: CurrentSurveyProvider,
         private summaryService: SurveyPointSummaryServiceHttp,
         private pointService: SurveyPointServiceHttp,
         private dialog: MdDialog
@@ -36,13 +35,12 @@ export class SurveyPointSummaryListComponent
     @Input("surveyId")
     set SurveyId(id: number)
     {
-        this.m_surveyId = id;
         this.updateSurveyPoints();
     }
 
     updateSurveyPoints()
     {
-        this.summaryService.loadSurveyPointSummaryFromDatabase(this.m_surveyId )
+        this.summaryService.loadSurveyPointSummaryFromDatabase(this.surveyContext.Survey.ID)
             .subscribe(
                 (summary: SurveyPointSummary) =>
                 {
@@ -72,7 +70,7 @@ export class SurveyPointSummaryListComponent
                     if(result)
                     {
                         console.log(JSON.stringify(result));
-                        this.pointService.saveSurveyPointForSurvey(result, this.m_surveyId)
+                        this.pointService.saveSurveyPointForSurvey(result)
                             .subscribe(
                                 () =>
                                 {

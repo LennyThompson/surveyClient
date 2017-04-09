@@ -4,7 +4,7 @@ import {TraverseMeasurementSummaryServiceHttp} from "../../../services/surveyDb/
 import {SurveyPointServiceHttp} from "../../../services/surveyDb/webAPI/SurveyPointServiceHttp";
 import {SurveyPoint} from "../../../services/surveyDb/types/SurveyPoint";
 import {MdDialog} from "@angular/material";
-import {SurveyContextProvider} from "./../simple-providers";
+import {CurrentSurveyProvider} from "./../simple-providers";
 
 require("./survey-details.scss");
 
@@ -21,7 +21,7 @@ export class SurveyDetailsComponent implements OnInit
 
     constructor
     (
-        private surveyContext: SurveyContextProvider,
+        private surveyContext: CurrentSurveyProvider,
         private summaryService: SurveyPointSummaryServiceHttp,
         private travMeasService: TraverseMeasurementSummaryServiceHttp,
         private pointService: SurveyPointServiceHttp,
@@ -40,7 +40,7 @@ export class SurveyDetailsComponent implements OnInit
     set SurveyId(id: number)
     {
         this.m_surveyId = id;
-        this.surveyContext.SurveyID = id;
+        this.surveyContext.Survey_ID = id;
     }
 
     get SurveyId(): number

@@ -2,9 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var SurveyAdjustmentServiceHttp_1 = require("./SurveyAdjustmentServiceHttp");
 var SurveySummaryServiceHttp_1 = require("./SurveySummaryServiceHttp");
+var SurveySummarySubjectProvider_1 = require("./SurveySummarySubjectProvider");
 var TraverseServiceHttp_1 = require("./TraverseServiceHttp");
 var TraverseSummaryServiceHttp_1 = require("./TraverseSummaryServiceHttp");
+var TraverseSummarySubjectProvider_1 = require("./TraverseSummarySubjectProvider");
 var TraverseMeasurementSummaryServiceHttp_1 = require("./TraverseMeasurementSummaryServiceHttp");
+var TraverseMeasurementSummarySubjectProvider_1 = require("./TraverseMeasurementSummarySubjectProvider");
 var SurveyPointServiceHttp_1 = require("./SurveyPointServiceHttp");
 var InstrumentManufacturerServiceHttp_1 = require("./InstrumentManufacturerServiceHttp");
 var SurveyPointTypeServiceHttp_1 = require("./SurveyPointTypeServiceHttp");
@@ -36,10 +39,10 @@ exports.HTTP_PROVIDERS = [
 ];
 exports.SUBJECT_PROVIDERS = [
     SurveyAdjustmentServiceHttp_1.SurveyAdjustmentSubjectProvider,
-    SurveySummaryServiceHttp_1.SurveySummarySubjectProvider,
+    SurveySummarySubjectProvider_1.SurveySummarySubjectProvider,
     TraverseServiceHttp_1.TraverseSubjectProvider,
-    TraverseSummaryServiceHttp_1.TraverseSummarySubjectProvider,
-    TraverseMeasurementSummaryServiceHttp_1.TraverseMeasurementSummarySubjectProvider,
+    TraverseSummarySubjectProvider_1.TraverseSummarySubjectProvider,
+    TraverseMeasurementSummarySubjectProvider_1.TraverseMeasurementSummarySubjectProvider,
     SurveyPointServiceHttp_1.SurveyPointSubjectProvider,
     InstrumentManufacturerServiceHttp_1.InstrumentManufacturerSubjectProvider,
     SurveyPointTypeServiceHttp_1.SurveyPointTypeSubjectProvider,
@@ -57,16 +60,19 @@ exports.SurveyAdjustmentServiceHttp = SurveyAdjustmentServiceHttp_2.SurveyAdjust
 exports.SurveyAdjustmentSubjectProvider = SurveyAdjustmentServiceHttp_2.SurveyAdjustmentSubjectProvider;
 var SurveySummaryServiceHttp_2 = require("./SurveySummaryServiceHttp");
 exports.SurveySummaryServiceHttp = SurveySummaryServiceHttp_2.SurveySummaryServiceHttp;
-exports.SurveySummarySubjectProvider = SurveySummaryServiceHttp_2.SurveySummarySubjectProvider;
+var SurveySummarySubjectProvider_2 = require("./SurveySummarySubjectProvider");
+exports.SurveySummarySubjectProvider = SurveySummarySubjectProvider_2.SurveySummarySubjectProvider;
 var TraverseServiceHttp_2 = require("./TraverseServiceHttp");
 exports.TraverseServiceHttp = TraverseServiceHttp_2.TraverseServiceHttp;
 exports.TraverseSubjectProvider = TraverseServiceHttp_2.TraverseSubjectProvider;
 var TraverseSummaryServiceHttp_2 = require("./TraverseSummaryServiceHttp");
 exports.TraverseSummaryServiceHttp = TraverseSummaryServiceHttp_2.TraverseSummaryServiceHttp;
-exports.TraverseSummarySubjectProvider = TraverseSummaryServiceHttp_2.TraverseSummarySubjectProvider;
+var TraverseSummarySubjectProvider_2 = require("./TraverseSummarySubjectProvider");
+exports.TraverseSummarySubjectProvider = TraverseSummarySubjectProvider_2.TraverseSummarySubjectProvider;
 var TraverseMeasurementSummaryServiceHttp_2 = require("./TraverseMeasurementSummaryServiceHttp");
 exports.TraverseMeasurementSummaryServiceHttp = TraverseMeasurementSummaryServiceHttp_2.TraverseMeasurementSummaryServiceHttp;
-exports.TraverseMeasurementSummarySubjectProvider = TraverseMeasurementSummaryServiceHttp_2.TraverseMeasurementSummarySubjectProvider;
+var TraverseMeasurementSummarySubjectProvider_2 = require("./TraverseMeasurementSummarySubjectProvider");
+exports.TraverseMeasurementSummarySubjectProvider = TraverseMeasurementSummarySubjectProvider_2.TraverseMeasurementSummarySubjectProvider;
 var SurveyPointServiceHttp_2 = require("./SurveyPointServiceHttp");
 exports.SurveyPointServiceHttp = SurveyPointServiceHttp_2.SurveyPointServiceHttp;
 exports.SurveyPointSubjectProvider = SurveyPointServiceHttp_2.SurveyPointSubjectProvider;

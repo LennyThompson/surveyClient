@@ -14,7 +14,7 @@ var SurveySummaryServiceHttp_1 = require("../../../services/surveyDb/webAPI/Surv
 var SurveyListComponent = (function () {
     function SurveyListComponent(surveyService) {
         this.surveyService = surveyService;
-        this.m_listSurveys = surveyService.loadAllFromDatabase();
+        this.m_listSurveys = surveyService.getSurveySummarySummaries();
     }
     Object.defineProperty(SurveyListComponent.prototype, "Surveys", {
         get: function () {
@@ -30,7 +30,8 @@ SurveyListComponent = __decorate([
         selector: "survey-list",
         templateUrl: "./survey-list.html",
     }),
-    __metadata("design:paramtypes", [SurveySummaryServiceHttp_1.SurveySummaryServiceHttp])
+    __metadata("design:paramtypes", [typeof (_a = typeof SurveySummaryServiceHttp_1.SurveySummarySubjectProvider !== "undefined" && SurveySummaryServiceHttp_1.SurveySummarySubjectProvider) === "function" && _a || Object])
 ], SurveyListComponent);
 exports.SurveyListComponent = SurveyListComponent;
+var _a;
 //# sourceMappingURL=survey-list.js.map

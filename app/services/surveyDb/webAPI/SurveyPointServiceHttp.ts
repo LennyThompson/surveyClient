@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 
 import {SurveyPoint} from "../types/SurveyPoint";
 
@@ -7,6 +7,10 @@ import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
 import { SurveyPointSummarySubjectProvider, SurveySummarySubjectProvider, TraverseSummarySubjectProvider, TraverseMeasurementSummarySubjectProvider } from "./";
+
+import { CurrentSurveyPointProvider } from "./../../../components/survey/simple-providers";
+
+import { CurrentSurveyProvider } from "./../../../components/survey/simple-providers";
 
 
 
@@ -62,16 +66,16 @@ export class SurveyPointServiceHttp
             let options = new RequestOptions({ headers: headers });
 
             return this.httpService.post(strPath, strJsonBody, options)
-                             .map((resp : Response) => this.notifyObservers(SurveyPoint.fromJsonObject(resp.json()), ID))
+                             .map((resp : Response) => this.notifyObservers(SurveyPoint.fromJsonObject(resp.json())))
                              .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
 
     private notifyObservers(updateSurveyPoint: SurveyPoint): SurveyPoint
     {
-        this._SurveyPointSummarySubject.updateForSurveyPoint(updateSurveyPoint);
-        this._SurveySummarySubject.updateForSurveyPoint(updateSurveyPoint);
-        this._TraverseSummarySubject.updateForSurveyPoint(updateSurveyPoint);
-        this._TraverseMeasurementSummarySubject.updateForSurveyPoint(updateSurveyPoint);
+        this._SurveyPointSummarySubject.updateForSurveyPoint();
+        this._SurveySummarySubject.updateForSurveyPoint();
+        this._TraverseSummarySubject.updateForSurveyPoint();
+        this._TraverseMeasurementSummarySubject.updateForSurveyPoint();
 
         return updateSurveyPoint;
     }
@@ -106,42 +110,68 @@ export class SurveyPointServiceHttp
 @Injectable()
 export class SurveyPointSubjectProvider
 {
-    private _mapSummaries: Map<number, BehaviorSubject<SurveyPoint[]>>;
+    private _summary: BehaviorSubject<SurveyPoint[]>;
+    private _SurveyPointSummaries: Map<number, BehaviorSubject<SurveyPoint>>;
 
     constructor
     (
         private _SurveyPointService : SurveyPointServiceHttp
+        , private _SurveyPointCurrent: CurrentSurveyPointProvider
+
     )
     {
-        this._mapSummaries = new Map<number, BehaviorSubject<SurveyPoint[]>>();
     }
 
-    getSurveyPoint(keyID?: number): Observable<SurveyPoint[]>
+    getSurveyPointSummaries(): Observable<SurveyPoint[]>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(!this._mapSummaries.has(keyLocal))
+        if(!this._summary)
         {
-            this._mapSummaries.set(keyLocal, new BehaviorSubject<SurveyPoint[]>([]));
-            this.update(keyLocal);
+            this._summary = new BehaviorSubject<SurveyPoint[]>([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     }
 
-    update(keyID?: number)
+    getSurveyPointSummary(): Observable<SurveyPoint>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(keyID)
+        if(this._SurveyPointCurrent.SurveyPoint)
         {
-            this._SurveyPointService.loadSurveyPointFromDatabase(keyLocal)
+            let key: number = this._SurveyPointCurrent.SurveyPoint.ID;
+            if(!this._SurveyPointSummaries)
+            {
+                this._SurveyPointSummaries = new Map<number, BehaviorSubject<SurveyPoint>>();
+            }
+            if(!this._SurveyPointSummaries.has(key))
+            {
+                this._SurveyPointSummaries.set(key, new BehaviorSubject<SurveyPoint>(null));
+            }
+
+            this.update();
+            return this._SurveyPointSummaries.get(key).asObservable();
+        }
+        throw new Error("No SurveyPoint current context is provided");
+    }
+
+
+    update()
+    {
+        if
+        (
+            this._SurveyPointCurrent.SurveyPoint
+            &&
+            this._SurveyPointSummaries.has(this._SurveyPointCurrent.SurveyPoint.ID)
+        )
+        {
+            this._SurveyPointService.loadSurveyPointFromDatabase(this._SurveyPointCurrent.SurveyPoint.ID)
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next([result])
+                    result => this._SurveyPointSummaries.get(this._SurveyPointCurrent.SurveyPoint.ID).next(result)
                 );
         }
-        else
+        if(this._summary)
         {
             this._SurveyPointService.loadAllFromDatabase()
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next(result)
+                    result => this._summary.next(result)
                 );
         }
     }

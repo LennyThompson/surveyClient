@@ -1,0 +1,11 @@
+<!-- ****THIS IS A CODE GENERATED FILE DO NOT EDIT**** -->
+<!-- Generated on Sun Apr 09 17:23:48 AEST 2017 -->
+
+<h1 md-dialog-title>{{title}}</h1>
+<md-dialog-content>
+        <survey-measurement-form [(SurveyMeasurement)]="SurveyMeasurement"></survey-measurement-form>
+</md-dialog-content>
+<md-dialog-actions>
+    <i class="icon-ok" (click)="_dialog.close(SurveyMeasurement)">Ok</i>
+    <i class="icon-cancel" (click)="_dialog.close(null)">Cancel</i>
+</md-dialog-actions>

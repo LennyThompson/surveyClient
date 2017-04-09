@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -15,6 +15,7 @@ var TraverseClosure_1 = require("../types/TraverseClosure");
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
+var simple_providers_1 = require("./../../../components/survey/simple-providers");
 var TraverseClosureServiceHttp = TraverseClosureServiceHttp_1 = (function () {
     function TraverseClosureServiceHttp(httpService) {
         this.httpService = httpService;
@@ -70,35 +71,50 @@ TraverseClosureServiceHttp = TraverseClosureServiceHttp_1 = __decorate([
 ], TraverseClosureServiceHttp);
 exports.TraverseClosureServiceHttp = TraverseClosureServiceHttp;
 var TraverseClosureSubjectProvider = (function () {
-    function TraverseClosureSubjectProvider(_TraverseClosureService) {
+    function TraverseClosureSubjectProvider(_TraverseClosureService, _TraverseClosureCurrent) {
         this._TraverseClosureService = _TraverseClosureService;
-        this._mapSummaries = new Map();
+        this._TraverseClosureCurrent = _TraverseClosureCurrent;
     }
-    TraverseClosureSubjectProvider.prototype.getTraverseClosure = function (keyID) {
-        var keyLocal = keyID ? keyID : 0;
-        if (!this._mapSummaries.has(keyLocal)) {
-            this._mapSummaries.set(keyLocal, new Rx_1.BehaviorSubject([]));
-            this.update(keyLocal);
+    TraverseClosureSubjectProvider.prototype.getTraverseClosureSummaries = function () {
+        if (!this._summary) {
+            this._summary = new Rx_1.BehaviorSubject([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     };
-    TraverseClosureSubjectProvider.prototype.update = function (keyID) {
-        var _this = this;
-        var keyLocal = keyID ? keyID : 0;
-        if (keyID) {
-            this._TraverseClosureService.loadTraverseClosureFromDatabase(keyLocal)
-                .subscribe(function (result) { return _this._mapSummaries.get(keyLocal).next([result]); });
+    TraverseClosureSubjectProvider.prototype.getTraverseClosureSummary = function () {
+        if (this._TraverseClosureCurrent.TraverseClosure) {
+            var key = this._TraverseClosureCurrent.TraverseClosure.ID;
+            if (!this._TraverseClosureSummaries) {
+                this._TraverseClosureSummaries = new Map();
+            }
+            if (!this._TraverseClosureSummaries.has(key)) {
+                this._TraverseClosureSummaries.set(key, new Rx_1.BehaviorSubject(null));
+            }
+            this.update();
+            return this._TraverseClosureSummaries.get(key).asObservable();
         }
-        else {
+        throw new Error("No TraverseClosure current context is provided");
+    };
+    TraverseClosureSubjectProvider.prototype.update = function () {
+        var _this = this;
+        if (this._TraverseClosureCurrent.TraverseClosure
+            &&
+                this._TraverseClosureSummaries.has(this._TraverseClosureCurrent.TraverseClosure.ID)) {
+            this._TraverseClosureService.loadTraverseClosureFromDatabase(this._TraverseClosureCurrent.TraverseClosure.ID)
+                .subscribe(function (result) { return _this._TraverseClosureSummaries.get(_this._TraverseClosureCurrent.TraverseClosure.ID).next(result); });
+        }
+        if (this._summary) {
             this._TraverseClosureService.loadAllFromDatabase()
-                .subscribe(function (result) { return _this._mapSummaries.get(keyLocal).next(result); });
+                .subscribe(function (result) { return _this._summary.next(result); });
         }
     };
     return TraverseClosureSubjectProvider;
 }());
 TraverseClosureSubjectProvider = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [TraverseClosureServiceHttp])
+    __metadata("design:paramtypes", [TraverseClosureServiceHttp,
+        simple_providers_1.CurrentTraverseClosureProvider])
 ], TraverseClosureSubjectProvider);
 exports.TraverseClosureSubjectProvider = TraverseClosureSubjectProvider;
 var TraverseClosureServiceHttp_1;

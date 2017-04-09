@@ -1,7 +1,8 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Wed Mar 22 19:50:14 AEST 2017
+// Generated on Sun Apr 09 17:23:47 AEST 2017
 
 import {Projection} from "./Projection";
+import {SurveyImage} from "./SurveyImage";
 import {SurveyPoint} from "./SurveyPoint";
 import {Instrument} from "./Instrument";
 import {Traverse} from "./Traverse";
@@ -19,6 +20,7 @@ export class Survey
     private m_Name : string;
     private m_Description : string;
     private m_Projection : Projection;
+    private m_SurveyImage : SurveyImage[];
     private m_SurveyPoint : SurveyPoint[];
     private m_Instrument : Instrument[];
     private m_Traverse : Traverse[];
@@ -27,6 +29,7 @@ export class Survey
     private m_bNameUpdated : boolean;
     private m_bDescriptionUpdated : boolean;
     private m_bProjectionUpdated : boolean;
+    private m_bSurveyImageUpdated : boolean;
     private m_bSurveyPointUpdated : boolean;
     private m_bInstrumentUpdated : boolean;
     private m_bTraverseUpdated : boolean;
@@ -41,6 +44,7 @@ export class Survey
         this.m_Name = "";
         this.m_Description = "";
         this.m_Projection = new Projection();
+        this.m_SurveyImage = [];
         this.m_SurveyPoint = [];
         this.m_Instrument = [];
         this.m_Traverse = [];
@@ -49,6 +53,7 @@ export class Survey
         this.m_bNameUpdated = true;
         this.m_bDescriptionUpdated = true;
         this.m_bProjectionUpdated = true;
+        this.m_bSurveyImageUpdated = true;
         this.m_bSurveyPointUpdated = true;
         this.m_bInstrumentUpdated = true;
         this.m_bTraverseUpdated = true;
@@ -78,6 +83,10 @@ export class Survey
     get Projection() : Projection
     {
         return this.m_Projection;
+    }
+    get SurveyImage() : SurveyImage[]
+    {
+        return this.m_SurveyImage;
     }
     get SurveyPoint() : SurveyPoint[]
     {
@@ -112,6 +121,11 @@ export class Survey
         this.m_bProjectionUpdated = true;
     }
 
+    addSurveyImage(addSurveyImage : SurveyImage)
+    {
+        this.m_SurveyImage.push(addSurveyImage);
+        this.m_bSurveyImageUpdated = true;
+    }
     addSurveyPoint(addSurveyPoint : SurveyPoint)
     {
         this.m_SurveyPoint.push(addSurveyPoint);
@@ -149,6 +163,15 @@ export class Survey
         {
             objUpdated["ProjectionID"] = lodash(this.Projection).isNil() ? null : this.m_Projection.toJsonObject();
         }
+        if (this.m_bSurveyImageUpdated)
+        {
+            objUpdated["Images"] = lodash(this.SurveyImage).isNil() ? null : lodash(this.m_SurveyImage).map(
+                (arrayMember) =>
+                {
+                    return arrayMember.toJsonObject();
+                }
+            );
+        }
         if (this.m_bSurveyPointUpdated)
         {
             objUpdated["Survey_SurveyPoint"] = lodash(this.SurveyPoint).isNil() ? null : lodash(this.m_SurveyPoint).map(
@@ -169,7 +192,7 @@ export class Survey
         }
         if (this.m_bTraverseUpdated)
         {
-            objUpdated["Survey_Traverse"] = lodash(this.Traverse).isNil() ? null : lodash(this.m_Traverse).map(
+            objUpdated["Traverses"] = lodash(this.Traverse).isNil() ? null : lodash(this.m_Traverse).map(
                 (arrayMember) =>
                 {
                     return arrayMember.toJsonObject();
@@ -178,7 +201,7 @@ export class Survey
         }
         if (this.m_bSurveyMeasurementUpdated)
         {
-            objUpdated["Survey_SurveyMeasurement"] = lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(
+            objUpdated["Measurements"] = lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(
                 (arrayMember) =>
                 {
                     return arrayMember.toJsonObject();
@@ -195,6 +218,7 @@ export class Survey
         this.m_bNameUpdated = false;
         this.m_bDescriptionUpdated = false;
         this.m_bProjectionUpdated = false;
+        this.m_bSurveyImageUpdated = false;
         this.m_bSurveyPointUpdated = false;
         this.m_bInstrumentUpdated = false;
         this.m_bTraverseUpdated = false;
@@ -211,6 +235,12 @@ export class Survey
             Name: lodash(this.Name).isNil() ? null : this.m_Name,
             Description: lodash(this.Description).isNil() ? null : this.m_Description,
             ProjectionID: lodash(this.Projection).isNil() ? null : this.m_Projection.toFirebase(),
+            Images: lodash(this.SurveyImage).isNil() ? null : lodash(this.m_SurveyImage).map(
+                    (arrayMember) =>
+                    {
+                        return arrayMember.toFirebase();
+                    }
+                ),
             Survey_SurveyPoint: lodash(this.SurveyPoint).isNil() ? null : lodash(this.m_SurveyPoint).map(
                     (arrayMember) =>
                     {
@@ -223,13 +253,13 @@ export class Survey
                         return arrayMember.toFirebase();
                     }
                 ),
-            Survey_Traverse: lodash(this.Traverse).isNil() ? null : lodash(this.m_Traverse).map(
+            Traverses: lodash(this.Traverse).isNil() ? null : lodash(this.m_Traverse).map(
                     (arrayMember) =>
                     {
                         return arrayMember.toFirebase();
                     }
                 ),
-            Survey_SurveyMeasurement: lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(
+            Measurements: lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(
                     (arrayMember) =>
                     {
                         return arrayMember.toFirebase();
@@ -249,6 +279,13 @@ export class Survey
         objSurvey.m_Name = firebaseObj.Name;
         objSurvey.m_Description = firebaseObj.Description;
         objSurvey.m_Projection = Projection.fromFirebase(firebaseObj.ProjectionID);
+        objSurvey.m_SurveyImage = lodash.map(
+                firebaseObj.Images,
+                (arrayMember) =>
+                {
+                    return SurveyImage.fromFirebase(arrayMember);
+                }
+            );
         objSurvey.m_SurveyPoint = lodash.map(
                 firebaseObj.Survey_SurveyPoint,
                 (arrayMember) =>
@@ -264,14 +301,14 @@ export class Survey
                 }
             );
         objSurvey.m_Traverse = lodash.map(
-                firebaseObj.Survey_Traverse,
+                firebaseObj.Traverses,
                 (arrayMember) =>
                 {
                     return Traverse.fromFirebase(arrayMember);
                 }
             );
         objSurvey.m_SurveyMeasurement = lodash.map(
-                firebaseObj.Survey_SurveyMeasurement,
+                firebaseObj.Measurements,
                 (arrayMember) =>
                 {
                     return SurveyMeasurement.fromFirebase(arrayMember);
@@ -304,6 +341,13 @@ export class Survey
         objSurvey.m_Name = objJson.Name;
         objSurvey.m_Description = objJson.Description;
         objSurvey.m_Projection = Projection.fromJsonObject(objJson.ProjectionID);
+        objSurvey.m_SurveyImage = lodash.map(
+                objJson.Images,
+                (arrayMember) =>
+                {
+                    return SurveyImage.fromJsonObject(arrayMember);
+                }
+            );
         objSurvey.m_SurveyPoint = lodash.map(
                 objJson.Survey_SurveyPoint,
                 (arrayMember) =>
@@ -319,14 +363,14 @@ export class Survey
                 }
             );
         objSurvey.m_Traverse = lodash.map(
-                objJson.Survey_Traverse,
+                objJson.Traverses,
                 (arrayMember) =>
                 {
                     return Traverse.fromJsonObject(arrayMember);
                 }
             );
         objSurvey.m_SurveyMeasurement = lodash.map(
-                objJson.Survey_SurveyMeasurement,
+                objJson.Measurements,
                 (arrayMember) =>
                 {
                     return SurveyMeasurement.fromJsonObject(arrayMember);
@@ -350,6 +394,12 @@ export class Survey
             Name: lodash(this.Name).isNil() ? null : this.m_Name,
             Description: lodash(this.Description).isNil() ? null : this.m_Description,
             ProjectionID: lodash(this.Projection).isNil() ? null : this.m_Projection.toJsonObject(),
+            Images: lodash(this.SurveyImage).isNil() ? null : lodash(this.m_SurveyImage).map(
+                    (arrayMember) =>
+                    {
+                        return arrayMember.toJsonObject();
+                    }
+                ),
             Survey_SurveyPoint: lodash(this.SurveyPoint).isNil() ? null : lodash(this.m_SurveyPoint).map(
                     (arrayMember) =>
                     {
@@ -362,13 +412,13 @@ export class Survey
                         return arrayMember.toJsonObject();
                     }
                 ),
-            Survey_Traverse: lodash(this.Traverse).isNil() ? null : lodash(this.m_Traverse).map(
+            Traverses: lodash(this.Traverse).isNil() ? null : lodash(this.m_Traverse).map(
                     (arrayMember) =>
                     {
                         return arrayMember.toJsonObject();
                     }
                 ),
-            Survey_SurveyMeasurement: lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(
+            Measurements: lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(
                     (arrayMember) =>
                     {
                         return arrayMember.toJsonObject();

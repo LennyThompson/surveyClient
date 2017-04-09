@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 
 import {SurveyPointSummary} from "../types/SurveyPointSummary";
 
@@ -57,123 +57,50 @@ export class SurveyPointSummaryServiceHttp
 @Injectable()
 export class SurveyPointSummarySubjectProvider
 {
-    private _mapSummaries: Map<number, BehaviorSubject<SurveyPointSummary[]>>;
-
+    private _summary: BehaviorSubject<SurveyPointSummary[]>;
     constructor
     (
         private _SurveyPointSummaryService : SurveyPointSummaryServiceHttp
-        , private _SurveyCurrent: CurrentSurveyProvider
-        , private _SurveyPointCurrent: CurrentSurveyPointProvider
-        , private _SurveyReferenceCurrent: CurrentSurveyReferenceProvider
-        , private _SurveyPointTypeCurrent: CurrentSurveyPointTypeProvider
-
     )
     {
-        this._mapSummaries = new Map<number, BehaviorSubject<SurveyPointSummary[]>>();
     }
 
-    getSurveyPointSummary(keyID?: number): Observable<SurveyPointSummary[]>
+    getSurveyPointSummarySummaries(): Observable<SurveyPointSummary[]>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(!this._mapSummaries.has(keyLocal))
+        if(!this._summary)
         {
-            this._mapSummaries.set(keyLocal, new BehaviorSubject<SurveyPointSummary[]>([]));
-            this.update(keyLocal);
+            this._summary = new BehaviorSubject<SurveyPointSummary[]>([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     }
 
-    update(keyID?: number)
+    update()
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(keyID)
-        {
-            this._SurveyPointSummaryService.loadSurveyPointSummaryFromDatabase(keyLocal)
-                .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next([result])
-                );
-        }
-        else
+        if(this._summary)
         {
             this._SurveyPointSummaryService.loadAllFromDatabase()
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next(result)
+                    result => this._summary.next(result)
                 );
         }
     }
 
-    updateForSurvey(updatedSurvey: Survey)
+    public updateForSurvey()
     {
-        let keyID: number = this._SurveyCurrent.Survey ? this._SurveyCurrent.Survey.ID : 0;
-        if(keyID && this._mapSummaries.has(keyID))
-        {
-            this._SurveyPointSummaryService.loadSurveyPointSummaryFromDatabase(keyID)
-                .subscribe(
-                    result => this._mapSummaries.get(keyID).next(result)
-                );
-        }
-        if(this._mapSummaries.has(keyID))
-        {
-            this._SurveyPointSummaryService.loadAllFromDatabase()
-                .subscribe(
-                    result => this._mapSummaries.get(keyID).next(result)
-                );
-        }
+        this.update();
     }
-    updateForSurveyPoint(updatedSurveyPoint: SurveyPoint)
+    public updateForSurveyPoint()
     {
-        let keyID: number = this._SurveyPointCurrent.SurveyPoint ? this._SurveyPointCurrent.SurveyPoint.ID : 0;
-        if(keyID && this._mapSummaries.has(keyID))
-        {
-            this._SurveyPointSummaryService.loadSurveyPointSummaryFromDatabase(keyID)
-                .subscribe(
-                    result => this._mapSummaries.get(keyID).next(result)
-                );
-        }
-        if(this._mapSummaries.has(keyID))
-        {
-            this._SurveyPointSummaryService.loadAllFromDatabase()
-                .subscribe(
-                    result => this._mapSummaries.get(keyID).next(result)
-                );
-        }
+        this.update();
     }
-    updateForSurveyReference(updatedSurveyReference: SurveyReference)
+    public updateForSurveyReference()
     {
-        let keyID: number = this._SurveyReferenceCurrent.SurveyReference ? this._SurveyReferenceCurrent.SurveyReference.ID : 0;
-        if(keyID && this._mapSummaries.has(keyID))
-        {
-            this._SurveyPointSummaryService.loadSurveyPointSummaryFromDatabase(keyID)
-                .subscribe(
-                    result => this._mapSummaries.get(keyID).next(result)
-                );
-        }
-        if(this._mapSummaries.has(keyID))
-        {
-            this._SurveyPointSummaryService.loadAllFromDatabase()
-                .subscribe(
-                    result => this._mapSummaries.get(keyID).next(result)
-                );
-        }
+        this.update();
     }
-    updateForSurveyPointType(updatedSurveyPointType: SurveyPointType)
+    public updateForSurveyPointType()
     {
-        let keyID: number = this._SurveyPointTypeCurrent.SurveyPointType ? this._SurveyPointTypeCurrent.SurveyPointType.ID : 0;
-        if(keyID && this._mapSummaries.has(keyID))
-        {
-            this._SurveyPointSummaryService.loadSurveyPointSummaryFromDatabase(keyID)
-                .subscribe(
-                    result => this._mapSummaries.get(keyID).next(result)
-                );
-        }
-        if(this._mapSummaries.has(keyID))
-        {
-            this._SurveyPointSummaryService.loadAllFromDatabase()
-                .subscribe(
-                    result => this._mapSummaries.get(keyID).next(result)
-                );
-        }
+        this.update();
     }
-
 
 }

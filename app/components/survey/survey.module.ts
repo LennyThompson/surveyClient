@@ -7,7 +7,7 @@ import {SurveyDetailsComponent} from "./details/survey-details";
 import {SurveyListComponent} from "./list/survey-list";
 import {SurveyComponent} from "./survey";
 
-import {HTTP_PROVIDERS} from "../../services/surveyDb/webAPI/index";
+import {HTTP_PROVIDERS, SUBJECT_PROVIDERS} from "../../services/surveyDb/webAPI/index";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {CoordFormat} from "./pipes/format-coord";
 import {BearingFormat} from "./pipes/format-bearing";
@@ -19,6 +19,7 @@ import {EditSurveyPointComponent} from "./survey-point/edit/edit-survey-point";
 import {SurveyPointSummaryListComponent} from "./survey-point/summary/list/survey-summary-point-list";
 import { FORM_COMPONENTS } from "./form";
 import { SELECT_COMPONENTS } from "./select";
+import { LIST_ITEM_COMPONENTS } from "./list-item";
 import {AddTraverseComponent} from "./traverse/add/add-traverse";
 import {AddSurveyMeasurementComponent} from "./survey-measurement";
 import {SurveyCalculator} from "../../services/surveyCalc/surveyCalculator";
@@ -34,7 +35,7 @@ import {TraverseDrawingComponent} from "./traverse/drawing/trav-drawing";
 import {BearingPlaceholder} from "./pipes/bearing-placeholder";
 import {HorizontalDistancePlaceholder} from "./pipes/horiz-distance-placeholder";
 import {VerticalDistancePlaceholder} from "./pipes/vert-distance-placeholder";
-import {TraverseMeasurementSummarySubjectService} from "../../services/surveyDb/webAPI/TraverseMeasurementSummaryServiceHttp";
+import {TraverseMeasurementSummarySubjectProvider} from "../../services/surveyDb/webAPI";
 
 @NgModule (
     {
@@ -62,6 +63,7 @@ import {TraverseMeasurementSummarySubjectService} from "../../services/surveyDb/
             FORM_COMPONENTS,
             SELECT_COMPONENTS,
             SURVEY_MEASUREMENT_COMPONENTS,
+            LIST_ITEM_COMPONENTS,
             BearingInputContainer,
             Debounce,
             TraverseDrawingComponent
@@ -77,9 +79,10 @@ import {TraverseMeasurementSummarySubjectService} from "../../services/surveyDb/
             EditSurveyMeasurementComponent
         ],
         providers: [
+            SUBJECT_PROVIDERS,
             HTTP_PROVIDERS,
             SIMPLE_PROVIDER_COMPONENTS,
-            TraverseMeasurementSummarySubjectService,
+            TraverseMeasurementSummarySubjectProvider,
             CoordFormat,
             BearingFormat,
             BearingPlaceholder,

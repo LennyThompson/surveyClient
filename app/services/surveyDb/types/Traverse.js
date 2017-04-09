@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Wed Mar 22 19:50:14 AEST 2017
+// Generated on Sun Apr 09 17:23:47 AEST 2017
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var SurveyPoint_1 = require("./SurveyPoint");
@@ -145,7 +145,7 @@ var Traverse = (function () {
             objUpdated["SurveyID"] = lodash(this.SurveyID).isNil() ? null : this.m_SurveyID;
         }
         if (this.m_bTraverseClosureUpdated) {
-            objUpdated["Traverse"] = lodash(this.TraverseClosure).isNil() ? null : lodash(this.m_TraverseClosure).map(function (arrayMember) {
+            objUpdated["TraverseClosure"] = lodash(this.TraverseClosure).isNil() ? null : lodash(this.m_TraverseClosure).map(function (arrayMember) {
                 return arrayMember.toJsonObject();
             });
         }
@@ -175,7 +175,7 @@ var Traverse = (function () {
             StartPointID: lodash(this.StartPoint).isNil() ? null : this.m_StartPoint.toFirebase(),
             EndPointID: lodash(this.EndPoint).isNil() ? null : this.m_EndPoint.toFirebase(),
             SurveyID: lodash(this.SurveyID).isNil() ? null : this.m_SurveyID,
-            Traverse: lodash(this.TraverseClosure).isNil() ? null : lodash(this.m_TraverseClosure).map(function (arrayMember) {
+            TraverseClosure: lodash(this.TraverseClosure).isNil() ? null : lodash(this.m_TraverseClosure).map(function (arrayMember) {
                 return arrayMember.toFirebase();
             }),
             Traverse_SurveyMeasurement: lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(function (arrayMember) {
@@ -194,7 +194,7 @@ var Traverse = (function () {
         objTraverse.m_StartPoint = SurveyPoint_1.SurveyPoint.fromFirebase(firebaseObj.StartPointID);
         objTraverse.m_EndPoint = SurveyPoint_1.SurveyPoint.fromFirebase(firebaseObj.EndPointID);
         objTraverse.m_SurveyID = firebaseObj.SurveyID;
-        objTraverse.m_TraverseClosure = lodash.map(firebaseObj.Traverse, function (arrayMember) {
+        objTraverse.m_TraverseClosure = lodash.map(firebaseObj.TraverseClosure, function (arrayMember) {
             return TraverseClosure_1.TraverseClosure.fromFirebase(arrayMember);
         });
         objTraverse.m_SurveyMeasurement = lodash.map(firebaseObj.Traverse_SurveyMeasurement, function (arrayMember) {
@@ -221,7 +221,7 @@ var Traverse = (function () {
         objTraverse.m_StartPoint = SurveyPoint_1.SurveyPoint.fromJsonObject(objJson.StartPointID);
         objTraverse.m_EndPoint = SurveyPoint_1.SurveyPoint.fromJsonObject(objJson.EndPointID);
         objTraverse.m_SurveyID = objJson.SurveyID;
-        objTraverse.m_TraverseClosure = lodash.map(objJson.Traverse, function (arrayMember) {
+        objTraverse.m_TraverseClosure = lodash.map(objJson.TraverseClosure, function (arrayMember) {
             return TraverseClosure_1.TraverseClosure.fromJsonObject(arrayMember);
         });
         objTraverse.m_SurveyMeasurement = lodash.map(objJson.Traverse_SurveyMeasurement, function (arrayMember) {
@@ -242,7 +242,7 @@ var Traverse = (function () {
             StartPointID: lodash(this.StartPoint).isNil() ? null : this.m_StartPoint.toJsonObject(),
             EndPointID: lodash(this.EndPoint).isNil() ? null : this.m_EndPoint.toJsonObject(),
             SurveyID: lodash(this.SurveyID).isNil() ? null : this.m_SurveyID,
-            Traverse: lodash(this.TraverseClosure).isNil() ? null : lodash(this.m_TraverseClosure).map(function (arrayMember) {
+            TraverseClosure: lodash(this.TraverseClosure).isNil() ? null : lodash(this.m_TraverseClosure).map(function (arrayMember) {
                 return arrayMember.toJsonObject();
             }),
             Traverse_SurveyMeasurement: lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(function (arrayMember) {

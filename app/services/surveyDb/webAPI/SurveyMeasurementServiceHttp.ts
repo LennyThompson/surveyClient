@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 
 import {SurveyMeasurement} from "../types/SurveyMeasurement";
 
@@ -7,6 +7,10 @@ import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
 import { TraverseMeasurementSummarySubjectProvider } from "./";
+
+import { CurrentSurveyMeasurementProvider } from "./../../../components/survey/simple-providers";
+
+import { CurrentTraverseProvider } from "./../../../components/survey/simple-providers";
 
 
 
@@ -59,13 +63,13 @@ export class SurveyMeasurementServiceHttp
             let options = new RequestOptions({ headers: headers });
 
             return this.httpService.post(strPath, strJsonBody, options)
-                             .map((resp : Response) => this.notifyObservers(SurveyMeasurement.fromJsonObject(resp.json()), ID))
+                             .map((resp : Response) => this.notifyObservers(SurveyMeasurement.fromJsonObject(resp.json())))
                              .catch((error : any) => Observable.throw(error.json().error || "Server error"));
     }
 
     private notifyObservers(updateSurveyMeasurement: SurveyMeasurement): SurveyMeasurement
     {
-        this._TraverseMeasurementSummarySubject.updateForSurveyMeasurement(updateSurveyMeasurement);
+        this._TraverseMeasurementSummarySubject.updateForSurveyMeasurement();
 
         return updateSurveyMeasurement;
     }
@@ -100,42 +104,68 @@ export class SurveyMeasurementServiceHttp
 @Injectable()
 export class SurveyMeasurementSubjectProvider
 {
-    private _mapSummaries: Map<number, BehaviorSubject<SurveyMeasurement[]>>;
+    private _summary: BehaviorSubject<SurveyMeasurement[]>;
+    private _SurveyMeasurementSummaries: Map<number, BehaviorSubject<SurveyMeasurement>>;
 
     constructor
     (
         private _SurveyMeasurementService : SurveyMeasurementServiceHttp
+        , private _SurveyMeasurementCurrent: CurrentSurveyMeasurementProvider
+
     )
     {
-        this._mapSummaries = new Map<number, BehaviorSubject<SurveyMeasurement[]>>();
     }
 
-    getSurveyMeasurement(keyID?: number): Observable<SurveyMeasurement[]>
+    getSurveyMeasurementSummaries(): Observable<SurveyMeasurement[]>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(!this._mapSummaries.has(keyLocal))
+        if(!this._summary)
         {
-            this._mapSummaries.set(keyLocal, new BehaviorSubject<SurveyMeasurement[]>([]));
-            this.update(keyLocal);
+            this._summary = new BehaviorSubject<SurveyMeasurement[]>([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     }
 
-    update(keyID?: number)
+    getSurveyMeasurementSummary(): Observable<SurveyMeasurement>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(keyID)
+        if(this._SurveyMeasurementCurrent.SurveyMeasurement)
         {
-            this._SurveyMeasurementService.loadSurveyMeasurementFromDatabase(keyLocal)
+            let key: number = this._SurveyMeasurementCurrent.SurveyMeasurement.ID;
+            if(!this._SurveyMeasurementSummaries)
+            {
+                this._SurveyMeasurementSummaries = new Map<number, BehaviorSubject<SurveyMeasurement>>();
+            }
+            if(!this._SurveyMeasurementSummaries.has(key))
+            {
+                this._SurveyMeasurementSummaries.set(key, new BehaviorSubject<SurveyMeasurement>(null));
+            }
+
+            this.update();
+            return this._SurveyMeasurementSummaries.get(key).asObservable();
+        }
+        throw new Error("No SurveyMeasurement current context is provided");
+    }
+
+
+    update()
+    {
+        if
+        (
+            this._SurveyMeasurementCurrent.SurveyMeasurement
+            &&
+            this._SurveyMeasurementSummaries.has(this._SurveyMeasurementCurrent.SurveyMeasurement.ID)
+        )
+        {
+            this._SurveyMeasurementService.loadSurveyMeasurementFromDatabase(this._SurveyMeasurementCurrent.SurveyMeasurement.ID)
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next([result])
+                    result => this._SurveyMeasurementSummaries.get(this._SurveyMeasurementCurrent.SurveyMeasurement.ID).next(result)
                 );
         }
-        else
+        if(this._summary)
         {
             this._SurveyMeasurementService.loadAllFromDatabase()
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next(result)
+                    result => this._summary.next(result)
                 );
         }
     }

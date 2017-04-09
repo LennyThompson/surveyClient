@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -15,6 +15,7 @@ var SurveyImage_1 = require("../types/SurveyImage");
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
+var simple_providers_1 = require("./../../../components/survey/simple-providers");
 var SurveyImageServiceHttp = SurveyImageServiceHttp_1 = (function () {
     function SurveyImageServiceHttp(httpService) {
         this.httpService = httpService;
@@ -70,35 +71,50 @@ SurveyImageServiceHttp = SurveyImageServiceHttp_1 = __decorate([
 ], SurveyImageServiceHttp);
 exports.SurveyImageServiceHttp = SurveyImageServiceHttp;
 var SurveyImageSubjectProvider = (function () {
-    function SurveyImageSubjectProvider(_SurveyImageService) {
+    function SurveyImageSubjectProvider(_SurveyImageService, _SurveyImageCurrent) {
         this._SurveyImageService = _SurveyImageService;
-        this._mapSummaries = new Map();
+        this._SurveyImageCurrent = _SurveyImageCurrent;
     }
-    SurveyImageSubjectProvider.prototype.getSurveyImage = function (keyID) {
-        var keyLocal = keyID ? keyID : 0;
-        if (!this._mapSummaries.has(keyLocal)) {
-            this._mapSummaries.set(keyLocal, new Rx_1.BehaviorSubject([]));
-            this.update(keyLocal);
+    SurveyImageSubjectProvider.prototype.getSurveyImageSummaries = function () {
+        if (!this._summary) {
+            this._summary = new Rx_1.BehaviorSubject([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     };
-    SurveyImageSubjectProvider.prototype.update = function (keyID) {
-        var _this = this;
-        var keyLocal = keyID ? keyID : 0;
-        if (keyID) {
-            this._SurveyImageService.loadSurveyImageFromDatabase(keyLocal)
-                .subscribe(function (result) { return _this._mapSummaries.get(keyLocal).next([result]); });
+    SurveyImageSubjectProvider.prototype.getSurveyImageSummary = function () {
+        if (this._SurveyImageCurrent.SurveyImage) {
+            var key = this._SurveyImageCurrent.SurveyImage.ID;
+            if (!this._SurveyImageSummaries) {
+                this._SurveyImageSummaries = new Map();
+            }
+            if (!this._SurveyImageSummaries.has(key)) {
+                this._SurveyImageSummaries.set(key, new Rx_1.BehaviorSubject(null));
+            }
+            this.update();
+            return this._SurveyImageSummaries.get(key).asObservable();
         }
-        else {
+        throw new Error("No SurveyImage current context is provided");
+    };
+    SurveyImageSubjectProvider.prototype.update = function () {
+        var _this = this;
+        if (this._SurveyImageCurrent.SurveyImage
+            &&
+                this._SurveyImageSummaries.has(this._SurveyImageCurrent.SurveyImage.ID)) {
+            this._SurveyImageService.loadSurveyImageFromDatabase(this._SurveyImageCurrent.SurveyImage.ID)
+                .subscribe(function (result) { return _this._SurveyImageSummaries.get(_this._SurveyImageCurrent.SurveyImage.ID).next(result); });
+        }
+        if (this._summary) {
             this._SurveyImageService.loadAllFromDatabase()
-                .subscribe(function (result) { return _this._mapSummaries.get(keyLocal).next(result); });
+                .subscribe(function (result) { return _this._summary.next(result); });
         }
     };
     return SurveyImageSubjectProvider;
 }());
 SurveyImageSubjectProvider = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [SurveyImageServiceHttp])
+    __metadata("design:paramtypes", [SurveyImageServiceHttp,
+        simple_providers_1.CurrentSurveyImageProvider])
 ], SurveyImageSubjectProvider);
 exports.SurveyImageSubjectProvider = SurveyImageSubjectProvider;
 var SurveyImageServiceHttp_1;

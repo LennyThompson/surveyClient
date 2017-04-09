@@ -1,8 +1,11 @@
 import { SurveyAdjustmentServiceHttp, SurveyAdjustmentSubjectProvider } from "./SurveyAdjustmentServiceHttp";
-import { SurveySummaryServiceHttp, SurveySummarySubjectProvider } from "./SurveySummaryServiceHttp";
+import { SurveySummaryServiceHttp } from "./SurveySummaryServiceHttp";
+import {SurveySummarySubjectProvider} from "./SurveySummarySubjectProvider";
 import { TraverseServiceHttp, TraverseSubjectProvider } from "./TraverseServiceHttp";
-import { TraverseSummaryServiceHttp, TraverseSummarySubjectProvider } from "./TraverseSummaryServiceHttp";
-import { TraverseMeasurementSummaryServiceHttp, TraverseMeasurementSummarySubjectProvider } from "./TraverseMeasurementSummaryServiceHttp";
+import { TraverseSummaryServiceHttp } from "./TraverseSummaryServiceHttp";
+import { TraverseSummarySubjectProvider } from "./TraverseSummarySubjectProvider";
+import { TraverseMeasurementSummaryServiceHttp } from "./TraverseMeasurementSummaryServiceHttp";
+import {TraverseMeasurementSummarySubjectProvider} from "./TraverseMeasurementSummarySubjectProvider";
 import { SurveyPointServiceHttp, SurveyPointSubjectProvider } from "./SurveyPointServiceHttp";
 import { InstrumentManufacturerServiceHttp, InstrumentManufacturerSubjectProvider } from "./InstrumentManufacturerServiceHttp";
 import { SurveyPointTypeServiceHttp, SurveyPointTypeSubjectProvider } from "./SurveyPointTypeServiceHttp";
@@ -54,10 +57,13 @@ export const SUBJECT_PROVIDERS: any[] = [
 ];
 
 export { SurveyAdjustmentServiceHttp, SurveyAdjustmentSubjectProvider } from "./SurveyAdjustmentServiceHttp";
-export { SurveySummaryServiceHttp, SurveySummarySubjectProvider } from "./SurveySummaryServiceHttp";
+export { SurveySummaryServiceHttp } from "./SurveySummaryServiceHttp";
+export {SurveySummarySubjectProvider} from "./SurveySummarySubjectProvider";
 export { TraverseServiceHttp, TraverseSubjectProvider } from "./TraverseServiceHttp";
-export { TraverseSummaryServiceHttp, TraverseSummarySubjectProvider } from "./TraverseSummaryServiceHttp";
-export { TraverseMeasurementSummaryServiceHttp, TraverseMeasurementSummarySubjectProvider } from "./TraverseMeasurementSummaryServiceHttp";
+export { TraverseSummaryServiceHttp } from "./TraverseSummaryServiceHttp";
+export { TraverseSummarySubjectProvider } from "./TraverseSummarySubjectProvider";
+export { TraverseMeasurementSummaryServiceHttp } from "./TraverseMeasurementSummaryServiceHttp";
+export {TraverseMeasurementSummarySubjectProvider} from "./TraverseMeasurementSummarySubjectProvider";
 export { SurveyPointServiceHttp, SurveyPointSubjectProvider } from "./SurveyPointServiceHttp";
 export { InstrumentManufacturerServiceHttp, InstrumentManufacturerSubjectProvider } from "./InstrumentManufacturerServiceHttp";
 export { SurveyPointTypeServiceHttp, SurveyPointTypeSubjectProvider } from "./SurveyPointTypeServiceHttp";

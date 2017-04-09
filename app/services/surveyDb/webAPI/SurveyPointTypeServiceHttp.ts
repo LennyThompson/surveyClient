@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 
 import {SurveyPointType} from "../types/SurveyPointType";
 
@@ -7,6 +7,8 @@ import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
 import { SurveyPointSummarySubjectProvider, SurveySummarySubjectProvider } from "./";
+
+import { CurrentSurveyPointTypeProvider } from "./../../../components/survey/simple-providers";
 
 
 
@@ -51,8 +53,8 @@ export class SurveyPointTypeServiceHttp
     }
     private notifyObservers(updateSurveyPointType: SurveyPointType): SurveyPointType
     {
-        this._SurveyPointSummarySubject.updateForSurveyPointType(updateSurveyPointType);
-        this._SurveySummarySubject.updateForSurveyPointType(updateSurveyPointType);
+        this._SurveyPointSummarySubject.updateForSurveyPointType();
+        this._SurveySummarySubject.updateForSurveyPointType();
 
         return updateSurveyPointType;
     }
@@ -87,42 +89,68 @@ export class SurveyPointTypeServiceHttp
 @Injectable()
 export class SurveyPointTypeSubjectProvider
 {
-    private _mapSummaries: Map<number, BehaviorSubject<SurveyPointType[]>>;
+    private _summary: BehaviorSubject<SurveyPointType[]>;
+    private _SurveyPointTypeSummaries: Map<number, BehaviorSubject<SurveyPointType>>;
 
     constructor
     (
         private _SurveyPointTypeService : SurveyPointTypeServiceHttp
+        , private _SurveyPointTypeCurrent: CurrentSurveyPointTypeProvider
+
     )
     {
-        this._mapSummaries = new Map<number, BehaviorSubject<SurveyPointType[]>>();
     }
 
-    getSurveyPointType(keyID?: number): Observable<SurveyPointType[]>
+    getSurveyPointTypeSummaries(): Observable<SurveyPointType[]>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(!this._mapSummaries.has(keyLocal))
+        if(!this._summary)
         {
-            this._mapSummaries.set(keyLocal, new BehaviorSubject<SurveyPointType[]>([]));
-            this.update(keyLocal);
+            this._summary = new BehaviorSubject<SurveyPointType[]>([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     }
 
-    update(keyID?: number)
+    getSurveyPointTypeSummary(): Observable<SurveyPointType>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(keyID)
+        if(this._SurveyPointTypeCurrent.SurveyPointType)
         {
-            this._SurveyPointTypeService.loadSurveyPointTypeFromDatabase(keyLocal)
+            let key: number = this._SurveyPointTypeCurrent.SurveyPointType.ID;
+            if(!this._SurveyPointTypeSummaries)
+            {
+                this._SurveyPointTypeSummaries = new Map<number, BehaviorSubject<SurveyPointType>>();
+            }
+            if(!this._SurveyPointTypeSummaries.has(key))
+            {
+                this._SurveyPointTypeSummaries.set(key, new BehaviorSubject<SurveyPointType>(null));
+            }
+
+            this.update();
+            return this._SurveyPointTypeSummaries.get(key).asObservable();
+        }
+        throw new Error("No SurveyPointType current context is provided");
+    }
+
+
+    update()
+    {
+        if
+        (
+            this._SurveyPointTypeCurrent.SurveyPointType
+            &&
+            this._SurveyPointTypeSummaries.has(this._SurveyPointTypeCurrent.SurveyPointType.ID)
+        )
+        {
+            this._SurveyPointTypeService.loadSurveyPointTypeFromDatabase(this._SurveyPointTypeCurrent.SurveyPointType.ID)
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next([result])
+                    result => this._SurveyPointTypeSummaries.get(this._SurveyPointTypeCurrent.SurveyPointType.ID).next(result)
                 );
         }
-        else
+        if(this._summary)
         {
             this._SurveyPointTypeService.loadAllFromDatabase()
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next(result)
+                    result => this._summary.next(result)
                 );
         }
     }

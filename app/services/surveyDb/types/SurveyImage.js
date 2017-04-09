@@ -1,8 +1,7 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Wed Mar 22 19:50:14 AEST 2017
+// Generated on Sun Apr 09 17:23:47 AEST 2017
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Survey_1 = require("./Survey");
 var TimeConversion_1 = require("./../TimeConversion");
 var lodash = require("lodash");
 // declare internal types
@@ -13,11 +12,10 @@ var SurveyImage = (function () {
         this.m_Updated = new Date();
         this.m_Path = "";
         this.m_Description = "";
-        this.m_Survey = new Survey_1.Survey();
+        this.m_SurveyID = 0;
         this.m_PointAtID = 0;
         this.m_bPathUpdated = true;
         this.m_bDescriptionUpdated = true;
-        this.m_bSurveyUpdated = true;
         this.m_bPointAtIDUpdated = true;
     }
     Object.defineProperty(SurveyImage.prototype, "ID", {
@@ -63,13 +61,9 @@ var SurveyImage = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(SurveyImage.prototype, "Survey", {
+    Object.defineProperty(SurveyImage.prototype, "SurveyID", {
         get: function () {
-            return this.m_Survey;
-        },
-        set: function (Survey) {
-            this.m_Survey = Survey;
-            this.m_bSurveyUpdated = true;
+            return this.m_SurveyID;
         },
         enumerable: true,
         configurable: true
@@ -94,9 +88,6 @@ var SurveyImage = (function () {
         if (this.m_bDescriptionUpdated) {
             objUpdated["Description"] = lodash(this.Description).isNil() ? null : this.m_Description;
         }
-        if (this.m_bSurveyUpdated) {
-            objUpdated["SurveyID"] = lodash(this.Survey).isNil() ? null : this.m_Survey.toJsonObject();
-        }
         if (this.m_bPointAtIDUpdated) {
             objUpdated["PointAtID"] = lodash(this.PointAtID).isNil() ? null : this.m_PointAtID;
         }
@@ -105,7 +96,6 @@ var SurveyImage = (function () {
     SurveyImage.prototype.setSaved = function () {
         this.m_bPathUpdated = false;
         this.m_bDescriptionUpdated = false;
-        this.m_bSurveyUpdated = false;
         this.m_bPointAtIDUpdated = false;
     };
     SurveyImage.prototype.toFirebase = function () {
@@ -115,7 +105,7 @@ var SurveyImage = (function () {
             updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
             Path: lodash(this.Path).isNil() ? null : this.m_Path,
             Description: lodash(this.Description).isNil() ? null : this.m_Description,
-            SurveyID: lodash(this.Survey).isNil() ? null : this.m_Survey.toFirebase(),
+            SurveyID: lodash(this.SurveyID).isNil() ? null : this.m_SurveyID,
             PointAtID: lodash(this.PointAtID).isNil() ? null : this.m_PointAtID
         };
         return objFirebase;
@@ -127,7 +117,7 @@ var SurveyImage = (function () {
         objSurveyImage.m_Updated = TimeConversion_1.TimeConversion.toDate(firebaseObj.updated);
         objSurveyImage.m_Path = firebaseObj.Path;
         objSurveyImage.m_Description = firebaseObj.Description;
-        objSurveyImage.m_Survey = Survey_1.Survey.fromFirebase(firebaseObj.SurveyID);
+        objSurveyImage.m_SurveyID = firebaseObj.SurveyID;
         objSurveyImage.m_PointAtID = firebaseObj.PointAtID;
         objSurveyImage.setSaved();
         return objSurveyImage;
@@ -147,7 +137,7 @@ var SurveyImage = (function () {
         objSurveyImage.m_Updated = TimeConversion_1.TimeConversion.toDate(objJson.updated);
         objSurveyImage.m_Path = objJson.Path;
         objSurveyImage.m_Description = objJson.Description;
-        objSurveyImage.m_Survey = Survey_1.Survey.fromJsonObject(objJson.SurveyID);
+        objSurveyImage.m_SurveyID = objJson.SurveyID;
         objSurveyImage.m_PointAtID = objJson.PointAtID;
         return objSurveyImage;
     };
@@ -161,7 +151,7 @@ var SurveyImage = (function () {
             updated: lodash(this.Updated).isNil() ? null : this.m_Updated.toISOString(),
             Path: lodash(this.Path).isNil() ? null : this.m_Path,
             Description: lodash(this.Description).isNil() ? null : this.m_Description,
-            SurveyID: lodash(this.Survey).isNil() ? null : this.m_Survey.toJsonObject(),
+            SurveyID: lodash(this.SurveyID).isNil() ? null : this.m_SurveyID,
             PointAtID: lodash(this.PointAtID).isNil() ? null : this.m_PointAtID
         };
     };

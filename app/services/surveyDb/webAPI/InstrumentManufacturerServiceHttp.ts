@@ -1,11 +1,14 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 
 import {InstrumentManufacturer} from "../types/InstrumentManufacturer";
 
 import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
+import { CurrentInstrumentManufacturerProvider } from "./../../../components/survey/simple-providers";
+
+
 
 @Injectable()
 export class InstrumentManufacturerServiceHttp
@@ -77,42 +80,68 @@ export class InstrumentManufacturerServiceHttp
 @Injectable()
 export class InstrumentManufacturerSubjectProvider
 {
-    private _mapSummaries: Map<number, BehaviorSubject<InstrumentManufacturer[]>>;
+    private _summary: BehaviorSubject<InstrumentManufacturer[]>;
+    private _InstrumentManufacturerSummaries: Map<number, BehaviorSubject<InstrumentManufacturer>>;
 
     constructor
     (
         private _InstrumentManufacturerService : InstrumentManufacturerServiceHttp
+        , private _InstrumentManufacturerCurrent: CurrentInstrumentManufacturerProvider
+
     )
     {
-        this._mapSummaries = new Map<number, BehaviorSubject<InstrumentManufacturer[]>>();
     }
 
-    getInstrumentManufacturer(keyID?: number): Observable<InstrumentManufacturer[]>
+    getInstrumentManufacturerSummaries(): Observable<InstrumentManufacturer[]>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(!this._mapSummaries.has(keyLocal))
+        if(!this._summary)
         {
-            this._mapSummaries.set(keyLocal, new BehaviorSubject<InstrumentManufacturer[]>([]));
-            this.update(keyLocal);
+            this._summary = new BehaviorSubject<InstrumentManufacturer[]>([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     }
 
-    update(keyID?: number)
+    getInstrumentManufacturerSummary(): Observable<InstrumentManufacturer>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(keyID)
+        if(this._InstrumentManufacturerCurrent.InstrumentManufacturer)
         {
-            this._InstrumentManufacturerService.loadInstrumentManufacturerFromDatabase(keyLocal)
+            let key: number = this._InstrumentManufacturerCurrent.InstrumentManufacturer.ID;
+            if(!this._InstrumentManufacturerSummaries)
+            {
+                this._InstrumentManufacturerSummaries = new Map<number, BehaviorSubject<InstrumentManufacturer>>();
+            }
+            if(!this._InstrumentManufacturerSummaries.has(key))
+            {
+                this._InstrumentManufacturerSummaries.set(key, new BehaviorSubject<InstrumentManufacturer>(null));
+            }
+
+            this.update();
+            return this._InstrumentManufacturerSummaries.get(key).asObservable();
+        }
+        throw new Error("No InstrumentManufacturer current context is provided");
+    }
+
+
+    update()
+    {
+        if
+        (
+            this._InstrumentManufacturerCurrent.InstrumentManufacturer
+            &&
+            this._InstrumentManufacturerSummaries.has(this._InstrumentManufacturerCurrent.InstrumentManufacturer.ID)
+        )
+        {
+            this._InstrumentManufacturerService.loadInstrumentManufacturerFromDatabase(this._InstrumentManufacturerCurrent.InstrumentManufacturer.ID)
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next([result])
+                    result => this._InstrumentManufacturerSummaries.get(this._InstrumentManufacturerCurrent.InstrumentManufacturer.ID).next(result)
                 );
         }
-        else
+        if(this._summary)
         {
             this._InstrumentManufacturerService.loadAllFromDatabase()
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next(result)
+                    result => this._summary.next(result)
                 );
         }
     }

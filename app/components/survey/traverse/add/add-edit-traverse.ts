@@ -94,7 +94,7 @@ export class TraverseEditBaseComponent
                     {
                         if(result)
                         {
-                            let firstReturn = this.pointService.saveSurveyPointForSurvey(result, this.Traverse.SurveyID).first();
+                            let firstReturn = this.pointService.saveSurveyPointForSurvey(result).first();
                             firstReturn.subscribe(
                                 (point) =>
                                 {

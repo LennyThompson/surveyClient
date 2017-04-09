@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 
 import {Projection} from "../types/Projection";
 
@@ -7,6 +7,8 @@ import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
 import { SurveySummarySubjectProvider } from "./";
+
+import { CurrentProjectionProvider } from "./../../../components/survey/simple-providers";
 
 
 
@@ -50,7 +52,7 @@ export class ProjectionServiceHttp
     }
     private notifyObservers(updateProjection: Projection): Projection
     {
-        this._SurveySummarySubject.updateForProjection(updateProjection);
+        this._SurveySummarySubject.updateForProjection();
 
         return updateProjection;
     }
@@ -85,42 +87,68 @@ export class ProjectionServiceHttp
 @Injectable()
 export class ProjectionSubjectProvider
 {
-    private _mapSummaries: Map<number, BehaviorSubject<Projection[]>>;
+    private _summary: BehaviorSubject<Projection[]>;
+    private _ProjectionSummaries: Map<number, BehaviorSubject<Projection>>;
 
     constructor
     (
         private _ProjectionService : ProjectionServiceHttp
+        , private _ProjectionCurrent: CurrentProjectionProvider
+
     )
     {
-        this._mapSummaries = new Map<number, BehaviorSubject<Projection[]>>();
     }
 
-    getProjection(keyID?: number): Observable<Projection[]>
+    getProjectionSummaries(): Observable<Projection[]>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(!this._mapSummaries.has(keyLocal))
+        if(!this._summary)
         {
-            this._mapSummaries.set(keyLocal, new BehaviorSubject<Projection[]>([]));
-            this.update(keyLocal);
+            this._summary = new BehaviorSubject<Projection[]>([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     }
 
-    update(keyID?: number)
+    getProjectionSummary(): Observable<Projection>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(keyID)
+        if(this._ProjectionCurrent.Projection)
         {
-            this._ProjectionService.loadProjectionFromDatabase(keyLocal)
+            let key: number = this._ProjectionCurrent.Projection.ID;
+            if(!this._ProjectionSummaries)
+            {
+                this._ProjectionSummaries = new Map<number, BehaviorSubject<Projection>>();
+            }
+            if(!this._ProjectionSummaries.has(key))
+            {
+                this._ProjectionSummaries.set(key, new BehaviorSubject<Projection>(null));
+            }
+
+            this.update();
+            return this._ProjectionSummaries.get(key).asObservable();
+        }
+        throw new Error("No Projection current context is provided");
+    }
+
+
+    update()
+    {
+        if
+        (
+            this._ProjectionCurrent.Projection
+            &&
+            this._ProjectionSummaries.has(this._ProjectionCurrent.Projection.ID)
+        )
+        {
+            this._ProjectionService.loadProjectionFromDatabase(this._ProjectionCurrent.Projection.ID)
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next([result])
+                    result => this._ProjectionSummaries.get(this._ProjectionCurrent.Projection.ID).next(result)
                 );
         }
-        else
+        if(this._summary)
         {
             this._ProjectionService.loadAllFromDatabase()
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next(result)
+                    result => this._summary.next(result)
                 );
         }
     }

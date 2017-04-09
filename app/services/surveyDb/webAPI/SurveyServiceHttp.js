@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -16,6 +16,7 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
 var _1 = require("./");
+var simple_providers_1 = require("./../../../components/survey/simple-providers");
 var SurveyServiceHttp = SurveyServiceHttp_1 = (function () {
     function SurveyServiceHttp(httpService, _SurveyPointSummarySubject, _SurveySummarySubject) {
         this.httpService = httpService;
@@ -45,8 +46,8 @@ var SurveyServiceHttp = SurveyServiceHttp_1 = (function () {
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || "Server error"); });
     };
     SurveyServiceHttp.prototype.notifyObservers = function (updateSurvey) {
-        this._SurveyPointSummarySubject.updateForSurvey(updateSurvey);
-        this._SurveySummarySubject.updateForSurvey(updateSurvey);
+        this._SurveyPointSummarySubject.updateForSurvey();
+        this._SurveySummarySubject.updateForSurvey();
         return updateSurvey;
     };
     SurveyServiceHttp.prototype.loadAllFromDatabase = function () {
@@ -72,41 +73,55 @@ var SurveyServiceHttp = SurveyServiceHttp_1 = (function () {
 SurveyServiceHttp = SurveyServiceHttp_1 = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http,
-        _1.SurveyPointSummarySubjectProvider,
-        _1.SurveySummarySubjectProvider])
+        _1.SurveyPointSummarySubjectProvider, typeof (_a = typeof _1.SurveySummarySubjectProvider !== "undefined" && _1.SurveySummarySubjectProvider) === "function" && _a || Object])
 ], SurveyServiceHttp);
 exports.SurveyServiceHttp = SurveyServiceHttp;
 var SurveySubjectProvider = (function () {
-    function SurveySubjectProvider(_SurveyService) {
+    function SurveySubjectProvider(_SurveyService, _SurveyCurrent) {
         this._SurveyService = _SurveyService;
-        this._mapSummaries = new Map();
+        this._SurveyCurrent = _SurveyCurrent;
     }
-    SurveySubjectProvider.prototype.getSurvey = function (keyID) {
-        var keyLocal = keyID ? keyID : 0;
-        if (!this._mapSummaries.has(keyLocal)) {
-            this._mapSummaries.set(keyLocal, new Rx_1.BehaviorSubject([]));
-            this.update(keyLocal);
+    SurveySubjectProvider.prototype.getSurveySummaries = function () {
+        if (!this._summary) {
+            this._summary = new Rx_1.BehaviorSubject([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     };
-    SurveySubjectProvider.prototype.update = function (keyID) {
-        var _this = this;
-        var keyLocal = keyID ? keyID : 0;
-        if (keyID) {
-            this._SurveyService.loadSurveyFromDatabase(keyLocal)
-                .subscribe(function (result) { return _this._mapSummaries.get(keyLocal).next([result]); });
+    SurveySubjectProvider.prototype.getSurveySummary = function () {
+        if (this._SurveyCurrent.Survey) {
+            var key = this._SurveyCurrent.Survey.ID;
+            if (!this._SurveySummaries) {
+                this._SurveySummaries = new Map();
+            }
+            if (!this._SurveySummaries.has(key)) {
+                this._SurveySummaries.set(key, new Rx_1.BehaviorSubject(null));
+            }
+            this.update();
+            return this._SurveySummaries.get(key).asObservable();
         }
-        else {
+        throw new Error("No Survey current context is provided");
+    };
+    SurveySubjectProvider.prototype.update = function () {
+        var _this = this;
+        if (this._SurveyCurrent.Survey
+            &&
+                this._SurveySummaries.has(this._SurveyCurrent.Survey.ID)) {
+            this._SurveyService.loadSurveyFromDatabase(this._SurveyCurrent.Survey.ID)
+                .subscribe(function (result) { return _this._SurveySummaries.get(_this._SurveyCurrent.Survey.ID).next(result); });
+        }
+        if (this._summary) {
             this._SurveyService.loadAllFromDatabase()
-                .subscribe(function (result) { return _this._mapSummaries.get(keyLocal).next(result); });
+                .subscribe(function (result) { return _this._summary.next(result); });
         }
     };
     return SurveySubjectProvider;
 }());
 SurveySubjectProvider = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [SurveyServiceHttp])
+    __metadata("design:paramtypes", [SurveyServiceHttp,
+        simple_providers_1.CurrentSurveyProvider])
 ], SurveySubjectProvider);
 exports.SurveySubjectProvider = SurveySubjectProvider;
-var SurveyServiceHttp_1;
+var SurveyServiceHttp_1, _a;
 //# sourceMappingURL=SurveyServiceHttp.js.map

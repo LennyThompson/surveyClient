@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Wed Mar 22 19:50:14 AEST 2017
+// Generated on Sun Apr 09 17:23:47 AEST 2017
 
 import {SurveyPoint} from "./SurveyPoint";
 import {TraverseClosure} from "./TraverseClosure";
@@ -157,7 +157,7 @@ export class Traverse
         }
         if (this.m_bTraverseClosureUpdated)
         {
-            objUpdated["Traverse"] = lodash(this.TraverseClosure).isNil() ? null : lodash(this.m_TraverseClosure).map(
+            objUpdated["TraverseClosure"] = lodash(this.TraverseClosure).isNil() ? null : lodash(this.m_TraverseClosure).map(
                 (arrayMember) =>
                 {
                     return arrayMember.toJsonObject();
@@ -201,7 +201,7 @@ export class Traverse
             StartPointID: lodash(this.StartPoint).isNil() ? null : this.m_StartPoint.toFirebase(),
             EndPointID: lodash(this.EndPoint).isNil() ? null : this.m_EndPoint.toFirebase(),
             SurveyID: lodash(this.SurveyID).isNil() ? null : this.m_SurveyID,
-            Traverse: lodash(this.TraverseClosure).isNil() ? null : lodash(this.m_TraverseClosure).map(
+            TraverseClosure: lodash(this.TraverseClosure).isNil() ? null : lodash(this.m_TraverseClosure).map(
                     (arrayMember) =>
                     {
                         return arrayMember.toFirebase();
@@ -230,7 +230,7 @@ export class Traverse
         objTraverse.m_EndPoint = SurveyPoint.fromFirebase(firebaseObj.EndPointID);
         objTraverse.m_SurveyID = firebaseObj.SurveyID;
         objTraverse.m_TraverseClosure = lodash.map(
-                firebaseObj.Traverse,
+                firebaseObj.TraverseClosure,
                 (arrayMember) =>
                 {
                     return TraverseClosure.fromFirebase(arrayMember);
@@ -273,7 +273,7 @@ export class Traverse
         objTraverse.m_EndPoint = SurveyPoint.fromJsonObject(objJson.EndPointID);
         objTraverse.m_SurveyID = objJson.SurveyID;
         objTraverse.m_TraverseClosure = lodash.map(
-                objJson.Traverse,
+                objJson.TraverseClosure,
                 (arrayMember) =>
                 {
                     return TraverseClosure.fromJsonObject(arrayMember);
@@ -306,7 +306,7 @@ export class Traverse
             StartPointID: lodash(this.StartPoint).isNil() ? null : this.m_StartPoint.toJsonObject(),
             EndPointID: lodash(this.EndPoint).isNil() ? null : this.m_EndPoint.toJsonObject(),
             SurveyID: lodash(this.SurveyID).isNil() ? null : this.m_SurveyID,
-            Traverse: lodash(this.TraverseClosure).isNil() ? null : lodash(this.m_TraverseClosure).map(
+            TraverseClosure: lodash(this.TraverseClosure).isNil() ? null : lodash(this.m_TraverseClosure).map(
                     (arrayMember) =>
                     {
                         return arrayMember.toJsonObject();

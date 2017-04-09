@@ -1,7 +1,7 @@
 
 import {Component} from "@angular/core";
 import {AddSurveyMeasurementComponent} from "../add/add-survey-measurement";
-import {SurveyContextProvider, CurrentSurveyMeasurementProvider } from "./../../simple-providers";
+import { CurrentSurveyMeasurementProvider } from "./../../simple-providers";
 import {MdDialogRef} from "@angular/material";
 import {AddEditSurveyMeasurement} from "../add/add-edit-survey-measurement";
 
@@ -19,10 +19,9 @@ export class EditSurveyMeasurementComponent extends AddEditSurveyMeasurement
     constructor
     (
         _dialog: MdDialogRef<AddSurveyMeasurementComponent>,
-        surveyContext: SurveyContextProvider,
         measProvider: CurrentSurveyMeasurementProvider
     )
     {
-        super(_dialog, surveyContext, measProvider);
+        super(_dialog, measProvider);
     }
 }

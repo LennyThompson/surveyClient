@@ -1,7 +1,10 @@
 import {Component, Input} from "@angular/core";
 import {SurveySummary} from "../../../services/surveyDb/types/SurveySummary";
 import {Observable} from "rxjs";
-import {SurveySummaryServiceHttp} from "../../../services/surveyDb/webAPI/SurveySummaryServiceHttp";
+import {
+    SurveySummaryServiceHttp,
+    SurveySummarySubjectProvider
+} from "../../../services/surveyDb/webAPI/SurveySummaryServiceHttp";
 import {TraverseSummaryServiceHttp} from "../../../services/surveyDb/webAPI/TraverseSummaryServiceHttp";
 import {TraverseSummary} from "../../../services/surveyDb/types/TraverseSummary";
 
@@ -12,9 +15,9 @@ import {TraverseSummary} from "../../../services/surveyDb/types/TraverseSummary"
 export class SurveyListComponent
 {
     private m_listSurveys : Observable<SurveySummary[]>;
-    constructor(private surveyService : SurveySummaryServiceHttp)
+    constructor(private surveyService : SurveySummarySubjectProvider)
     {
-        this.m_listSurveys = surveyService.loadAllFromDatabase();
+        this.m_listSurveys = surveyService.getSurveySummarySummaries();
     }
 
     get Surveys() : Observable<SurveySummary[]>

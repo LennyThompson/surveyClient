@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -16,6 +16,7 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
 var _1 = require("./");
+var simple_providers_1 = require("./../../../components/survey/simple-providers");
 var SurveyPointTypeServiceHttp = SurveyPointTypeServiceHttp_1 = (function () {
     function SurveyPointTypeServiceHttp(httpService, _SurveyPointSummarySubject, _SurveySummarySubject) {
         this.httpService = httpService;
@@ -45,8 +46,8 @@ var SurveyPointTypeServiceHttp = SurveyPointTypeServiceHttp_1 = (function () {
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || "Server error"); });
     };
     SurveyPointTypeServiceHttp.prototype.notifyObservers = function (updateSurveyPointType) {
-        this._SurveyPointSummarySubject.updateForSurveyPointType(updateSurveyPointType);
-        this._SurveySummarySubject.updateForSurveyPointType(updateSurveyPointType);
+        this._SurveyPointSummarySubject.updateForSurveyPointType();
+        this._SurveySummarySubject.updateForSurveyPointType();
         return updateSurveyPointType;
     };
     SurveyPointTypeServiceHttp.prototype.loadAllFromDatabase = function () {
@@ -72,41 +73,55 @@ var SurveyPointTypeServiceHttp = SurveyPointTypeServiceHttp_1 = (function () {
 SurveyPointTypeServiceHttp = SurveyPointTypeServiceHttp_1 = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http,
-        _1.SurveyPointSummarySubjectProvider,
-        _1.SurveySummarySubjectProvider])
+        _1.SurveyPointSummarySubjectProvider, typeof (_a = typeof _1.SurveySummarySubjectProvider !== "undefined" && _1.SurveySummarySubjectProvider) === "function" && _a || Object])
 ], SurveyPointTypeServiceHttp);
 exports.SurveyPointTypeServiceHttp = SurveyPointTypeServiceHttp;
 var SurveyPointTypeSubjectProvider = (function () {
-    function SurveyPointTypeSubjectProvider(_SurveyPointTypeService) {
+    function SurveyPointTypeSubjectProvider(_SurveyPointTypeService, _SurveyPointTypeCurrent) {
         this._SurveyPointTypeService = _SurveyPointTypeService;
-        this._mapSummaries = new Map();
+        this._SurveyPointTypeCurrent = _SurveyPointTypeCurrent;
     }
-    SurveyPointTypeSubjectProvider.prototype.getSurveyPointType = function (keyID) {
-        var keyLocal = keyID ? keyID : 0;
-        if (!this._mapSummaries.has(keyLocal)) {
-            this._mapSummaries.set(keyLocal, new Rx_1.BehaviorSubject([]));
-            this.update(keyLocal);
+    SurveyPointTypeSubjectProvider.prototype.getSurveyPointTypeSummaries = function () {
+        if (!this._summary) {
+            this._summary = new Rx_1.BehaviorSubject([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     };
-    SurveyPointTypeSubjectProvider.prototype.update = function (keyID) {
-        var _this = this;
-        var keyLocal = keyID ? keyID : 0;
-        if (keyID) {
-            this._SurveyPointTypeService.loadSurveyPointTypeFromDatabase(keyLocal)
-                .subscribe(function (result) { return _this._mapSummaries.get(keyLocal).next([result]); });
+    SurveyPointTypeSubjectProvider.prototype.getSurveyPointTypeSummary = function () {
+        if (this._SurveyPointTypeCurrent.SurveyPointType) {
+            var key = this._SurveyPointTypeCurrent.SurveyPointType.ID;
+            if (!this._SurveyPointTypeSummaries) {
+                this._SurveyPointTypeSummaries = new Map();
+            }
+            if (!this._SurveyPointTypeSummaries.has(key)) {
+                this._SurveyPointTypeSummaries.set(key, new Rx_1.BehaviorSubject(null));
+            }
+            this.update();
+            return this._SurveyPointTypeSummaries.get(key).asObservable();
         }
-        else {
+        throw new Error("No SurveyPointType current context is provided");
+    };
+    SurveyPointTypeSubjectProvider.prototype.update = function () {
+        var _this = this;
+        if (this._SurveyPointTypeCurrent.SurveyPointType
+            &&
+                this._SurveyPointTypeSummaries.has(this._SurveyPointTypeCurrent.SurveyPointType.ID)) {
+            this._SurveyPointTypeService.loadSurveyPointTypeFromDatabase(this._SurveyPointTypeCurrent.SurveyPointType.ID)
+                .subscribe(function (result) { return _this._SurveyPointTypeSummaries.get(_this._SurveyPointTypeCurrent.SurveyPointType.ID).next(result); });
+        }
+        if (this._summary) {
             this._SurveyPointTypeService.loadAllFromDatabase()
-                .subscribe(function (result) { return _this._mapSummaries.get(keyLocal).next(result); });
+                .subscribe(function (result) { return _this._summary.next(result); });
         }
     };
     return SurveyPointTypeSubjectProvider;
 }());
 SurveyPointTypeSubjectProvider = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [SurveyPointTypeServiceHttp])
+    __metadata("design:paramtypes", [SurveyPointTypeServiceHttp,
+        simple_providers_1.CurrentSurveyPointTypeProvider])
 ], SurveyPointTypeSubjectProvider);
 exports.SurveyPointTypeSubjectProvider = SurveyPointTypeSubjectProvider;
-var SurveyPointTypeServiceHttp_1;
+var SurveyPointTypeServiceHttp_1, _a;
 //# sourceMappingURL=SurveyPointTypeServiceHttp.js.map

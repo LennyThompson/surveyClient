@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -16,6 +16,8 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
 var _1 = require("./");
+var simple_providers_1 = require("./../../../components/survey/simple-providers");
+var simple_providers_2 = require("./../../../components/survey/simple-providers");
 var SurveyMeasurementServiceHttp = SurveyMeasurementServiceHttp_1 = (function () {
     function SurveyMeasurementServiceHttp(httpService, _TraverseProvider, _TraverseMeasurementSummarySubject) {
         this.httpService = httpService;
@@ -52,11 +54,11 @@ var SurveyMeasurementServiceHttp = SurveyMeasurementServiceHttp_1 = (function ()
         var headers = new http_1.Headers({ "Content-Type": "application/json" });
         var options = new http_1.RequestOptions({ headers: headers });
         return this.httpService.post(strPath, strJsonBody, options)
-            .map(function (resp) { return _this.notifyObservers(SurveyMeasurement_1.SurveyMeasurement.fromJsonObject(resp.json()), ID); })
+            .map(function (resp) { return _this.notifyObservers(SurveyMeasurement_1.SurveyMeasurement.fromJsonObject(resp.json())); })
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || "Server error"); });
     };
     SurveyMeasurementServiceHttp.prototype.notifyObservers = function (updateSurveyMeasurement) {
-        this._TraverseMeasurementSummarySubject.updateForSurveyMeasurement(updateSurveyMeasurement);
+        this._TraverseMeasurementSummarySubject.updateForSurveyMeasurement();
         return updateSurveyMeasurement;
     };
     SurveyMeasurementServiceHttp.prototype.loadAllFromDatabase = function () {
@@ -81,40 +83,56 @@ var SurveyMeasurementServiceHttp = SurveyMeasurementServiceHttp_1 = (function ()
 }());
 SurveyMeasurementServiceHttp = SurveyMeasurementServiceHttp_1 = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http, Object, _1.TraverseMeasurementSummarySubjectProvider])
+    __metadata("design:paramtypes", [http_1.Http,
+        simple_providers_2.CurrentTraverseProvider, typeof (_a = typeof _1.TraverseMeasurementSummarySubjectProvider !== "undefined" && _1.TraverseMeasurementSummarySubjectProvider) === "function" && _a || Object])
 ], SurveyMeasurementServiceHttp);
 exports.SurveyMeasurementServiceHttp = SurveyMeasurementServiceHttp;
 var SurveyMeasurementSubjectProvider = (function () {
-    function SurveyMeasurementSubjectProvider(_SurveyMeasurementService) {
+    function SurveyMeasurementSubjectProvider(_SurveyMeasurementService, _SurveyMeasurementCurrent) {
         this._SurveyMeasurementService = _SurveyMeasurementService;
-        this._mapSummaries = new Map();
+        this._SurveyMeasurementCurrent = _SurveyMeasurementCurrent;
     }
-    SurveyMeasurementSubjectProvider.prototype.getSurveyMeasurement = function (keyID) {
-        var keyLocal = keyID ? keyID : 0;
-        if (!this._mapSummaries.has(keyLocal)) {
-            this._mapSummaries.set(keyLocal, new Rx_1.BehaviorSubject([]));
-            this.update(keyLocal);
+    SurveyMeasurementSubjectProvider.prototype.getSurveyMeasurementSummaries = function () {
+        if (!this._summary) {
+            this._summary = new Rx_1.BehaviorSubject([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     };
-    SurveyMeasurementSubjectProvider.prototype.update = function (keyID) {
-        var _this = this;
-        var keyLocal = keyID ? keyID : 0;
-        if (keyID) {
-            this._SurveyMeasurementService.loadSurveyMeasurementFromDatabase(keyLocal)
-                .subscribe(function (result) { return _this._mapSummaries.get(keyLocal).next([result]); });
+    SurveyMeasurementSubjectProvider.prototype.getSurveyMeasurementSummary = function () {
+        if (this._SurveyMeasurementCurrent.SurveyMeasurement) {
+            var key = this._SurveyMeasurementCurrent.SurveyMeasurement.ID;
+            if (!this._SurveyMeasurementSummaries) {
+                this._SurveyMeasurementSummaries = new Map();
+            }
+            if (!this._SurveyMeasurementSummaries.has(key)) {
+                this._SurveyMeasurementSummaries.set(key, new Rx_1.BehaviorSubject(null));
+            }
+            this.update();
+            return this._SurveyMeasurementSummaries.get(key).asObservable();
         }
-        else {
+        throw new Error("No SurveyMeasurement current context is provided");
+    };
+    SurveyMeasurementSubjectProvider.prototype.update = function () {
+        var _this = this;
+        if (this._SurveyMeasurementCurrent.SurveyMeasurement
+            &&
+                this._SurveyMeasurementSummaries.has(this._SurveyMeasurementCurrent.SurveyMeasurement.ID)) {
+            this._SurveyMeasurementService.loadSurveyMeasurementFromDatabase(this._SurveyMeasurementCurrent.SurveyMeasurement.ID)
+                .subscribe(function (result) { return _this._SurveyMeasurementSummaries.get(_this._SurveyMeasurementCurrent.SurveyMeasurement.ID).next(result); });
+        }
+        if (this._summary) {
             this._SurveyMeasurementService.loadAllFromDatabase()
-                .subscribe(function (result) { return _this._mapSummaries.get(keyLocal).next(result); });
+                .subscribe(function (result) { return _this._summary.next(result); });
         }
     };
     return SurveyMeasurementSubjectProvider;
 }());
 SurveyMeasurementSubjectProvider = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [SurveyMeasurementServiceHttp])
+    __metadata("design:paramtypes", [SurveyMeasurementServiceHttp,
+        simple_providers_1.CurrentSurveyMeasurementProvider])
 ], SurveyMeasurementSubjectProvider);
 exports.SurveyMeasurementSubjectProvider = SurveyMeasurementSubjectProvider;
-var SurveyMeasurementServiceHttp_1;
+var SurveyMeasurementServiceHttp_1, _a;
 //# sourceMappingURL=SurveyMeasurementServiceHttp.js.map

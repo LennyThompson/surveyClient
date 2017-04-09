@@ -1,8 +1,9 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Wed Mar 22 19:50:14 AEST 2017
+// Generated on Sun Apr 09 17:23:47 AEST 2017
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Projection_1 = require("./Projection");
+var SurveyImage_1 = require("./SurveyImage");
 var SurveyPoint_1 = require("./SurveyPoint");
 var Instrument_1 = require("./Instrument");
 var Traverse_1 = require("./Traverse");
@@ -18,6 +19,7 @@ var Survey = (function () {
         this.m_Name = "";
         this.m_Description = "";
         this.m_Projection = new Projection_1.Projection();
+        this.m_SurveyImage = [];
         this.m_SurveyPoint = [];
         this.m_Instrument = [];
         this.m_Traverse = [];
@@ -25,6 +27,7 @@ var Survey = (function () {
         this.m_bNameUpdated = true;
         this.m_bDescriptionUpdated = true;
         this.m_bProjectionUpdated = true;
+        this.m_bSurveyImageUpdated = true;
         this.m_bSurveyPointUpdated = true;
         this.m_bInstrumentUpdated = true;
         this.m_bTraverseUpdated = true;
@@ -84,6 +87,13 @@ var Survey = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Survey.prototype, "SurveyImage", {
+        get: function () {
+            return this.m_SurveyImage;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Survey.prototype, "SurveyPoint", {
         get: function () {
             return this.m_SurveyPoint;
@@ -112,6 +122,10 @@ var Survey = (function () {
         enumerable: true,
         configurable: true
     });
+    Survey.prototype.addSurveyImage = function (addSurveyImage) {
+        this.m_SurveyImage.push(addSurveyImage);
+        this.m_bSurveyImageUpdated = true;
+    };
     Survey.prototype.addSurveyPoint = function (addSurveyPoint) {
         this.m_SurveyPoint.push(addSurveyPoint);
         this.m_bSurveyPointUpdated = true;
@@ -140,6 +154,11 @@ var Survey = (function () {
         if (this.m_bProjectionUpdated) {
             objUpdated["ProjectionID"] = lodash(this.Projection).isNil() ? null : this.m_Projection.toJsonObject();
         }
+        if (this.m_bSurveyImageUpdated) {
+            objUpdated["Images"] = lodash(this.SurveyImage).isNil() ? null : lodash(this.m_SurveyImage).map(function (arrayMember) {
+                return arrayMember.toJsonObject();
+            });
+        }
         if (this.m_bSurveyPointUpdated) {
             objUpdated["Survey_SurveyPoint"] = lodash(this.SurveyPoint).isNil() ? null : lodash(this.m_SurveyPoint).map(function (arrayMember) {
                 return arrayMember.toJsonObject();
@@ -151,12 +170,12 @@ var Survey = (function () {
             });
         }
         if (this.m_bTraverseUpdated) {
-            objUpdated["Survey_Traverse"] = lodash(this.Traverse).isNil() ? null : lodash(this.m_Traverse).map(function (arrayMember) {
+            objUpdated["Traverses"] = lodash(this.Traverse).isNil() ? null : lodash(this.m_Traverse).map(function (arrayMember) {
                 return arrayMember.toJsonObject();
             });
         }
         if (this.m_bSurveyMeasurementUpdated) {
-            objUpdated["Survey_SurveyMeasurement"] = lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(function (arrayMember) {
+            objUpdated["Measurements"] = lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(function (arrayMember) {
                 return arrayMember.toJsonObject();
             });
         }
@@ -166,6 +185,7 @@ var Survey = (function () {
         this.m_bNameUpdated = false;
         this.m_bDescriptionUpdated = false;
         this.m_bProjectionUpdated = false;
+        this.m_bSurveyImageUpdated = false;
         this.m_bSurveyPointUpdated = false;
         this.m_bInstrumentUpdated = false;
         this.m_bTraverseUpdated = false;
@@ -179,16 +199,19 @@ var Survey = (function () {
             Name: lodash(this.Name).isNil() ? null : this.m_Name,
             Description: lodash(this.Description).isNil() ? null : this.m_Description,
             ProjectionID: lodash(this.Projection).isNil() ? null : this.m_Projection.toFirebase(),
+            Images: lodash(this.SurveyImage).isNil() ? null : lodash(this.m_SurveyImage).map(function (arrayMember) {
+                return arrayMember.toFirebase();
+            }),
             Survey_SurveyPoint: lodash(this.SurveyPoint).isNil() ? null : lodash(this.m_SurveyPoint).map(function (arrayMember) {
                 return arrayMember.toFirebase();
             }),
             Survey_Instrument: lodash(this.Instrument).isNil() ? null : lodash(this.m_Instrument).map(function (arrayMember) {
                 return arrayMember.toFirebase();
             }),
-            Survey_Traverse: lodash(this.Traverse).isNil() ? null : lodash(this.m_Traverse).map(function (arrayMember) {
+            Traverses: lodash(this.Traverse).isNil() ? null : lodash(this.m_Traverse).map(function (arrayMember) {
                 return arrayMember.toFirebase();
             }),
-            Survey_SurveyMeasurement: lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(function (arrayMember) {
+            Measurements: lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(function (arrayMember) {
                 return arrayMember.toFirebase();
             })
         };
@@ -202,16 +225,19 @@ var Survey = (function () {
         objSurvey.m_Name = firebaseObj.Name;
         objSurvey.m_Description = firebaseObj.Description;
         objSurvey.m_Projection = Projection_1.Projection.fromFirebase(firebaseObj.ProjectionID);
+        objSurvey.m_SurveyImage = lodash.map(firebaseObj.Images, function (arrayMember) {
+            return SurveyImage_1.SurveyImage.fromFirebase(arrayMember);
+        });
         objSurvey.m_SurveyPoint = lodash.map(firebaseObj.Survey_SurveyPoint, function (arrayMember) {
             return SurveyPoint_1.SurveyPoint.fromFirebase(arrayMember);
         });
         objSurvey.m_Instrument = lodash.map(firebaseObj.Survey_Instrument, function (arrayMember) {
             return Instrument_1.Instrument.fromFirebase(arrayMember);
         });
-        objSurvey.m_Traverse = lodash.map(firebaseObj.Survey_Traverse, function (arrayMember) {
+        objSurvey.m_Traverse = lodash.map(firebaseObj.Traverses, function (arrayMember) {
             return Traverse_1.Traverse.fromFirebase(arrayMember);
         });
-        objSurvey.m_SurveyMeasurement = lodash.map(firebaseObj.Survey_SurveyMeasurement, function (arrayMember) {
+        objSurvey.m_SurveyMeasurement = lodash.map(firebaseObj.Measurements, function (arrayMember) {
             return SurveyMeasurement_1.SurveyMeasurement.fromFirebase(arrayMember);
         });
         objSurvey.setSaved();
@@ -233,16 +259,19 @@ var Survey = (function () {
         objSurvey.m_Name = objJson.Name;
         objSurvey.m_Description = objJson.Description;
         objSurvey.m_Projection = Projection_1.Projection.fromJsonObject(objJson.ProjectionID);
+        objSurvey.m_SurveyImage = lodash.map(objJson.Images, function (arrayMember) {
+            return SurveyImage_1.SurveyImage.fromJsonObject(arrayMember);
+        });
         objSurvey.m_SurveyPoint = lodash.map(objJson.Survey_SurveyPoint, function (arrayMember) {
             return SurveyPoint_1.SurveyPoint.fromJsonObject(arrayMember);
         });
         objSurvey.m_Instrument = lodash.map(objJson.Survey_Instrument, function (arrayMember) {
             return Instrument_1.Instrument.fromJsonObject(arrayMember);
         });
-        objSurvey.m_Traverse = lodash.map(objJson.Survey_Traverse, function (arrayMember) {
+        objSurvey.m_Traverse = lodash.map(objJson.Traverses, function (arrayMember) {
             return Traverse_1.Traverse.fromJsonObject(arrayMember);
         });
-        objSurvey.m_SurveyMeasurement = lodash.map(objJson.Survey_SurveyMeasurement, function (arrayMember) {
+        objSurvey.m_SurveyMeasurement = lodash.map(objJson.Measurements, function (arrayMember) {
             return SurveyMeasurement_1.SurveyMeasurement.fromJsonObject(arrayMember);
         });
         return objSurvey;
@@ -258,16 +287,19 @@ var Survey = (function () {
             Name: lodash(this.Name).isNil() ? null : this.m_Name,
             Description: lodash(this.Description).isNil() ? null : this.m_Description,
             ProjectionID: lodash(this.Projection).isNil() ? null : this.m_Projection.toJsonObject(),
+            Images: lodash(this.SurveyImage).isNil() ? null : lodash(this.m_SurveyImage).map(function (arrayMember) {
+                return arrayMember.toJsonObject();
+            }),
             Survey_SurveyPoint: lodash(this.SurveyPoint).isNil() ? null : lodash(this.m_SurveyPoint).map(function (arrayMember) {
                 return arrayMember.toJsonObject();
             }),
             Survey_Instrument: lodash(this.Instrument).isNil() ? null : lodash(this.m_Instrument).map(function (arrayMember) {
                 return arrayMember.toJsonObject();
             }),
-            Survey_Traverse: lodash(this.Traverse).isNil() ? null : lodash(this.m_Traverse).map(function (arrayMember) {
+            Traverses: lodash(this.Traverse).isNil() ? null : lodash(this.m_Traverse).map(function (arrayMember) {
                 return arrayMember.toJsonObject();
             }),
-            Survey_SurveyMeasurement: lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(function (arrayMember) {
+            Measurements: lodash(this.SurveyMeasurement).isNil() ? null : lodash(this.m_SurveyMeasurement).map(function (arrayMember) {
                 return arrayMember.toJsonObject();
             })
         };

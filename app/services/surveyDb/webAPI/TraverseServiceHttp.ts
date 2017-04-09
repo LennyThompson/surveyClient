@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Mar 26 15:41:09 AEST 2017
+// Generated on Sun Apr 09 17:23:48 AEST 2017
 
 import {Traverse} from "../types/Traverse";
 
@@ -7,6 +7,8 @@ import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
 import { SurveySummarySubjectProvider, TraverseSummarySubjectProvider, TraverseMeasurementSummarySubjectProvider } from "./";
+
+import { CurrentTraverseProvider } from "./../../../components/survey/simple-providers";
 
 
 
@@ -52,9 +54,9 @@ export class TraverseServiceHttp
     }
     private notifyObservers(updateTraverse: Traverse): Traverse
     {
-        this._SurveySummarySubject.updateForTraverse(updateTraverse);
-        this._TraverseSummarySubject.updateForTraverse(updateTraverse);
-        this._TraverseMeasurementSummarySubject.updateForTraverse(updateTraverse);
+        this._SurveySummarySubject.updateForTraverse();
+        this._TraverseSummarySubject.updateForTraverse();
+        this._TraverseMeasurementSummarySubject.updateForTraverse();
 
         return updateTraverse;
     }
@@ -89,42 +91,68 @@ export class TraverseServiceHttp
 @Injectable()
 export class TraverseSubjectProvider
 {
-    private _mapSummaries: Map<number, BehaviorSubject<Traverse[]>>;
+    private _summary: BehaviorSubject<Traverse[]>;
+    private _TraverseSummaries: Map<number, BehaviorSubject<Traverse>>;
 
     constructor
     (
         private _TraverseService : TraverseServiceHttp
+        , private _TraverseCurrent: CurrentTraverseProvider
+
     )
     {
-        this._mapSummaries = new Map<number, BehaviorSubject<Traverse[]>>();
     }
 
-    getTraverse(keyID?: number): Observable<Traverse[]>
+    getTraverseSummaries(): Observable<Traverse[]>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(!this._mapSummaries.has(keyLocal))
+        if(!this._summary)
         {
-            this._mapSummaries.set(keyLocal, new BehaviorSubject<Traverse[]>([]));
-            this.update(keyLocal);
+            this._summary = new BehaviorSubject<Traverse[]>([]);
         }
-        return this._mapSummaries.get(keyLocal).asObservable();
+        this.update();
+        return this._summary.asObservable();
     }
 
-    update(keyID?: number)
+    getTraverseSummary(): Observable<Traverse>
     {
-        let keyLocal: number = keyID ? keyID : 0;
-        if(keyID)
+        if(this._TraverseCurrent.Traverse)
         {
-            this._TraverseService.loadTraverseFromDatabase(keyLocal)
+            let key: number = this._TraverseCurrent.Traverse.ID;
+            if(!this._TraverseSummaries)
+            {
+                this._TraverseSummaries = new Map<number, BehaviorSubject<Traverse>>();
+            }
+            if(!this._TraverseSummaries.has(key))
+            {
+                this._TraverseSummaries.set(key, new BehaviorSubject<Traverse>(null));
+            }
+
+            this.update();
+            return this._TraverseSummaries.get(key).asObservable();
+        }
+        throw new Error("No Traverse current context is provided");
+    }
+
+
+    update()
+    {
+        if
+        (
+            this._TraverseCurrent.Traverse
+            &&
+            this._TraverseSummaries.has(this._TraverseCurrent.Traverse.ID)
+        )
+        {
+            this._TraverseService.loadTraverseFromDatabase(this._TraverseCurrent.Traverse.ID)
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next([result])
+                    result => this._TraverseSummaries.get(this._TraverseCurrent.Traverse.ID).next(result)
                 );
         }
-        else
+        if(this._summary)
         {
             this._TraverseService.loadAllFromDatabase()
                 .subscribe(
-                    result => this._mapSummaries.get(keyLocal).next(result)
+                    result => this._summary.next(result)
                 );
         }
     }
