@@ -7,14 +7,13 @@ import {SurveyDetailsComponent} from "./details/survey-details";
 import {SurveyListComponent} from "./list/survey-list";
 import {SurveyComponent} from "./survey";
 
-import {HTTP_PROVIDERS, SUBJECT_PROVIDERS} from "../../services/surveyDb/webAPI/index";
+import {HTTP_PROVIDERS, SUBJECT_PROVIDERS, SIMPLE_PROVIDERS} from "../../services/surveyDb/webAPI/index";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {CoordFormat} from "./pipes/format-coord";
 import {BearingFormat} from "./pipes/format-bearing";
 import {DmsBearingFormat} from "./pipes/format-dms-bearing";
 import {MaterialModule} from "@angular/material";
 import {AddSurveyPointComponent} from "./survey-point/add/add-survey-point";
-import {SIMPLE_PROVIDER_COMPONENTS} from "./simple-providers";
 import {EditSurveyPointComponent} from "./survey-point/edit/edit-survey-point";
 import {SurveyPointSummaryListComponent} from "./survey-point/summary/list/survey-summary-point-list";
 import { FORM_COMPONENTS } from "./form";
@@ -81,7 +80,7 @@ import {TraverseMeasurementSummarySubjectProvider} from "../../services/surveyDb
         providers: [
             SUBJECT_PROVIDERS,
             HTTP_PROVIDERS,
-            SIMPLE_PROVIDER_COMPONENTS,
+            SIMPLE_PROVIDERS,
             TraverseMeasurementSummarySubjectProvider,
             CoordFormat,
             BearingFormat,

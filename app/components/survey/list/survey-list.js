@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var SurveySummaryServiceHttp_1 = require("../../../services/surveyDb/webAPI/SurveySummaryServiceHttp");
+var webAPI_1 = require("../../../services/surveyDb/webAPI");
 var SurveyListComponent = (function () {
     function SurveyListComponent(surveyService) {
         this.surveyService = surveyService;
@@ -30,8 +30,7 @@ SurveyListComponent = __decorate([
         selector: "survey-list",
         templateUrl: "./survey-list.html",
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof SurveySummaryServiceHttp_1.SurveySummarySubjectProvider !== "undefined" && SurveySummaryServiceHttp_1.SurveySummarySubjectProvider) === "function" && _a || Object])
+    __metadata("design:paramtypes", [webAPI_1.SurveySummarySubjectProvider])
 ], SurveyListComponent);
 exports.SurveyListComponent = SurveyListComponent;
-var _a;
 //# sourceMappingURL=survey-list.js.map

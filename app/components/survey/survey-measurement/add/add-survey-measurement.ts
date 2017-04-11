@@ -1,8 +1,8 @@
 
 import {Component} from "@angular/core";
-import {CurrentSurveyPointProvider, CurrentSurveyMeasurementProvider} from "./../../simple-providers";
 import {MdDialog, MdDialogRef} from "@angular/material";
 import {AddEditSurveyMeasurement} from "./add-edit-survey-measurement";
+import {CurrentSurveyMeasurementProvider} from "../../../../services/surveyDb/webAPI";
 
 require("./add-survey-measurement.scss");
 

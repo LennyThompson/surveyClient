@@ -1,6 +1,6 @@
 
 import {SurveyPoint} from "../../../../services/surveyDb/types";
-import {CurrentSurveyPointProvider} from "../../simple-providers";
+import {CurrentSurveyPointProvider} from "../../../../services/surveyDb/webAPI";
 
 export class AddEditSurveyPoint
 {

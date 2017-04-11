@@ -14,7 +14,6 @@ var types_1 = require("../../../services/surveyDb/types");
 var webAPI_1 = require("../../../services/surveyDb/webAPI");
 var material_1 = require("@angular/material");
 var edit_survey_measurement_1 = require("./edit/edit-survey-measurement");
-var simple_providers_1 = require("./../simple-providers");
 require("./survey-measurement.scss");
 var SurveyMeasurementComponent = (function () {
     function SurveyMeasurementComponent(_dialogService, measurementService, measProvider) {
@@ -69,7 +68,7 @@ SurveyMeasurementComponent = __decorate([
     }),
     __metadata("design:paramtypes", [material_1.MdDialog,
         webAPI_1.SurveyMeasurementServiceHttp,
-        simple_providers_1.CurrentSurveyMeasurementProvider])
+        webAPI_1.CurrentSurveyMeasurementProvider])
 ], SurveyMeasurementComponent);
 exports.SurveyMeasurementComponent = SurveyMeasurementComponent;
 //# sourceMappingURL=survey-measurement.js.map

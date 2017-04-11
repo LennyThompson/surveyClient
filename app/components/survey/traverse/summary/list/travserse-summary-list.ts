@@ -1,12 +1,11 @@
 
 import {Component} from "@angular/core";
 import {TraverseMeasurementSummary, Traverse} from "./../../../../../services/surveyDb/types";
-import {CurrentSurveyProvider} from "./../../../simple-providers";
-import {TraverseMeasurementSummaryServiceHttp, TraverseServiceHttp} from "./../../../../../services/surveyDb/webAPI";
+import {} from "./../../../simple-providers";
+import {TraverseServiceHttp, CurrentSurveyProvider, TraverseMeasurementSummarySubjectProvider} from "./../../../../../services/surveyDb/webAPI";
 import {MdDialog, MdDialogConfig} from "@angular/material";
 import {AddTraverseComponent} from "./../../add/add-traverse";
 import {Observable} from "rxjs";
-import {TraverseMeasurementSummarySubjectProvider} from "../../../../../services/surveyDb/webAPI";
 
 require("./traverse-summary-list.scss");
 

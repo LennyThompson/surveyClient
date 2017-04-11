@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Apr 09 17:23:48 AEST 2017
+// Generated on Wed Apr 12 07:31:47 AEST 2017
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -13,7 +13,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var SurveySummary_1 = require("./../../../../services/surveyDb/types/SurveySummary");
-var form_1 = require("../../form");
+var edit_providers_1 = require("./../../edit-providers");
 require("./survey-summary-list-row.scss");
 var SurveySummaryListRowComponent = (function () {
     function SurveySummaryListRowComponent(_editProvider) {
@@ -32,7 +32,7 @@ var SurveySummaryListRowComponent = (function () {
         configurable: true
     });
     SurveySummaryListRowComponent.prototype.onEdit = function () {
-        this._editProvider.edit(this._SurveySummary.ID);
+        this._editProvider.editID(this._SurveySummary.ID);
     };
     return SurveySummaryListRowComponent;
 }());
@@ -46,7 +46,7 @@ SurveySummaryListRowComponent = __decorate([
         selector: "survey-summary",
         templateUrl: "./survey-summary-list-row.html"
     }),
-    __metadata("design:paramtypes", [form_1.EditSurveyProvider])
+    __metadata("design:paramtypes", [edit_providers_1.EditSurveyProvider])
 ], SurveySummaryListRowComponent);
 exports.SurveySummaryListRowComponent = SurveySummaryListRowComponent;
 //# sourceMappingURL=SurveySummary.js.map

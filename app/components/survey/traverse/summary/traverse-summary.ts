@@ -1,18 +1,16 @@
 
 import {Component, Input, OnChanges, SimpleChanges, ElementRef} from "@angular/core";
 import {
-    TraverseMeasurementSummary,
-    TraverseMeasurementSummary_SurvMeas
-} from "../../../../services/surveyDb/types/TraverseMeasurementSummary";
+    Traverse,
+    TraverseMeasurementSummary
+} from "../../../../services/surveyDb/types";
 import * as d3 from "d3";
 import * as lodash from "lodash";
 import {CoordFormat} from "../../pipes/format-coord";
 import {BearingFormat} from "../../pipes/format-bearing";
 import {MdDialogConfig, MdDialog} from "@angular/material";
-import {TraverseServiceHttp} from "../../../../services/surveyDb/webAPI/TraverseServiceHttp";
-import {Traverse} from "../../../../services/surveyDb/types/Traverse";
+import {TraverseServiceHttp, CurrentTraverseProvider} from "../../../../services/surveyDb/webAPI";
 import {EditTraverseComponent} from "../edit/edit-traverse";
-import {CurrentTraverseProvider} from "../../simple-providers";
 
 require("./traverse-summary.scss");
 

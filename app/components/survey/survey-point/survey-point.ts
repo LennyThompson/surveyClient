@@ -2,12 +2,10 @@
 import {Component, Input, Output} from "@angular/core";
 import {SurveyPointSummary_Pt, SurveyPointSummary} from "../../../services/surveyDb/types/SurveyPointSummary";
 import {MdDialogConfig, MdDialog} from "@angular/material";
-import {SurveyPointServiceHttp} from "../../../services/surveyDb/webAPI/SurveyPointServiceHttp";
+import {SurveyPointServiceHttp, SurveyPointSummaryServiceHttp, CurrentSurveyPointProvider} from "../../../services/surveyDb/webAPI";
 import {SurveyPoint} from "../../../services/surveyDb/types/SurveyPoint";
 import {EditSurveyPointComponent} from "./edit/edit-survey-point";
-import {SurveyPointSummaryServiceHttp} from "../../../services/surveyDb/webAPI/SurveyPointSummaryServiceHttp";
 import {EventEmitter} from "@angular/common/src/facade/async";
-import {CurrentSurveyPointProvider} from "../simple-providers";
 
 require("./survey-point.scss");
 
@@ -20,7 +18,7 @@ require("./survey-point.scss");
 )
 export class SurveyPointComponent
 {
-    private m_point: SurveyPointSummary_Pt
+    private m_point: SurveyPointSummary_Pt;
 
     @Output("update")
     onUpdatePointEvent: EventEmitter<SurveyPoint> = new EventEmitter();

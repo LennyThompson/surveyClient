@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Apr 09 17:23:48 AEST 2017
+// Generated on Wed Apr 12 07:31:47 AEST 2017
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -13,7 +13,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var TraverseMeasurementSummary_1 = require("./../../../../services/surveyDb/types/TraverseMeasurementSummary");
-var form_1 = require("../../form");
+var edit_providers_1 = require("./../../edit-providers");
 require("./traverse-measurement-summary-list-row.scss");
 var TraverseMeasurementSummaryListRowComponent = (function () {
     function TraverseMeasurementSummaryListRowComponent(_editProvider) {
@@ -32,7 +32,7 @@ var TraverseMeasurementSummaryListRowComponent = (function () {
         configurable: true
     });
     TraverseMeasurementSummaryListRowComponent.prototype.onEdit = function () {
-        this._editProvider.edit(this._SurvMeass.MeasID);
+        this._editProvider.editID(this._SurvMeass.MeasID);
     };
     return TraverseMeasurementSummaryListRowComponent;
 }());
@@ -46,7 +46,7 @@ TraverseMeasurementSummaryListRowComponent = __decorate([
         selector: "traverse-measurement-summary",
         templateUrl: "./traverse-measurement-summary-list-row.html"
     }),
-    __metadata("design:paramtypes", [form_1.EditSurveyMeasurementProvider])
+    __metadata("design:paramtypes", [edit_providers_1.EditSurveyMeasurementProvider])
 ], TraverseMeasurementSummaryListRowComponent);
 exports.TraverseMeasurementSummaryListRowComponent = TraverseMeasurementSummaryListRowComponent;
 //# sourceMappingURL=TraverseMeasurementSummary.js.map

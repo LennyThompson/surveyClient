@@ -12,11 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var SurveyPointSummary_1 = require("../../../services/surveyDb/types/SurveyPointSummary");
 var material_1 = require("@angular/material");
-var SurveyPointServiceHttp_1 = require("../../../services/surveyDb/webAPI/SurveyPointServiceHttp");
+var webAPI_1 = require("../../../services/surveyDb/webAPI");
 var edit_survey_point_1 = require("./edit/edit-survey-point");
-var SurveyPointSummaryServiceHttp_1 = require("../../../services/surveyDb/webAPI/SurveyPointSummaryServiceHttp");
 var async_1 = require("@angular/common/src/facade/async");
-var simple_providers_1 = require("../simple-providers");
 require("./survey-point.scss");
 var SurveyPointComponent = (function () {
     function SurveyPointComponent(dialog, pointService, pointSummayService, pointProvider) {
@@ -80,9 +78,9 @@ SurveyPointComponent = __decorate([
         templateUrl: "./survey-point.html"
     }),
     __metadata("design:paramtypes", [material_1.MdDialog,
-        SurveyPointServiceHttp_1.SurveyPointServiceHttp,
-        SurveyPointSummaryServiceHttp_1.SurveyPointSummaryServiceHttp,
-        simple_providers_1.CurrentSurveyPointProvider])
+        webAPI_1.SurveyPointServiceHttp,
+        webAPI_1.SurveyPointSummaryServiceHttp,
+        webAPI_1.CurrentSurveyPointProvider])
 ], SurveyPointComponent);
 exports.SurveyPointComponent = SurveyPointComponent;
 //# sourceMappingURL=survey-point.js.map

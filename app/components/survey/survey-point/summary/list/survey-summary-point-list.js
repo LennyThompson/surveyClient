@@ -10,11 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var SurveyPointSummaryServiceHttp_1 = require("./../../../../../services/surveyDb/webAPI/SurveyPointSummaryServiceHttp");
+var webAPI_1 = require("./../../../../../services/surveyDb/webAPI");
 var material_1 = require("@angular/material");
 var add_survey_point_1 = require("./../../add/add-survey-point");
-var webAPI_1 = require("./../../../../../services/surveyDb/webAPI");
-var simple_providers_1 = require("../../../simple-providers");
 require("./survey-point-summary-list.scss");
 var SurveyPointSummaryListComponent = (function () {
     function SurveyPointSummaryListComponent(surveyContext, summaryService, pointService, dialog) {
@@ -78,8 +76,8 @@ SurveyPointSummaryListComponent = __decorate([
         selector: "survey-point-list",
         templateUrl: "survey-point-summary-list.html"
     }),
-    __metadata("design:paramtypes", [simple_providers_1.CurrentSurveyProvider,
-        SurveyPointSummaryServiceHttp_1.SurveyPointSummaryServiceHttp,
+    __metadata("design:paramtypes", [webAPI_1.CurrentSurveyProvider,
+        webAPI_1.SurveyPointSummaryServiceHttp,
         webAPI_1.SurveyPointServiceHttp,
         material_1.MdDialog])
 ], SurveyPointSummaryListComponent);

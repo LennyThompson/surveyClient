@@ -22,9 +22,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var material_1 = require("@angular/material");
 var surveyCalculator_1 = require("../../../../services/surveyCalc/surveyCalculator");
-var SurveyPointServiceHttp_1 = require("../../../../services/surveyDb/webAPI/SurveyPointServiceHttp");
+var webAPI_1 = require("../../../../services/surveyDb/webAPI");
 var add_edit_traverse_1 = require("./add-edit-traverse");
-var simple_providers_1 = require("../../simple-providers");
 require("./add-traverse.scss");
 var AddTraverseComponent = (function (_super) {
     __extends(AddTraverseComponent, _super);
@@ -43,10 +42,10 @@ AddTraverseComponent = __decorate([
     __metadata("design:paramtypes", [material_1.MdDialogRef,
         material_1.MdDialog,
         surveyCalculator_1.SurveyCalculator,
-        simple_providers_1.CurrentTraverseProvider,
-        simple_providers_1.CurrentSurveyMeasurementProvider,
-        simple_providers_1.CurrentSurveyPointProvider,
-        SurveyPointServiceHttp_1.SurveyPointServiceHttp])
+        webAPI_1.CurrentTraverseProvider,
+        webAPI_1.CurrentSurveyMeasurementProvider,
+        webAPI_1.CurrentSurveyPointProvider,
+        webAPI_1.SurveyPointServiceHttp])
 ], AddTraverseComponent);
 exports.AddTraverseComponent = AddTraverseComponent;
 //# sourceMappingURL=add-traverse.js.map

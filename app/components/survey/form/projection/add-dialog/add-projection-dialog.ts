@@ -1,9 +1,9 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Apr 09 17:23:48 AEST 2017
+// Generated on Wed Apr 12 07:31:46 AEST 2017
 
 import {Component} from "@angular/core";
 import {Projection} from "./../../../../../services/surveyDb/types";
-import {CurrentProjectionProvider} from "../../../simple-providers";
+import {CurrentProjectionProvider} from "./../../../../../services/surveyDb/webAPI";
 
 
 require("./add-projection-dialog.scss");

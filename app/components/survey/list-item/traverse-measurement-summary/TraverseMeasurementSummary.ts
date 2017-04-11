@@ -1,10 +1,10 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Apr 09 17:23:48 AEST 2017
+// Generated on Wed Apr 12 07:31:47 AEST 2017
 
 import {Component, OnInit, Input} from "@angular/core";
 
 import {TraverseMeasurementSummary_SurvMeas} from "./../../../../services/surveyDb/types/TraverseMeasurementSummary";
-import {EditSurveyMeasurementProvider} from "../../form";
+import {EditSurveyMeasurementProvider} from "./../../edit-providers";
 
 require("./traverse-measurement-summary-list-row.scss");
 
@@ -39,7 +39,7 @@ export class TraverseMeasurementSummaryListRowComponent implements OnInit
         }
         onEdit()
         {
-            this._editProvider.edit(this._SurvMeass.MeasID);
+            this._editProvider.editID(this._SurvMeass.MeasID);
         }
 
 }

@@ -1,9 +1,9 @@
 
 
-import {CurrentSurveyMeasurementProvider} from "../../simple-providers";
 import {AddSurveyMeasurementComponent} from "./add-survey-measurement";
 import {MdDialogRef} from "@angular/material";
-import {SurveyMeasurement} from "../../../../services/surveyDb/types/SurveyMeasurement";
+import {SurveyMeasurement} from "../../../../services/surveyDb/types";
+import {CurrentSurveyMeasurementProvider} from "../../../../services/surveyDb/webAPI";
 
 export class AddEditSurveyMeasurement
 {

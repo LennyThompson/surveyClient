@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Apr 09 17:23:48 AEST 2017
+// Generated on Wed Apr 12 07:30:12 AEST 2017
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -12,7 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var simple_providers_1 = require("../../../simple-providers");
+var webAPI_1 = require("./../../../../../services/surveyDb/webAPI");
 require("./add-instrument-manufacturer-dialog.scss");
 var AddInstrumentManufacturerComponent = (function () {
     function AddInstrumentManufacturerComponent(_InstrumentManufacturerProvider) {
@@ -42,7 +42,7 @@ AddInstrumentManufacturerComponent = __decorate([
         selector: "add-instrument-manufacturer-dialog",
         templateUrl: "add-instrument-manufacturer-dialog.html"
     }),
-    __metadata("design:paramtypes", [simple_providers_1.CurrentInstrumentManufacturerProvider])
+    __metadata("design:paramtypes", [webAPI_1.CurrentInstrumentManufacturerProvider])
 ], AddInstrumentManufacturerComponent);
 exports.AddInstrumentManufacturerComponent = AddInstrumentManufacturerComponent;
 //# sourceMappingURL=add-instrument-manufacturer-dialog.js.map

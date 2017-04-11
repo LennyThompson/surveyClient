@@ -6,13 +6,12 @@ import {AddSurveyMeasurementComponent} from "../../survey-measurement";
 import {MdDialogConfig, MdDialog} from "@angular/material";
 import {EditSurveyPointComponent} from "../../survey-point/edit/edit-survey-point";
 import {SurveyCalculator} from "../../../../services/surveyCalc/surveyCalculator";
-import {SurveyPointServiceHttp} from "../../../../services/surveyDb/webAPI/SurveyPointServiceHttp";
-import
-{
+import {
+    SurveyPointServiceHttp,
     CurrentTraverseProvider,
     CurrentSurveyPointProvider,
     CurrentSurveyMeasurementProvider
-} from "../../simple-providers";
+} from "../../../../services/surveyDb/webAPI";
 
 export class TraverseEditBaseComponent
 {

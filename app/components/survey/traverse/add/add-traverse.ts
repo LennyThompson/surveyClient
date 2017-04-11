@@ -2,9 +2,8 @@
 import {Component} from "@angular/core";
 import {MdDialog, MdDialogRef} from "@angular/material";
 import {SurveyCalculator} from "../../../../services/surveyCalc/surveyCalculator";
-import {SurveyPointServiceHttp} from "../../../../services/surveyDb/webAPI/SurveyPointServiceHttp";
+import {SurveyPointServiceHttp, CurrentTraverseProvider, CurrentSurveyPointProvider, CurrentSurveyMeasurementProvider} from "../../../../services/surveyDb/webAPI";
 import {TraverseEditBaseComponent} from "./add-edit-traverse";
-import {CurrentTraverseProvider, CurrentSurveyPointProvider, CurrentSurveyMeasurementProvider} from "../../simple-providers";
 
 require("./add-traverse.scss");
 

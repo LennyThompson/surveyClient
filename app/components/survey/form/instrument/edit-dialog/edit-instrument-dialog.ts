@@ -1,9 +1,9 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Apr 09 17:23:48 AEST 2017
+// Generated on Wed Apr 12 07:31:47 AEST 2017
 
 import {Component} from "@angular/core";
 import {Instrument} from "./../../../../../services/surveyDb/types";
-import {CurrentInstrumentProvider} from "../../../simple-providers";
+import {CurrentInstrumentProvider} from "./../../../../../services/surveyDb/webAPI";
 
 require("./edit-instrument-dialog.scss");
 

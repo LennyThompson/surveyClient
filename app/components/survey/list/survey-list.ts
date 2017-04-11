@@ -1,12 +1,9 @@
 import {Component, Input} from "@angular/core";
-import {SurveySummary} from "../../../services/surveyDb/types/SurveySummary";
+import {SurveySummary} from "../../../services/surveyDb/types";
 import {Observable} from "rxjs";
 import {
-    SurveySummaryServiceHttp,
-    SurveySummarySubjectProvider
-} from "../../../services/surveyDb/webAPI/SurveySummaryServiceHttp";
-import {TraverseSummaryServiceHttp} from "../../../services/surveyDb/webAPI/TraverseSummaryServiceHttp";
-import {TraverseSummary} from "../../../services/surveyDb/types/TraverseSummary";
+    SurveySummarySubjectProvider,
+} from "../../../services/surveyDb/webAPI";
 
 @Component({
     selector: "survey-list",

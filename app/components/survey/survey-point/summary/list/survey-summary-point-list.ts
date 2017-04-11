@@ -1,13 +1,11 @@
 
 import {Component, Input} from "@angular/core";
 
-import {SurveyPointSummaryServiceHttp} from "./../../../../../services/surveyDb/webAPI/SurveyPointSummaryServiceHttp";
-import {SurveyPointSummary_Pt, SurveyPointSummary} from "./../../../../../services/surveyDb/types/SurveyPointSummary";
-import {SurveyPoint} from "./../../../../../services/surveyDb/types/SurveyPoint";
+import {SurveyPointSummaryServiceHttp, SurveyPointServiceHttp, CurrentSurveyProvider} from "./../../../../../services/surveyDb/webAPI";
+import { SurveyPoint, SurveyPointSummary} from "./../../../../../services/surveyDb/types";
 import {MdDialogConfig, MdDialog} from "@angular/material";
 import {AddSurveyPointComponent} from "./../../add/add-survey-point";
-import {SurveyPointServiceHttp} from "./../../../../../services/surveyDb/webAPI";
-import {CurrentSurveyProvider} from "../../../simple-providers";
+import {SurveyPointSummary_Pt} from "../../../../../services/surveyDb/types/SurveyPointSummary";
 
 require("./survey-point-summary-list.scss");
 

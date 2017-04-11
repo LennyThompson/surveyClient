@@ -10,11 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var TraverseMeasurementSummary_1 = require("../../../../services/surveyDb/types/TraverseMeasurementSummary");
+var types_1 = require("../../../../services/surveyDb/types");
 var material_1 = require("@angular/material");
-var TraverseServiceHttp_1 = require("../../../../services/surveyDb/webAPI/TraverseServiceHttp");
+var webAPI_1 = require("../../../../services/surveyDb/webAPI");
 var edit_traverse_1 = require("../edit/edit-traverse");
-var simple_providers_1 = require("../../simple-providers");
 require("./traverse-summary.scss");
 var TraverseSummaryComponent = (function () {
     function TraverseSummaryComponent(traveService, dialog, travProvider) {
@@ -63,17 +62,17 @@ var TraverseSummaryComponent = (function () {
 }());
 __decorate([
     core_1.Input("Traverse"),
-    __metadata("design:type", TraverseMeasurementSummary_1.TraverseMeasurementSummary),
-    __metadata("design:paramtypes", [TraverseMeasurementSummary_1.TraverseMeasurementSummary])
+    __metadata("design:type", types_1.TraverseMeasurementSummary),
+    __metadata("design:paramtypes", [types_1.TraverseMeasurementSummary])
 ], TraverseSummaryComponent.prototype, "Traverse", null);
 TraverseSummaryComponent = __decorate([
     core_1.Component({
         selector: "traverse-summary",
         templateUrl: "traverse-summary.html"
     }),
-    __metadata("design:paramtypes", [TraverseServiceHttp_1.TraverseServiceHttp,
+    __metadata("design:paramtypes", [webAPI_1.TraverseServiceHttp,
         material_1.MdDialog,
-        simple_providers_1.CurrentTraverseProvider])
+        webAPI_1.CurrentTraverseProvider])
 ], TraverseSummaryComponent);
 exports.TraverseSummaryComponent = TraverseSummaryComponent;
 //# sourceMappingURL=traverse-summary.js.map

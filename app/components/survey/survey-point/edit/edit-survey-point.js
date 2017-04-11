@@ -21,8 +21,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var add_edit_survey_point_1 = require("../add/add-edit-survey-point");
-var simple_providers_1 = require("../../simple-providers");
 var material_1 = require("@angular/material");
+var webAPI_1 = require("../../../../services/surveyDb/webAPI");
 require("./../add/add-survey-point.scss");
 var EditSurveyPointComponent = (function (_super) {
     __extends(EditSurveyPointComponent, _super);
@@ -40,7 +40,7 @@ EditSurveyPointComponent = __decorate([
         selector: "edit-survey-point",
         templateUrl: "./../add/add-survey-point.html"
     }),
-    __metadata("design:paramtypes", [simple_providers_1.CurrentSurveyPointProvider,
+    __metadata("design:paramtypes", [webAPI_1.CurrentSurveyPointProvider,
         material_1.MdDialogRef])
 ], EditSurveyPointComponent);
 exports.EditSurveyPointComponent = EditSurveyPointComponent;

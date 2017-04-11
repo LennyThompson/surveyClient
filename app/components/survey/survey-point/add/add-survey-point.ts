@@ -3,7 +3,7 @@ import {Component, OnInit} from "@angular/core";
 import {MdDialogRef} from "@angular/material";
 
 import { AddEditSurveyPoint} from "./add-edit-survey-point";
-import {CurrentSurveyPointProvider} from "../../simple-providers";
+import {CurrentSurveyPointProvider} from "../../../../services/surveyDb/webAPI";
 
 require("./add-survey-point.scss");
 

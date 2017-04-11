@@ -1,43 +1,33 @@
 import { SurveyImageComponent } from "./survey-image/survey-image-form";
 import { AddSurveyImageComponent } from "./survey-image/add-dialog/add-survey-image-dialog";
 import { EditSurveyImageComponent } from "./survey-image/edit-dialog/edit-survey-image-dialog";
-import { EditSurveyImageProvider } from "./survey-image/edit-provider/SurveyImage";
 import { ProjectionComponent } from "./projection/projection-form";
 import { AddProjectionComponent } from "./projection/add-dialog/add-projection-dialog";
 import { EditProjectionComponent } from "./projection/edit-dialog/edit-projection-dialog";
-import { EditProjectionProvider } from "./projection/edit-provider/Projection";
 import { SurveyReferenceComponent } from "./survey-reference/survey-reference-form";
 import { AddSurveyReferenceComponent } from "./survey-reference/add-dialog/add-survey-reference-dialog";
 import { EditSurveyReferenceComponent } from "./survey-reference/edit-dialog/edit-survey-reference-dialog";
-import { EditSurveyReferenceProvider } from "./survey-reference/edit-provider/SurveyReference";
 import { SurveyPointTypeComponent } from "./survey-point-type/survey-point-type-form";
 import { AddSurveyPointTypeComponent } from "./survey-point-type/add-dialog/add-survey-point-type-dialog";
 import { EditSurveyPointTypeComponent } from "./survey-point-type/edit-dialog/edit-survey-point-type-dialog";
-import { EditSurveyPointTypeProvider } from "./survey-point-type/edit-provider/SurveyPointType";
 import { TraverseComponent } from "./traverse/traverse-form";
 import { AddTraverseComponent } from "./traverse/add-dialog/add-traverse-dialog";
 import { EditTraverseComponent } from "./traverse/edit-dialog/edit-traverse-dialog";
-import { EditTraverseProvider } from "./traverse/edit-provider/Traverse";
 import { SurveyMeasurementComponent } from "./survey-measurement/survey-measurement-form";
 import { AddSurveyMeasurementComponent } from "./survey-measurement/add-dialog/add-survey-measurement-dialog";
 import { EditSurveyMeasurementComponent } from "./survey-measurement/edit-dialog/edit-survey-measurement-dialog";
-import { EditSurveyMeasurementProvider } from "./survey-measurement/edit-provider/SurveyMeasurement";
 import { SurveyPointComponent } from "./survey-point/survey-point-form";
 import { AddSurveyPointComponent } from "./survey-point/add-dialog/add-survey-point-dialog";
 import { EditSurveyPointComponent } from "./survey-point/edit-dialog/edit-survey-point-dialog";
-import { EditSurveyPointProvider } from "./survey-point/edit-provider/SurveyPoint";
 import { InstrumentManufacturerComponent } from "./instrument-manufacturer/instrument-manufacturer-form";
 import { AddInstrumentManufacturerComponent } from "./instrument-manufacturer/add-dialog/add-instrument-manufacturer-dialog";
 import { EditInstrumentManufacturerComponent } from "./instrument-manufacturer/edit-dialog/edit-instrument-manufacturer-dialog";
-import { EditInstrumentManufacturerProvider } from "./instrument-manufacturer/edit-provider/InstrumentManufacturer";
 import { SurveyComponent } from "./survey/survey-form";
 import { AddSurveyComponent } from "./survey/add-dialog/add-survey-dialog";
 import { EditSurveyComponent } from "./survey/edit-dialog/edit-survey-dialog";
-import { EditSurveyProvider } from "./survey/edit-provider/Survey";
 import { InstrumentComponent } from "./instrument/instrument-form";
 import { AddInstrumentComponent } from "./instrument/add-dialog/add-instrument-dialog";
 import { EditInstrumentComponent } from "./instrument/edit-dialog/edit-instrument-dialog";
-import { EditInstrumentProvider } from "./instrument/edit-provider/Instrument";
 
 
 
@@ -77,57 +67,34 @@ export const ENTRY_COMPONENTS: any[] = [
     EditInstrumentComponent
 ];
 
-export const EDIT_PROVIDERS: any[] = [
-    EditSurveyImageProvider,
-    EditProjectionProvider,
-    EditSurveyReferenceProvider,
-    EditSurveyPointTypeProvider,
-    EditTraverseProvider,
-    EditSurveyMeasurementProvider,
-    EditSurveyPointProvider,
-    EditInstrumentManufacturerProvider,
-    EditSurveyProvider,
-    EditInstrumentProvider
-];
-
 export { SurveyImageComponent } from "./survey-image/survey-image-form";
 export { AddSurveyImageComponent } from "./survey-image/add-dialog/add-survey-image-dialog";
 export { EditSurveyImageComponent } from "./survey-image/edit-dialog/edit-survey-image-dialog";
-export { EditSurveyImageProvider } from "./survey-image/edit-provider/SurveyImage";
 export { ProjectionComponent } from "./projection/projection-form";
 export { AddProjectionComponent } from "./projection/add-dialog/add-projection-dialog";
 export { EditProjectionComponent } from "./projection/edit-dialog/edit-projection-dialog";
-export { EditProjectionProvider } from "./projection/edit-provider/Projection";
 export { SurveyReferenceComponent } from "./survey-reference/survey-reference-form";
 export { AddSurveyReferenceComponent } from "./survey-reference/add-dialog/add-survey-reference-dialog";
 export { EditSurveyReferenceComponent } from "./survey-reference/edit-dialog/edit-survey-reference-dialog";
-export { EditSurveyReferenceProvider } from "./survey-reference/edit-provider/SurveyReference";
 export { SurveyPointTypeComponent } from "./survey-point-type/survey-point-type-form";
 export { AddSurveyPointTypeComponent } from "./survey-point-type/add-dialog/add-survey-point-type-dialog";
 export { EditSurveyPointTypeComponent } from "./survey-point-type/edit-dialog/edit-survey-point-type-dialog";
-export { EditSurveyPointTypeProvider } from "./survey-point-type/edit-provider/SurveyPointType";
 export { TraverseComponent } from "./traverse/traverse-form";
 export { AddTraverseComponent } from "./traverse/add-dialog/add-traverse-dialog";
 export { EditTraverseComponent } from "./traverse/edit-dialog/edit-traverse-dialog";
-export { EditTraverseProvider } from "./traverse/edit-provider/Traverse";
 export { SurveyMeasurementComponent } from "./survey-measurement/survey-measurement-form";
 export { AddSurveyMeasurementComponent } from "./survey-measurement/add-dialog/add-survey-measurement-dialog";
 export { EditSurveyMeasurementComponent } from "./survey-measurement/edit-dialog/edit-survey-measurement-dialog";
-export { EditSurveyMeasurementProvider } from "./survey-measurement/edit-provider/SurveyMeasurement";
 export { SurveyPointComponent } from "./survey-point/survey-point-form";
 export { AddSurveyPointComponent } from "./survey-point/add-dialog/add-survey-point-dialog";
 export { EditSurveyPointComponent } from "./survey-point/edit-dialog/edit-survey-point-dialog";
-export { EditSurveyPointProvider } from "./survey-point/edit-provider/SurveyPoint";
 export { InstrumentManufacturerComponent } from "./instrument-manufacturer/instrument-manufacturer-form";
 export { AddInstrumentManufacturerComponent } from "./instrument-manufacturer/add-dialog/add-instrument-manufacturer-dialog";
 export { EditInstrumentManufacturerComponent } from "./instrument-manufacturer/edit-dialog/edit-instrument-manufacturer-dialog";
-export { EditInstrumentManufacturerProvider } from "./instrument-manufacturer/edit-provider/InstrumentManufacturer";
 export { SurveyComponent } from "./survey/survey-form";
 export { AddSurveyComponent } from "./survey/add-dialog/add-survey-dialog";
 export { EditSurveyComponent } from "./survey/edit-dialog/edit-survey-dialog";
-export { EditSurveyProvider } from "./survey/edit-provider/Survey";
 export { InstrumentComponent } from "./instrument/instrument-form";
 export { AddInstrumentComponent } from "./instrument/add-dialog/add-instrument-dialog";
 export { EditInstrumentComponent } from "./instrument/edit-dialog/edit-instrument-dialog";
-export { EditInstrumentProvider } from "./instrument/edit-provider/Instrument";
 

@@ -10,12 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var SurveyPointSummaryServiceHttp_1 = require("../../../services/surveyDb/webAPI/SurveyPointSummaryServiceHttp");
-var TraverseMeasurementSummaryServiceHttp_1 = require("../../../services/surveyDb/webAPI/TraverseMeasurementSummaryServiceHttp");
-var SurveyPointServiceHttp_1 = require("../../../services/surveyDb/webAPI/SurveyPointServiceHttp");
+var webAPI_1 = require("../../../services/surveyDb/webAPI");
 var SurveyPoint_1 = require("../../../services/surveyDb/types/SurveyPoint");
 var material_1 = require("@angular/material");
-var simple_providers_1 = require("./../simple-providers");
 require("./survey-details.scss");
 var SurveyDetailsComponent = (function () {
     function SurveyDetailsComponent(surveyContext, summaryService, travMeasService, pointService, dialog, viewContRef) {
@@ -52,10 +49,10 @@ SurveyDetailsComponent = __decorate([
         selector: "survey-details",
         templateUrl: "./survey-details.html"
     }),
-    __metadata("design:paramtypes", [simple_providers_1.CurrentSurveyProvider,
-        SurveyPointSummaryServiceHttp_1.SurveyPointSummaryServiceHttp,
-        TraverseMeasurementSummaryServiceHttp_1.TraverseMeasurementSummaryServiceHttp,
-        SurveyPointServiceHttp_1.SurveyPointServiceHttp,
+    __metadata("design:paramtypes", [webAPI_1.CurrentSurveyProvider,
+        webAPI_1.SurveyPointSummaryServiceHttp,
+        webAPI_1.TraverseMeasurementSummaryServiceHttp,
+        webAPI_1.SurveyPointServiceHttp,
         material_1.MdDialog,
         core_1.ViewContainerRef])
 ], SurveyDetailsComponent);

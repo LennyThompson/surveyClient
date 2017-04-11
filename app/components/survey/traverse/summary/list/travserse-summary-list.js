@@ -10,11 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var simple_providers_1 = require("./../../../simple-providers");
 var webAPI_1 = require("./../../../../../services/surveyDb/webAPI");
 var material_1 = require("@angular/material");
 var add_traverse_1 = require("./../../add/add-traverse");
-var webAPI_2 = require("../../../../../services/surveyDb/webAPI");
 require("./traverse-summary-list.scss");
 var TravserseSummaryListComponent = (function () {
     function TravserseSummaryListComponent(surveyContext, travMeasService, travService, dialog) {
@@ -65,9 +63,10 @@ TravserseSummaryListComponent = __decorate([
         selector: "traverse-summary-list",
         templateUrl: "traverse-summary-list.html"
     }),
-    __metadata("design:paramtypes", [simple_providers_1.CurrentSurveyProvider, typeof (_a = typeof webAPI_2.TraverseMeasurementSummarySubjectProvider !== "undefined" && webAPI_2.TraverseMeasurementSummarySubjectProvider) === "function" && _a || Object, webAPI_1.TraverseServiceHttp,
+    __metadata("design:paramtypes", [webAPI_1.CurrentSurveyProvider,
+        webAPI_1.TraverseMeasurementSummarySubjectProvider,
+        webAPI_1.TraverseServiceHttp,
         material_1.MdDialog])
 ], TravserseSummaryListComponent);
 exports.TravserseSummaryListComponent = TravserseSummaryListComponent;
-var _a;
 //# sourceMappingURL=travserse-summary-list.js.map

@@ -1,9 +1,9 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Apr 09 17:23:48 AEST 2017
+// Generated on Wed Apr 12 07:31:46 AEST 2017
 
 import {Component} from "@angular/core";
 import {SurveyReference} from "./../../../../../services/surveyDb/types";
-import {CurrentSurveyReferenceProvider} from "../../../simple-providers";
+import {CurrentSurveyReferenceProvider} from "./../../../../../services/surveyDb/webAPI";
 
 require("./edit-survey-reference-dialog.scss");
 

@@ -20,7 +20,6 @@ var format_bearing_1 = require("./pipes/format-bearing");
 var format_dms_bearing_1 = require("./pipes/format-dms-bearing");
 var material_1 = require("@angular/material");
 var add_survey_point_1 = require("./survey-point/add/add-survey-point");
-var simple_providers_1 = require("./simple-providers");
 var edit_survey_point_1 = require("./survey-point/edit/edit-survey-point");
 var survey_summary_point_list_1 = require("./survey-point/summary/list/survey-summary-point-list");
 var form_1 = require("./form");
@@ -90,7 +89,7 @@ SurveyModule = __decorate([
         providers: [
             index_1.SUBJECT_PROVIDERS,
             index_1.HTTP_PROVIDERS,
-            simple_providers_1.SIMPLE_PROVIDER_COMPONENTS,
+            index_1.SIMPLE_PROVIDERS,
             webAPI_1.TraverseMeasurementSummarySubjectProvider,
             format_coord_1.CoordFormat,
             format_bearing_1.BearingFormat,

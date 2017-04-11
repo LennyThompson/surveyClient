@@ -20,9 +20,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var simple_providers_1 = require("./../../simple-providers");
 var material_1 = require("@angular/material");
 var add_edit_survey_measurement_1 = require("./add-edit-survey-measurement");
+var webAPI_1 = require("../../../../services/surveyDb/webAPI");
 require("./add-survey-measurement.scss");
 var AddSurveyMeasurementComponent = (function (_super) {
     __extends(AddSurveyMeasurementComponent, _super);
@@ -37,7 +37,7 @@ AddSurveyMeasurementComponent = __decorate([
         templateUrl: "add-survey-measurement.html"
     }),
     __metadata("design:paramtypes", [material_1.MdDialogRef,
-        simple_providers_1.CurrentSurveyMeasurementProvider])
+        webAPI_1.CurrentSurveyMeasurementProvider])
 ], AddSurveyMeasurementComponent);
 exports.AddSurveyMeasurementComponent = AddSurveyMeasurementComponent;
 //# sourceMappingURL=add-survey-measurement.js.map

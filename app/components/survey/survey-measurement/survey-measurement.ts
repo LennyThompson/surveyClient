@@ -1,9 +1,8 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {SurveyMeasurement} from "../../../services/surveyDb/types";
-import {SurveyMeasurementServiceHttp} from "../../../services/surveyDb/webAPI";
+import {SurveyMeasurementServiceHttp, CurrentSurveyMeasurementProvider} from "../../../services/surveyDb/webAPI";
 import {MdDialogConfig, MdDialog} from "@angular/material";
 import {EditSurveyMeasurementComponent} from "./edit/edit-survey-measurement";
-import {CurrentSurveyMeasurementProvider} from "./../simple-providers";
 import {Observable} from "rxjs";
 
 require("./survey-measurement.scss");

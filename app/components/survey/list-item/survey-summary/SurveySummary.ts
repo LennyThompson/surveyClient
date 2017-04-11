@@ -1,10 +1,10 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun Apr 09 17:23:48 AEST 2017
+// Generated on Wed Apr 12 07:31:47 AEST 2017
 
 import {Component, OnInit, Input} from "@angular/core";
 
 import {SurveySummary} from "./../../../../services/surveyDb/types/SurveySummary";
-import {EditSurveyProvider} from "../../form";
+import {EditSurveyProvider} from "./../../edit-providers";
 
 require("./survey-summary-list-row.scss");
 
@@ -39,7 +39,7 @@ export class SurveySummaryListRowComponent implements OnInit
         }
         onEdit()
         {
-            this._editProvider.edit(this._SurveySummary.ID);
+            this._editProvider.editID(this._SurveySummary.ID);
         }
 
 }
