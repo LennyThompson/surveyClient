@@ -1,14 +1,14 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Wed Apr 12 07:31:47 AEST 2017
+// Generated on Thu Apr 13 07:50:47 AEST 2017
 
 import {TraverseClosure} from "./../../types";
 
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
-import { CurrentTraverseClosureProvider } from "./..";
+import { CurrentTraverseClosureProvider }from "./../traverse-closure-service/TraverseClosureSimpleProvider";
 
 
-import { TraverseClosureServiceHttp } from "./..";
+import { TraverseClosureServiceHttp } from "./TraverseClosureServiceHttp";
 
 @Injectable()
 export class TraverseClosureSubjectProvider

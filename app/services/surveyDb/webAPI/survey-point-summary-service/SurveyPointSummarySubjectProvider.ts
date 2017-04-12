@@ -1,18 +1,21 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Wed Apr 12 07:31:47 AEST 2017
+// Generated on Thu Apr 13 07:50:47 AEST 2017
 
 import {SurveyPointSummary} from "./../../types";
 
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
-import { SurveySummarySubjectProvider } from "./..";
+import { SurveySummarySubjectProvider } from "./../survey-summary-service/SurveySummarySubjectProvider";
 
 import { Survey, SurveyPoint, SurveyReference, SurveyPointType } from "./../../types";
 
-import { CurrentSurveyProvider, CurrentSurveyPointProvider, CurrentSurveyReferenceProvider, CurrentSurveyPointTypeProvider } from "./..";
+import { CurrentSurveyProvider } from "./../survey-service/SurveySimpleProvider";
+import { CurrentSurveyPointProvider } from "./../survey-point-service/SurveyPointSimpleProvider";
+import { CurrentSurveyReferenceProvider } from "./../survey-reference-service/SurveyReferenceSimpleProvider";
+import { CurrentSurveyPointTypeProvider } from "./../survey-point-type-service/SurveyPointTypeSimpleProvider";
 
 
-import { SurveyPointSummaryServiceHttp } from "./..";
+import { SurveyPointSummaryServiceHttp } from "./SurveyPointSummaryServiceHttp";
 
 @Injectable()
 export class SurveyPointSummarySubjectProvider

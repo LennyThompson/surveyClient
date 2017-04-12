@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Wed Apr 12 07:31:47 AEST 2017
+// Generated on Thu Apr 13 07:50:47 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {InstrumentManufacturer} from "./../../types";

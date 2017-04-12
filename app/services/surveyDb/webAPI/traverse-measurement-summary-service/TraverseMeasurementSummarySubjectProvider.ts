@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Wed Apr 12 07:31:47 AEST 2017
+// Generated on Thu Apr 13 07:50:47 AEST 2017
 
 import {TraverseMeasurementSummary} from "./../../types";
 
@@ -7,10 +7,13 @@ import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
 import { SurveyMeasurement, SurveyPoint, Traverse } from "./../../types";
 
-import { CurrentSurveyMeasurementProvider, CurrentSurveyProvider, CurrentSurveyPointProvider, CurrentTraverseProvider } from "./..";
+import { CurrentSurveyMeasurementProvider } from "./../survey-measurement-service/SurveyMeasurementSimpleProvider";
+import { CurrentSurveyProvider } from "./../survey-service/SurveySimpleProvider";
+import { CurrentSurveyPointProvider } from "./../survey-point-service/SurveyPointSimpleProvider";
+import { CurrentTraverseProvider } from "./../traverse-service/TraverseSimpleProvider";
 
 
-import { TraverseMeasurementSummaryServiceHttp } from "./..";
+import { TraverseMeasurementSummaryServiceHttp } from "./TraverseMeasurementSummaryServiceHttp";
 
 @Injectable()
 export class TraverseMeasurementSummarySubjectProvider

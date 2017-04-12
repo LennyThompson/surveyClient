@@ -1,16 +1,18 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Wed Apr 12 07:31:47 AEST 2017
+// Generated on Thu Apr 13 07:50:47 AEST 2017
 
 import {Traverse} from "./../../types";
 
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
-import { SurveySummarySubjectProvider, TraverseSummarySubjectProvider, TraverseMeasurementSummarySubjectProvider } from "./..";
+import { SurveySummarySubjectProvider } from "./../survey-summary-service/SurveySummarySubjectProvider";
+import { TraverseSummarySubjectProvider } from "./../traverse-summary-service/TraverseSummarySubjectProvider";
+import { TraverseMeasurementSummarySubjectProvider } from "./../traverse-measurement-summary-service/TraverseMeasurementSummarySubjectProvider";
 
-import { CurrentTraverseProvider } from "./..";
+import { CurrentTraverseProvider }from "./../traverse-service/TraverseSimpleProvider";
 
 
-import { TraverseServiceHttp } from "./..";
+import { TraverseServiceHttp } from "./TraverseServiceHttp";
 
 @Injectable()
 export class TraverseSubjectProvider

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Wed Apr 12 07:31:47 AEST 2017
+// Generated on Thu Apr 13 07:50:47 AEST 2017
 
 import {SurveySummary} from "./../../types";
 
@@ -7,10 +7,15 @@ import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
 import { Survey, SurveyPoint, Projection, SurveyReference, Traverse, SurveyPointType } from "./../../types";
 
-import { CurrentSurveyProvider, CurrentSurveyPointProvider, CurrentProjectionProvider, CurrentSurveyReferenceProvider, CurrentSurveyPointTypeProvider, CurrentTraverseProvider } from "./..";
+import { CurrentSurveyProvider } from "./../survey-service/SurveySimpleProvider";
+import { CurrentSurveyPointProvider } from "./../survey-point-service/SurveyPointSimpleProvider";
+import { CurrentProjectionProvider } from "./../projection-service/ProjectionSimpleProvider";
+import { CurrentSurveyReferenceProvider } from "./../survey-reference-service/SurveyReferenceSimpleProvider";
+import { CurrentSurveyPointTypeProvider } from "./../survey-point-type-service/SurveyPointTypeSimpleProvider";
+import { CurrentTraverseProvider } from "./../traverse-service/TraverseSimpleProvider";
 
 
-import { SurveySummaryServiceHttp } from "./..";
+import { SurveySummaryServiceHttp } from "./SurveySummaryServiceHttp";
 
 @Injectable()
 export class SurveySummarySubjectProvider

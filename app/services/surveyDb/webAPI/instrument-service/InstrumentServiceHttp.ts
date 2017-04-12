@@ -1,14 +1,14 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Wed Apr 12 07:31:47 AEST 2017
+// Generated on Thu Apr 13 07:50:47 AEST 2017
 
 import {Instrument} from "./../../types";
 
 import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
-import { CurrentInstrumentProvider } from "./..";
+import { CurrentInstrumentProvider }from "./../instrument-service/InstrumentSimpleProvider";
 
-import { CurrentSurveyProvider } from "./..";
+import { CurrentSurveyProvider } from "./../survey-service/SurveySimpleProvider";
 
 
 

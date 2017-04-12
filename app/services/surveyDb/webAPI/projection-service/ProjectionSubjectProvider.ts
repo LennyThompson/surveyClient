@@ -1,16 +1,16 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Wed Apr 12 07:31:47 AEST 2017
+// Generated on Thu Apr 13 07:50:47 AEST 2017
 
 import {Projection} from "./../../types";
 
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
-import { SurveySummarySubjectProvider } from "./..";
+import { SurveySummarySubjectProvider } from "./../survey-summary-service/SurveySummarySubjectProvider";
 
-import { CurrentProjectionProvider } from "./..";
+import { CurrentProjectionProvider }from "./../projection-service/ProjectionSimpleProvider";
 
 
-import { ProjectionServiceHttp } from "./..";
+import { ProjectionServiceHttp } from "./ProjectionServiceHttp";
 
 @Injectable()
 export class ProjectionSubjectProvider
