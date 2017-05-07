@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sat May 06 11:26:23 AEST 2017
+// Generated on Sun May 07 13:58:59 AEST 2017
 
 // Declare injectable provider for editing a form provider type
 import {Injectable} from "@angular/core";
@@ -87,5 +87,24 @@ export class EditTraverseProvider
                     }
                 }
             );
+    }
+
+    public saveCurrent()
+    {
+        if
+        (
+            this._TraverseProvider.Traverse
+            &&
+            this._TraverseProvider.Traverse.ID < 1
+        )
+        {
+            this._TraverseHttp.saveToDatabase(this._TraverseProvider.Traverse)
+                .subscribe(
+                    (result) =>
+                    {
+                        this._TraverseProvider.Traverse = result;
+                    }
+                );
+        }
     }
 }

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sat May 06 11:26:23 AEST 2017
+// Generated on Sun May 07 13:58:59 AEST 2017
 
 // Declare injectable provider for editing a form provider type
 import {Injectable} from "@angular/core";
@@ -89,5 +89,24 @@ export class EditSurveyImageProvider
                     }
                 }
             );
+    }
+
+    public saveCurrent()
+    {
+        if
+        (
+            this._SurveyImageProvider.SurveyImage
+            &&
+            this._SurveyImageProvider.SurveyImage.ID < 1
+        )
+        {
+            this._SurveyImageHttp.saveToDatabase(this._SurveyImageProvider.SurveyImage)
+                .subscribe(
+                    (result) =>
+                    {
+                        this._SurveyImageProvider.SurveyImage = result;
+                    }
+                );
+        }
     }
 }

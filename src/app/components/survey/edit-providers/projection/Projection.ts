@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sat May 06 11:26:23 AEST 2017
+// Generated on Sun May 07 13:58:59 AEST 2017
 
 // Declare injectable provider for editing a form provider type
 import {Injectable} from "@angular/core";
@@ -84,5 +84,24 @@ export class EditProjectionProvider
                     }
                 }
             );
+    }
+
+    public saveCurrent()
+    {
+        if
+        (
+            this._ProjectionProvider.Projection
+            &&
+            this._ProjectionProvider.Projection.ID < 1
+        )
+        {
+            this._ProjectionHttp.saveToDatabase(this._ProjectionProvider.Projection)
+                .subscribe(
+                    (result) =>
+                    {
+                        this._ProjectionProvider.Projection = result;
+                    }
+                );
+        }
     }
 }

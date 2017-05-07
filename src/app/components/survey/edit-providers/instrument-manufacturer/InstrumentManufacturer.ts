@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sat May 06 11:26:23 AEST 2017
+// Generated on Sun May 07 13:58:59 AEST 2017
 
 // Declare injectable provider for editing a form provider type
 import {Injectable} from "@angular/core";
@@ -84,5 +84,24 @@ export class EditInstrumentManufacturerProvider
                     }
                 }
             );
+    }
+
+    public saveCurrent()
+    {
+        if
+        (
+            this._InstrumentManufacturerProvider.InstrumentManufacturer
+            &&
+            this._InstrumentManufacturerProvider.InstrumentManufacturer.ID < 1
+        )
+        {
+            this._InstrumentManufacturerHttp.saveToDatabase(this._InstrumentManufacturerProvider.InstrumentManufacturer)
+                .subscribe(
+                    (result) =>
+                    {
+                        this._InstrumentManufacturerProvider.InstrumentManufacturer = result;
+                    }
+                );
+        }
     }
 }

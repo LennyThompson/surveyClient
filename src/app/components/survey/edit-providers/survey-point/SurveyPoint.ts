@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sat May 06 11:26:23 AEST 2017
+// Generated on Sun May 07 13:58:59 AEST 2017
 
 // Declare injectable provider for editing a form provider type
 import {Injectable} from "@angular/core";
@@ -103,5 +103,24 @@ export class EditSurveyPointProvider
                     }
                 }
             );
+    }
+
+    public saveCurrent()
+    {
+        if
+        (
+            this._SurveyPointProvider.SurveyPoint
+            &&
+            this._SurveyPointProvider.SurveyPoint.ID < 1
+        )
+        {
+            this._SurveyPointHttp.saveToDatabase(this._SurveyPointProvider.SurveyPoint)
+                .subscribe(
+                    (result) =>
+                    {
+                        this._SurveyPointProvider.SurveyPoint = result;
+                    }
+                );
+        }
     }
 }
