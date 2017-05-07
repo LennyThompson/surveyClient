@@ -1,0 +1,23 @@
+<!-- ****THIS IS A CODE GENERATED FILE DO NOT EDIT**** -->
+<!-- Generated on Sat May 06 11:26:23 AEST 2017 -->
+<div fxLayout="column">
+    <div class="survey-summary-list-header" fxLayout="row">
+        <div fxFlex="5%" ></div>
+        <div class="survey-summary-header-info" fxFlex="20" >ID</div>
+        <div class="survey-summary-header-info" fxFlex="20" >Name</div>
+        <div class="survey-summary-header-info" fxFlex="20" >Description</div>
+        <div class="survey-summary-header-info" fxFlex="20" >ProjName</div>
+        <div class="survey-summary-header-info" fxFlex="20" >Updated</div>
+
+        <div class="survey-summary-header-info" fxFlex="20%" >Actions</div>
+    </div>
+    <survey-summary
+        *ngFor="let item of SurveySummaryList; let odd=odd; let even=even; let index=index"
+        [SurveySummary]="item"
+        [ngClass]="{odd: odd, even: even, first: index===0 }"
+        >
+    </survey-summary>
+    <div class="flex-item survey-summary-list-actions" fxFlex="30%" >
+        <i class="icon-plus" (click)="onAddSurvey()"></i>
+    </div>
+</div>

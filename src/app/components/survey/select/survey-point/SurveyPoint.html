@@ -1,0 +1,9 @@
+<!-- ****THIS IS A CODE GENERATED FILE DO NOT EDIT**** -->
+<!-- Generated on Sat May 06 11:26:23 AEST 2017 -->
+
+<div fxLayout="row">
+    <md-select placeholder="SurveyPoint" [(ngModel)]="value">
+        <md-option *ngFor="let type of SurveyPoint | async" [value]="type" >{{ type.Name }}</md-option>
+    </md-select>
+    <i class="icon-plus" (click)="onAddNewSurveyPoint()"></i>
+</div>

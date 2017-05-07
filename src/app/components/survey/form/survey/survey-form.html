@@ -1,0 +1,31 @@
+<!-- ****THIS IS A CODE GENERATED FILE DO NOT EDIT**** -->
+<!-- Generated on Sat May 06 11:26:23 AEST 2017 -->
+<form>
+        <div class="flex-container form-group" id="desc" fxLayout="row">
+            <md-input-container fxFlex="25">
+                <label >Name:</label>
+                <input class="form-control"
+                    mdInput 
+                    type="text"
+                    [(ngModel)]="Survey.Name"
+                    id="name" name="Name">
+            </md-input-container>
+
+
+            <md-input-container fxFlex="25">
+                <label >Description:</label>
+                <input class="form-control"
+                    mdInput 
+                    type="text"
+                    [(ngModel)]="Survey.Description"
+                    id="desc" name="Description">
+            </md-input-container>
+
+
+                <label>Projection</label>
+                <projection-select [(ngModel)]="Survey.Projection" name="Projection"></projection-select>
+
+
+        </div>
+
+</form>

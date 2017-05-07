@@ -1,0 +1,110 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Sat May 06 11:26:23 AEST 2017
+
+// Declare injectable provider for editing a form provider type
+import {Injectable} from "@angular/core";
+import {MdDialogConfig, MdDialog} from "@angular/material";
+import {SurveyMeasurement} from "./../../../../services/surveyDb/types";
+import {EditSurveyMeasurementComponent, AddSurveyMeasurementComponent} from "./../../form";
+import {SurveyMeasurementServiceHttp, CurrentSurveyMeasurementProvider, CurrentSurveyProvider, CurrentTraverseProvider} from "./../../../../services/surveyDb/webAPI";
+
+@Injectable()
+export class EditSurveyMeasurementProvider
+{
+    constructor(
+        private _dialogService: MdDialog
+        , private _SurveyMeasurementHttp: SurveyMeasurementServiceHttp
+        , private _SurveyMeasurementProvider: CurrentSurveyMeasurementProvider
+        , private _currentSurvey: CurrentSurveyProvider
+        , private _currentTraverse: CurrentTraverseProvider
+    )
+    {
+    }
+
+    public editID(ID: number)
+    {
+        this._SurveyMeasurementHttp.loadSurveyMeasurementFromDatabase(ID)
+        .subscribe(
+                (localSurveyMeasurement: SurveyMeasurement) => this.editSurveyMeasurement(localSurveyMeasurement)
+        );
+    }
+
+    public editSurveyMeasurement(editSurveyMeasurement: SurveyMeasurement)
+    {
+        this._SurveyMeasurementProvider.SurveyMeasurement = editSurveyMeasurement;
+        this._dialogService.open(EditSurveyMeasurementComponent)
+            .afterClosed()
+            .subscribe(
+                (result) =>
+                {
+                    if(result)
+                    {
+                        console.log(JSON.stringify(result));
+                        this._SurveyMeasurementHttp.updateToDatabase(result)
+                            .subscribe(
+                                (result) =>
+                                {
+                                    // Tell parent to update...
+                                    console.log("SurveyMeasurementHttp.updateToDatabase", result);
+                                }
+                            );
+                    }
+                    else
+                    {
+                        console.log("Cancel");
+                    }
+                }
+            );
+    }
+
+    public addSurveyMeasurement()
+    {
+        this._dialogService.open(AddSurveyMeasurementComponent)
+            .afterClosed()
+            .subscribe(
+                (result) =>
+                {
+                    if(result)
+                    {
+                        let bSaved: boolean = false;
+                        console.log(JSON.stringify(result));
+                        result.SurveyID = this._currentSurvey.Survey_ID;
+
+                        if
+                        (
+                            !bSaved
+                            &&
+                            (this._currentTraverse.Traverse !== null || this._currentTraverse.Traverse_ID > 0)
+                        )
+                        {
+                            this._SurveyMeasurementHttp.saveSurveyMeasurementForTraverse(result)
+                                .subscribe(
+                                    (result) =>
+                                    {
+                                        // Tell parent to update...
+                                        console.log("SurveyMeasurementHttp.saveToDatabase", result);
+                                    }
+                                );
+                            bSaved = true;
+                        }
+
+                        if(!bSaved)
+                        {
+                            this._SurveyMeasurementHttp.saveToDatabase(result)
+                                .subscribe(
+                                    (result) =>
+                                    {
+                                        // Tell parent to update...
+                                        console.log("SurveyMeasurementHttp.saveToDatabase", result);
+                                    }
+                                );
+                        }
+                    }
+                    else
+                    {
+                        console.log("Cancel");
+                    }
+                }
+            );
+    }
+}

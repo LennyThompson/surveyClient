@@ -1,0 +1,24 @@
+<!-- ****THIS IS A CODE GENERATED FILE DO NOT EDIT**** -->
+<!-- Generated on Sat May 06 11:26:23 AEST 2017 -->
+<div fxLayout="column">
+    <div class="traverse-measurement-summary-list-header" fxLayout="row">
+        <div fxFlex="5%" ></div>
+        <div class="traverse-measurement-summary-header-info" fxFlex="20" >MeasID</div>
+        <div class="traverse-measurement-summary-header-info" fxFlex="20" >Horizontal</div>
+        <div class="traverse-measurement-summary-header-info" fxFlex="20" >Bearing</div>
+        <div class="traverse-measurement-summary-header-info" fxFlex="20" >Vertical</div>
+        <div class="traverse-measurement-summary-header-info" fxFlex="20" >PtFromName</div>
+        <div class="traverse-measurement-summary-header-info" fxFlex="20" >PtToName</div>
+
+        <div class="traverse-measurement-summary-header-info" fxFlex="20%" >Actions</div>
+    </div>
+    <traverse-measurement-summary
+        *ngFor="let item of TraverseMeasurementSummary.SurvMeass; let odd=odd; let even=even; let index=index"
+        [SurvMeass]="item"
+        [ngClass]="{odd: odd, even: even, first: index===0 }"
+        >
+    </traverse-measurement-summary>
+    <div class="flex-item traverse-measurement-summary-list-actions" fxFlex="30%" >
+        <i class="icon-plus" (click)="onAddSurveyMeasurement()"></i>
+    </div>
+</div>

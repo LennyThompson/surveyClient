@@ -1,0 +1,22 @@
+<!-- ****THIS IS A CODE GENERATED FILE DO NOT EDIT**** -->
+<!-- Generated on Sat May 06 11:26:23 AEST 2017 -->
+<div fxLayout="column">
+    <div fxLayout="row">
+        <div fxFlex="5%">
+            <i [class.icon-minus]="isExpanded" [class.icon-plus]="!isExpanded" (click)="onExpand()"></i>
+        </div>
+        <div class="traverse-measurement-summary-info" fxFlex="20%" >{{SurvMeass.MeasID}}</div>
+        <div class="traverse-measurement-summary-info survey-distance" fxFlex="20%" >{{SurvMeass.Horizontal | coordFormat}}</div>
+        <div class="traverse-measurement-summary-info survey-bearing" fxFlex="20%" >{{SurvMeass.Bearing | bearingFormat}}</div>
+        <div class="traverse-measurement-summary-info survey-distance" fxFlex="20%" >{{SurvMeass.Vertical | coordFormat}}</div>
+        <div class="traverse-measurement-summary-info survey-text" fxFlex="20%" >{{SurvMeass.PtFrom.PtFromName}}</div>
+        <div class="traverse-measurement-summary-info survey-text" fxFlex="20%" >{{SurvMeass.PtTo.PtToName}}</div>
+
+        <div class="flex-item traverse-measurement-summary-actions" fxFlex="20%" >
+            <i class="icon-pencil" (click)="onEdit()"></i>
+            <i class="icon-trash" (click)="onDelete()"></i>
+        </div>
+
+    </div>
+
+</div>

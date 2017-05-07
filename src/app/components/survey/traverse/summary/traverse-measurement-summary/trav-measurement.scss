@@ -1,0 +1,49 @@
+@import "./../../../variables";
+
+trav-measurement {
+  &.even >div{
+    background-color: $tableEvenColour;
+  }
+  &.odd >div{
+    background-color: $tableOddColour;
+  }
+
+  text-align: center;
+  border-color: $tableBorderColour;
+  .trav-measurement {
+    border-bottom: $tableBorderLine;
+    border-left: $tableBorderLine;
+    border-color: $tableBorderColour;
+
+    .trav-measurement-info {
+      border-right: $tableBorderLine;
+      border-color: $tableBorderColour;
+      text-align: center;
+
+      &.survey-distance {
+        text-align: right;
+      }
+      &.survey-bearing {
+        text-align: right;
+      }
+    }
+  }
+  &.first .trav-measurement {
+    border-top: $tableBorderLine;
+
+  }
+
+  .measurement-actions {
+    i.icon-pencil {
+      color: darkred;
+    }
+    i.icon-trash {
+      color: red;
+    }
+    & :hover {
+      cursor: pointer;
+    }
+
+  }
+
+}

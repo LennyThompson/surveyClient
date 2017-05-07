@@ -1,0 +1,91 @@
+// ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
+// Generated on Sat May 06 11:26:23 AEST 2017
+
+// Declare injectable provider for editing a form provider type
+import {Injectable} from "@angular/core";
+import {MdDialogConfig, MdDialog} from "@angular/material";
+import {Traverse} from "./../../../../services/surveyDb/types";
+import {EditTraverseComponent, AddTraverseComponent} from "./../../form";
+import {TraverseServiceHttp, CurrentTraverseProvider, CurrentSurveyProvider} from "./../../../../services/surveyDb/webAPI";
+
+@Injectable()
+export class EditTraverseProvider
+{
+    constructor(
+        private _dialogService: MdDialog
+        , private _TraverseHttp: TraverseServiceHttp
+        , private _TraverseProvider: CurrentTraverseProvider
+        , private _currentSurvey: CurrentSurveyProvider
+    )
+    {
+    }
+
+    public editID(ID: number)
+    {
+        this._TraverseHttp.loadTraverseFromDatabase(ID)
+        .subscribe(
+                (localTraverse: Traverse) => this.editTraverse(localTraverse)
+        );
+    }
+
+    public editTraverse(editTraverse: Traverse)
+    {
+        this._TraverseProvider.Traverse = editTraverse;
+        this._dialogService.open(EditTraverseComponent)
+            .afterClosed()
+            .subscribe(
+                (result) =>
+                {
+                    if(result)
+                    {
+                        console.log(JSON.stringify(result));
+                        this._TraverseHttp.updateToDatabase(result)
+                            .subscribe(
+                                (result) =>
+                                {
+                                    // Tell parent to update...
+                                    console.log("TraverseHttp.updateToDatabase", result);
+                                }
+                            );
+                    }
+                    else
+                    {
+                        console.log("Cancel");
+                    }
+                }
+            );
+    }
+
+    public addTraverse()
+    {
+        this._dialogService.open(AddTraverseComponent)
+            .afterClosed()
+            .subscribe(
+                (result) =>
+                {
+                    if(result)
+                    {
+                        let bSaved: boolean = false;
+                        console.log(JSON.stringify(result));
+                        result.SurveyID = this._currentSurvey.Survey_ID;
+
+                        if(!bSaved)
+                        {
+                            this._TraverseHttp.saveToDatabase(result)
+                                .subscribe(
+                                    (result) =>
+                                    {
+                                        // Tell parent to update...
+                                        console.log("TraverseHttp.saveToDatabase", result);
+                                    }
+                                );
+                        }
+                    }
+                    else
+                    {
+                        console.log("Cancel");
+                    }
+                }
+            );
+    }
+}
