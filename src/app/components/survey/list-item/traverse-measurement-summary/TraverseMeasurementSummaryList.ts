@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun May 07 13:59:00 AEST 2017
+// Generated on Mon May 08 11:01:26 AEST 2017
 
 import {Component, OnInit, Input} from "@angular/core";
 import {Observable} from "rxjs";
@@ -15,7 +15,7 @@ import {TraverseMeasurementSummary} from "./../../../../services/surveyDb/types"
 )
 export class TraverseMeasurementSummaryListComponent implements OnInit
 {
-        _TraverseMeasurementSummary: Observable<TraverseMeasurementSummary>;
+        _TraverseMeasurementSummary: TraverseMeasurementSummary;
         constructor(
             private _addSurveyMeasurement: EditSurveyMeasurementProvider
         )
@@ -27,11 +27,11 @@ export class TraverseMeasurementSummaryListComponent implements OnInit
         }
 
         @Input()
-        set TraverseMeasurementSummary(value: Observable<TraverseMeasurementSummary>)
+        set TraverseMeasurementSummary(value: TraverseMeasurementSummary)
         {
             this._TraverseMeasurementSummary = value;
         }
-        get TraverseMeasurementSummary(): Observable<TraverseMeasurementSummary>
+        get TraverseMeasurementSummary(): TraverseMeasurementSummary
         {
             return this._TraverseMeasurementSummary;
         }

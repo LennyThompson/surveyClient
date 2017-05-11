@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {SurveySummary} from "../../../services/surveyDb/types";
 import {Observable} from "rxjs";
 import {
@@ -11,12 +11,16 @@ import {
     templateUrl: "./survey-list.html",
     styleUrls: ["./survey-list.scss"]
 })
-export class SurveyListComponent
+export class SurveyListComponent implements OnInit
 {
     private m_listSurveys : Observable<SurveySummary[]>;
     constructor(private surveyService : SurveySummarySubjectProvider)
     {
-        this.m_listSurveys = surveyService.getSurveySummarySummaries();
+    }
+
+    ngOnInit(): void
+    {
+        this.m_listSurveys = this.surveyService.getSurveySummarySummaries();
     }
 
     get Surveys() : Observable<SurveySummary[]>

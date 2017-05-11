@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun May 07 13:59:00 AEST 2017
+// Generated on Mon May 08 11:01:26 AEST 2017
 
 import {Component, OnInit, Input} from "@angular/core";
 
@@ -65,6 +65,7 @@ export class SurveySummaryListRowComponent implements OnInit
 
         onEditSurveySummaryTravs(Travs: SurveySummary_Trav)
         {
+            this._currentProvider.Survey_ID = this._SurveySummary.ID;
             this._editTraverseProvider.editID(Travs.TravID);
         }
         onDeleteSurveySummaryTravs(Travs: SurveySummary_Trav)

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun May 07 13:59:00 AEST 2017
+// Generated on Mon May 08 11:01:26 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {Survey} from "./../../types";
@@ -12,6 +12,11 @@ export class CurrentSurveyProvider
     private _Survey: Survey;
     private _ID: number = -1;
 
+    constructor()
+    {
+        console.log("constructing survey service...");
+    }
+
     public get Survey(): Survey
     {
         if(!this._Survey && this._ID <= 0)
@@ -23,6 +28,7 @@ export class CurrentSurveyProvider
 
     public set Survey(value: Survey)
     {
+        console.log("setting survey", value.ID);
         this._Survey = value;
         this._ID = this._Survey.ID;
     }
@@ -38,6 +44,7 @@ export class CurrentSurveyProvider
     public set Survey_ID(ID: number)
     {
         this.reset();
+        console.log("setting survey id", ID);
         this._ID = ID;
     }
 

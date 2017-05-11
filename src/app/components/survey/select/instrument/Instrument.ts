@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun May 07 13:58:59 AEST 2017
+// Generated on Mon May 08 11:01:26 AEST 2017
 
 import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional} from "@angular/core";
 import {MdSelect, MdOption} from "@angular/material";
@@ -62,9 +62,9 @@ export class InstrumentSelectComponent extends ElementBase<Instrument>
         {
             let subscriber = this._listInstrument.subscribe(
                 (list) => {
-                    let currentType = lodash(list).find(type => type.ID === this._currentInstrument.ID);
+                    let currentType = lodash(list).find(type => type.ID === this._currentInstrument.ID).value();
                     super.writeValue(currentType);
-                    subscriber.unsubscribe();
+                    //subscriber.unsubscribe();
                 }
             );
         }

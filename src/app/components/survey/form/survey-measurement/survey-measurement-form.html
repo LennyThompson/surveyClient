@@ -1,43 +1,43 @@
 <!-- ****THIS IS A CODE GENERATED FILE DO NOT EDIT**** -->
-<!-- Generated on Sun May 07 13:58:59 AEST 2017 -->
+<!-- Generated on Mon May 08 11:01:26 AEST 2017 -->
 <form>
-        <div class="flex-container form-group" id="measurement" fxLayout="row">
-            <md-input-container fxFlex="25">
-                <label >HorizDistance:</label>
-                <input class="form-control"
-                    mdInput placeholder="{{SurveyMeasurement.HorizDistance | horizDistancePlaceholder}}"
-                    step="10" type="number"
-                    [(ngModel)]="SurveyMeasurement.HorizDistance"
-                    id="horiz" name="HorizDistance">
-            </md-input-container>
+    <div class="flex-container form-group" id="measurement" fxLayout="row">
+        <md-input-container fxFlex="25">
+            <label >HorizDistance:</label>
+            <input class="form-control"
+                mdInput placeholder="{{SurveyMeasurement.HorizDistance | horizDistancePlaceholder}}"
+                step="10" type="number"
+                [(ngModel)]="SurveyMeasurement.HorizDistance"
+                id="horiz" name="HorizDistance">
+        </md-input-container>
 
 
-            <md-input-container fxFlex="25">
-                <label >VertDistance:</label>
-                <input class="form-control"
-                    mdInput placeholder="{{SurveyMeasurement.VertDistance | vertDistancePlaceholder}}"
-                    step="10" type="number"
-                    [(ngModel)]="SurveyMeasurement.VertDistance"
-                    id="vert" name="VertDistance">
-            </md-input-container>
+        <md-input-container fxFlex="25">
+            <label >VertDistance:</label>
+            <input class="form-control"
+                mdInput placeholder="{{SurveyMeasurement.VertDistance | vertDistancePlaceholder}}"
+                step="10" type="number"
+                [(ngModel)]="SurveyMeasurement.VertDistance"
+                id="vert" name="VertDistance">
+        </md-input-container>
 
 
-        <bearing-input  fxFlex="25"
-            [(ngModel)]="SurveyMeasurement.Bearing" placeholder="{{SurveyMeasurement.Bearing | bearingPlaceholder}}"
-            id="bearing" name="Bearing">
-        </bearing-input>
+    <bearing-input  fxFlex="25"
+        [(ngModel)]="SurveyMeasurement.Bearing" placeholder="{{SurveyMeasurement.Bearing | bearingPlaceholder}}"
+        id="bearing" name="Bearing">
+    </bearing-input>
 
 
-        </div>
-        <div class="flex-container form-group" id="to_from" fxLayout="row">
-                <label>PointFrom</label>
-                <survey-point-select [(ngModel)]="SurveyMeasurement.PointFrom" name="PointFrom"></survey-point-select>
+    </div>
+    <div class="flex-container form-group" id="to_from" fxLayout="row">
+            <label>PointFrom</label>
+            <survey-point-select [(ngModel)]="SurveyMeasurement.PointFrom" name="PointFrom"></survey-point-select>
 
 
-                <label>PointTo</label>
-                <survey-point-select [(ngModel)]="SurveyMeasurement.PointTo" name="PointTo"></survey-point-select>
+            <label>PointTo</label>
+            <survey-point-select [(ngModel)]="SurveyMeasurement.PointTo" name="PointTo"></survey-point-select>
 
 
-        </div>
+    </div>
 
 </form>

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun May 07 13:59:00 AEST 2017
+// Generated on Mon May 08 11:01:26 AEST 2017
 
 import {Component, OnInit, Input} from "@angular/core";
 import {Observable} from "rxjs";
@@ -15,7 +15,7 @@ import {SurveySummary} from "./../../../../services/surveyDb/types";
 )
 export class SurveySummaryListComponent implements OnInit
 {
-        _SurveySummaryList: Observable<SurveySummary[]>;
+        _SurveySummaryList: SurveySummary[];
         constructor(
             private _addSurvey: EditSurveyProvider
         )
@@ -27,11 +27,11 @@ export class SurveySummaryListComponent implements OnInit
         }
 
         @Input()
-        set SurveySummaryList(value: Observable<SurveySummary[]>)
+        set SurveySummaryList(value: SurveySummary[])
         {
             this._SurveySummaryList = value;
         }
-        get SurveySummaryList(): Observable<SurveySummary[]>
+        get SurveySummaryList(): SurveySummary[]
         {
             return this._SurveySummaryList;
         }

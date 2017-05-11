@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun May 07 13:59:00 AEST 2017
+// Generated on Mon May 08 11:01:26 AEST 2017
 
 import {SurveyPoint} from "./../../types";
 
@@ -41,8 +41,8 @@ export class SurveyPointSubjectProvider
         {
             this._summary = new BehaviorSubject<SurveyPoint[]>([]);
             this.beginUpdateSubscription();
+            this.update();
         }
-        this.update();
         return this._summary.asObservable();
     }
 
@@ -59,9 +59,9 @@ export class SurveyPointSubjectProvider
             {
                 this._SurveyPointSummaries.set(key, new BehaviorSubject<SurveyPoint>(null));
                 this.beginUpdateSubscription();
+                this.update();
             }
 
-            this.update();
             return this._SurveyPointSummaries.get(key).asObservable();
         }
         throw new Error("No SurveyPoint current context is provided");
@@ -97,7 +97,11 @@ export class SurveyPointSubjectProvider
         {
             this._SurveyPointHttp.loadAllFromDatabase()
                 .subscribe(
-                    result => this._summary.next(result)
+
+                    result => {
+                        console.log("Survey Point incoming...");
+                        this._summary.next(result)
+                    }
                 );
         }
     }
@@ -112,7 +116,12 @@ export class SurveyPointSubjectProvider
         if(!this._accessSubscription)
         {
             this._accessSubscription = this._SurveyPointService.updateSubject.subscribe(
-                (next) => this.update()
+                (next) => {
+                    if(next)
+                    {
+                        this.update();
+                    }
+                }
             );
         }
     }

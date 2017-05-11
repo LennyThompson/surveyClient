@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun May 07 13:59:00 AEST 2017
+// Generated on Mon May 08 11:01:26 AEST 2017
 
 import {SurveySummary} from "./../../types";
 
@@ -37,8 +37,8 @@ export class SurveySummarySubjectProvider
         {
             this._summary = new BehaviorSubject<SurveySummary[]>([]);
             this.beginUpdateSubscription();
+            this.update();
         }
-        this.update();
         return this._summary.asObservable();
     }
 
@@ -88,9 +88,9 @@ export class SurveySummarySubjectProvider
     {
         if(!this._accessSubscription)
         {
-            this._accessSubscription = this._SurveySummaryService.updateSubject.subscribe(
-                (next) => this.update()
-            );
+            // this._accessSubscription = this._SurveySummaryService.updateSubject.subscribe(
+            //     (next) => this.update()
+            // );
         }
     }
 }

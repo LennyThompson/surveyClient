@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun May 07 13:58:59 AEST 2017
+// Generated on Mon May 08 11:01:26 AEST 2017
 
 import {Component, OnInit, Input} from "@angular/core";
 
@@ -40,10 +40,6 @@ export class TraverseComponent implements OnInit
 
     get traverseSummary(): Observable<TraverseMeasurementSummary>
     {
-        if(this._Traverse && this._Traverse.ID > 0)
-        {
-            return this._TarvserMeasurementSummary.getTraverseMeasurementSummarySummary();
-        }
-        return new Observable<TraverseMeasurementSummary>(null);
+        return this._TarvserMeasurementSummary.getTraverseMeasurementSummarySummary();
     }
 }

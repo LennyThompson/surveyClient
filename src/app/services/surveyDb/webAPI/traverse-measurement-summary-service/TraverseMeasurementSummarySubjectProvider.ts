@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Sun May 07 13:59:00 AEST 2017
+// Generated on Mon May 08 11:01:26 AEST 2017
 
 import {TraverseMeasurementSummary} from "./../../types";
 
@@ -57,8 +57,8 @@ export class TraverseMeasurementSummarySubjectProvider
         {
             this._summary = new BehaviorSubject<TraverseMeasurementSummary[]>([]);
             this.beginUpdateSubscription();
+            this.update();
         }
-        this.update();
         return this._summary.asObservable();
     }
 
@@ -74,9 +74,9 @@ export class TraverseMeasurementSummarySubjectProvider
             if(!this._TraverseSummary.has(key))
             {
                 this._TraverseSummary.set(key, new BehaviorSubject<TraverseMeasurementSummary>(null));
+                this.update();
             }
 
-            this.update();
             return this._TraverseSummary.get(key).asObservable();
         }
         throw new Error("No Traverse current context is provided");
@@ -148,9 +148,9 @@ export class TraverseMeasurementSummarySubjectProvider
     {
         if(!this._accessSubscription)
         {
-            this._accessSubscription = this._TraverseMeasurementSummaryService.updateSubject.subscribe(
-                (next) => this.update()
-            );
+            // this._accessSubscription = this._TraverseMeasurementSummaryService.updateSubject.subscribe(
+            //     (next) => this.update()
+            // );
         }
     }
 }
