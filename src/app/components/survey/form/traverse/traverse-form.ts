@@ -1,12 +1,13 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Component, OnInit, Input} from "@angular/core";
 
 import {Traverse} from "./../../../../services/surveyDb/types";
-import {TraverseMeasurementSummary} from "../../../../services/surveyDb/types/TraverseMeasurementSummary";
-import {Observable} from "rxjs";
-import {TraverseMeasurementSummarySubjectProvider} from "../../../../services/surveyDb/webAPI/traverse-measurement-summary-service/TraverseMeasurementSummarySubjectProvider";
+import { Observable } from "rxjs/Rx";
+import { TraverseMeasurementSummary } from "./../../../../services/surveyDb/types";
+import { CurrentTraverseProvider, TraverseMeasurementSummarySubjectProvider } from "./../../../../services/surveyDb/webAPI";
+
 
 @Component (
     {
@@ -18,7 +19,13 @@ import {TraverseMeasurementSummarySubjectProvider} from "../../../../services/su
 export class TraverseComponent implements OnInit
 {
     private _Traverse: Traverse;
-    constructor(private _TarvserMeasurementSummary: TraverseMeasurementSummarySubjectProvider)
+    constructor
+    (
+        private _currentTraverse: CurrentTraverseProvider
+        , private _TraverseMeasurementSummary: TraverseMeasurementSummarySubjectProvider
+
+
+    )
     {
         this._Traverse = new Traverse();
     }
@@ -38,8 +45,11 @@ export class TraverseComponent implements OnInit
         return this._Traverse;
     }
 
-    get traverseSummary(): Observable<TraverseMeasurementSummary>
+    public get TraverseMeasurementSummary(): Observable<TraverseMeasurementSummary>
     {
-        return this._TarvserMeasurementSummary.getTraverseMeasurementSummarySummary();
+        this._currentTraverse.Traverse = this.Traverse;
+        return this._TraverseMeasurementSummary.getTraverseMeasurementSummarySummary();
     }
+
+
 }

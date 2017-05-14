@@ -1,8 +1,7 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Component, OnInit, Input} from "@angular/core";
-import {Observable} from "rxjs";
 import {EditSurveyPointProvider} from "../../edit-providers/survey-point/SurveyPoint";
 import {SurveyPointSummary} from "./../../../../services/surveyDb/types";
 
@@ -15,7 +14,7 @@ import {SurveyPointSummary} from "./../../../../services/surveyDb/types";
 )
 export class SurveyPointSummaryListComponent implements OnInit
 {
-        _SurveyPointSummary: Observable<SurveyPointSummary>;
+        _SurveyPointSummary: SurveyPointSummary;
         constructor(
             private _addSurveyPoint: EditSurveyPointProvider
         )
@@ -27,13 +26,18 @@ export class SurveyPointSummaryListComponent implements OnInit
         }
 
         @Input()
-        set SurveyPointSummary(value: Observable<SurveyPointSummary>)
+        set SurveyPointSummary(value: SurveyPointSummary)
         {
             this._SurveyPointSummary = value;
         }
-        get SurveyPointSummary(): Observable<SurveyPointSummary>
+        get SurveyPointSummary(): SurveyPointSummary
         {
             return this._SurveyPointSummary;
+        }
+
+        get hasValidList(): boolean
+        {
+            return this.SurveyPointSummary !== undefined && this.SurveyPointSummary !== null;
         }
 
         onAddSurveyPoint()

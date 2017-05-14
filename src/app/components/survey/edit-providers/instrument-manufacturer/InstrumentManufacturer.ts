@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 // Declare injectable provider for editing a form provider type
 import {Injectable} from "@angular/core";
@@ -35,7 +35,7 @@ export class EditInstrumentManufacturerProvider
             .subscribe(
                 (result) =>
                 {
-                    if(result)
+                    if (result)
                     {
                         console.log(JSON.stringify(result));
                         this._InstrumentManufacturerHttp.updateToDatabase(result)
@@ -62,11 +62,11 @@ export class EditInstrumentManufacturerProvider
             .subscribe(
                 (result) =>
                 {
-                    if(result)
+                    if (result)
                     {
                         let bSaved: boolean = false;
                         console.log(JSON.stringify(result));
-                        if(!bSaved)
+                        if (!bSaved)
                         {
                             this._InstrumentManufacturerHttp.saveToDatabase(result)
                                 .subscribe(

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {InstrumentManufacturer} from "./../../types";
 

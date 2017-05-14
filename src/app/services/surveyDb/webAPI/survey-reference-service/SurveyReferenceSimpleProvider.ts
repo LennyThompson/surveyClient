@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {SurveyReference} from "./../../types";
@@ -14,7 +14,7 @@ export class CurrentSurveyReferenceProvider
 
     public get SurveyReference(): SurveyReference
     {
-        if(!this._SurveyReference && this._ID <= 0)
+        if (!this._SurveyReference && this._ID <= 0)
         {
             this._SurveyReference = new SurveyReference();
         }
@@ -29,7 +29,7 @@ export class CurrentSurveyReferenceProvider
 
     public get SurveyReference_ID(): number
     {
-        if(this.SurveyReference)
+        if (this.SurveyReference)
         {
             return this.SurveyReference.ID;
         }
@@ -43,7 +43,7 @@ export class CurrentSurveyReferenceProvider
 
     public reset()
     {
-        if(this.SurveyReference)
+        if (this.SurveyReference)
         {
             this._SurveyReference = null;
         }
@@ -65,7 +65,7 @@ export class CurrentSurveyReferenceListProvider
 
     get SurveyReferences(): SurveyReference[]
     {
-        if(!this.m_listSurveyReference)
+        if (!this.m_listSurveyReference)
         {
             this.m_listSurveyReference = new Array<SurveyReference>();
         }

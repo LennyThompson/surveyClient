@@ -1,8 +1,7 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Component, OnInit, Input} from "@angular/core";
-import {Observable} from "rxjs";
 import {EditSurveyProvider} from "../../edit-providers/survey/Survey";
 import {SurveySummary} from "./../../../../services/surveyDb/types";
 
@@ -34,6 +33,11 @@ export class SurveySummaryListComponent implements OnInit
         get SurveySummaryList(): SurveySummary[]
         {
             return this._SurveySummaryList;
+        }
+
+        get hasValidList(): boolean
+        {
+            return this.SurveySummaryList !== undefined && this.SurveySummaryList !== null;
         }
 
         onAddSurvey()

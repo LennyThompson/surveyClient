@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {SurveyMeasurement} from "./../../types";
@@ -14,7 +14,7 @@ export class CurrentSurveyMeasurementProvider
 
     public get SurveyMeasurement(): SurveyMeasurement
     {
-        if(!this._SurveyMeasurement && this._ID <= 0)
+        if (!this._SurveyMeasurement && this._ID <= 0)
         {
             this._SurveyMeasurement = new SurveyMeasurement();
         }
@@ -29,7 +29,7 @@ export class CurrentSurveyMeasurementProvider
 
     public get SurveyMeasurement_ID(): number
     {
-        if(this.SurveyMeasurement)
+        if (this.SurveyMeasurement)
         {
             return this.SurveyMeasurement.ID;
         }
@@ -43,7 +43,7 @@ export class CurrentSurveyMeasurementProvider
 
     public reset()
     {
-        if(this.SurveyMeasurement)
+        if (this.SurveyMeasurement)
         {
             this._SurveyMeasurement = null;
         }
@@ -65,7 +65,7 @@ export class CurrentSurveyMeasurementListProvider
 
     get SurveyMeasurements(): SurveyMeasurement[]
     {
-        if(!this.m_listSurveyMeasurement)
+        if (!this.m_listSurveyMeasurement)
         {
             this.m_listSurveyMeasurement = new Array<SurveyMeasurement>();
         }

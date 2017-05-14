@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {SurveyPointType} from "./../../types";
 
@@ -10,7 +10,7 @@ import { SurveyPointTypeServiceHttp } from "./SurveyPointTypeServiceHttp";
 import { SurveyPointSummarySubjectProvider } from "./../survey-point-summary-service/SurveyPointSummarySubjectProvider";
 import { SurveySummarySubjectProvider } from "./../survey-summary-service/SurveySummarySubjectProvider";
 
-import { CurrentSurveyPointTypeProvider }from "./../survey-point-type-service/SurveyPointTypeSimpleProvider";
+import { CurrentSurveyPointTypeProvider } from "./../survey-point-type-service/SurveyPointTypeSimpleProvider";
 
 
 
@@ -33,31 +33,31 @@ export class SurveyPointTypeSubjectProvider
 
     getSurveyPointTypeSummaries(): Observable<SurveyPointType[]>
     {
-        if(!this._summary)
+        if (!this._summary)
         {
             this._summary = new BehaviorSubject<SurveyPointType[]>([]);
             this.beginUpdateSubscription();
+            this.update();
         }
-        this.update();
         return this._summary.asObservable();
     }
 
     getSurveyPointTypeSummary(): Observable<SurveyPointType>
     {
-        if(this._SurveyPointTypeCurrent.SurveyPointType)
+        if (this._SurveyPointTypeCurrent.SurveyPointType)
         {
             let key: number = this._SurveyPointTypeCurrent.SurveyPointType.ID;
-            if(!this._SurveyPointTypeSummaries)
+            if (!this._SurveyPointTypeSummaries)
             {
                 this._SurveyPointTypeSummaries = new Map<number, BehaviorSubject<SurveyPointType>>();
             }
-            if(!this._SurveyPointTypeSummaries.has(key))
+            if (!this._SurveyPointTypeSummaries.has(key))
             {
                 this._SurveyPointTypeSummaries.set(key, new BehaviorSubject<SurveyPointType>(null));
                 this.beginUpdateSubscription();
+                this.update();
             }
 
-            this.update();
             return this._SurveyPointTypeSummaries.get(key).asObservable();
         }
         throw new Error("No SurveyPointType current context is provided");
@@ -89,7 +89,7 @@ export class SurveyPointTypeSubjectProvider
                     result => this._SurveyPointTypeSummaries.get(ID).next(result)
                 );
         }
-        if(this._summary)
+        if (this._summary)
         {
             this._SurveyPointTypeHttp.loadAllFromDatabase()
                 .subscribe(
@@ -105,7 +105,7 @@ export class SurveyPointTypeSubjectProvider
 
     private beginUpdateSubscription()
     {
-        if(!this._accessSubscription)
+        if (!this._accessSubscription)
         {
             this._accessSubscription = this._SurveyPointTypeService.updateSubject.subscribe(
                 (next) => this.update()

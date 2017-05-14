@@ -1,11 +1,11 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
-import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional} from "@angular/core";
+import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional, OnInit, OnDestroy } from "@angular/core";
 import {MdSelect, MdOption} from "@angular/material";
 import {ElementBase} from "./../../utils/element-base";
 import {NG_ASYNC_VALIDATORS, NG_VALIDATORS, NgModel, NG_VALUE_ACCESSOR} from "@angular/forms";
-import { Observable } from "rxjs/Rx";
+import { Observable, Subscription } from "rxjs/Rx";
 
 import {Survey} from "./../../../../services/surveyDb/types";
 import {SurveySubjectProvider} from "./../../../../services/surveyDb/webAPI";
@@ -28,9 +28,11 @@ import * as lodash from "lodash";
 
     }
 )
-export class SurveySelectComponent extends ElementBase<Survey>
+export class SurveySelectComponent extends ElementBase<Survey> implements OnInit, OnDestroy
 {
-    protected _listSurvey: Observable<Survey[]>;
+    protected _listSurvey: Survey[] = [];
+    protected _listSubscribe: Subscription;
+    protected _initialSelectComplete: boolean;
     @ViewChild(MdSelect) select: MdSelect;
     @ViewChildren(MdOption) options: QueryList<MdOption>;
 
@@ -46,32 +48,71 @@ export class SurveySelectComponent extends ElementBase<Survey>
     )
     {
         super(validators, asyncValidators);
-        this._listSurvey = this._serviceSurvey.getSurveySummaries();
     }
 
-    get Survey(): Observable<Survey[]>
+    get Survey(): Survey[]
     {
         return this._listSurvey;
     }
 
-    updateValue()
+    public ngOnInit(): void
     {
-        if(this._listSurvey && this._currentSurvey)
+        if(!this._listSubscribe)
         {
-            let subscriber = this._listSurvey.subscribe(
-                (list) => {
-                    let currentType = lodash(list).find(type => type.ID === this._currentSurvey.ID).value();
-                    super.writeValue(currentType);
-                    //subscriber.unsubscribe();
-                }
-            );
+            const summaries = this._serviceSurvey.getSurveySummaries();
+            this._listSubscribe = summaries
+                .takeUntil(summaries.filter(list => this._listSurvey.length > 0))
+                .subscribe(
+                    list =>
+                    {
+                        this._listSurvey = list;
+                        console.log("Survey list is ready...", list.length);
+                        this.updateSelectedValue();
+                    }
+                );
         }
     }
 
-    writeValue(value: Survey)
+    public ngOnDestroy(): void
     {
-        this._currentSurvey = value;
-        this.updateValue();
+        if (this._listSubscribe)
+        {
+            this._listSubscribe.unsubscribe();
+        }
+    }
+
+    writeValue(value: Survey): void
+    {
+        super.writeValue(value);
+        console.log("Survey select model is ready...");
+        this.updateSelectedValue();
+    }
+
+    private isSelectedOption(item: Survey): boolean
+    {
+        return this.value ? this.value.ID === item.ID : false;
+    }
+
+    private updateSelectedValue(): boolean
+    {
+        if
+        (
+            !this._initialSelectComplete
+            &&
+            this._listSurvey
+            &&
+            this._listSurvey.length
+            &&
+            this.value
+        )
+        {
+            const currentType = lodash(this._listSurvey).filter(item => this.isSelectedOption(item)).first();
+            console.log("Survey selection is ready...", currentType);
+            super.writeValue(currentType);
+            this._initialSelectComplete = true;
+            return true;
+        }
+        return false;
     }
 
 }

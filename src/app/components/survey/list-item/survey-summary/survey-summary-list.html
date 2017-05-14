@@ -1,5 +1,5 @@
 <!-- ****THIS IS A CODE GENERATED FILE DO NOT EDIT**** -->
-<!-- Generated on Mon May 08 11:01:26 AEST 2017 -->
+<!-- Generated on Sun May 14 18:02:31 AEST 2017 -->
 <div fxLayout="column">
     <div class="survey-summary-list-header" fxLayout="row">
         <div fxFlex="5%" ></div>
@@ -11,12 +11,14 @@
 
         <div class="survey-summary-header-info" fxFlex="20%" >Actions</div>
     </div>
-    <survey-summary
-        *ngFor="let item of SurveySummaryList; let odd=odd; let even=even; let index=index"
-        [SurveySummary]="item"
-        [ngClass]="{odd: odd, even: even, first: index===0 }"
-        >
-    </survey-summary>
+    <div *ngIf="hasValidList">
+        <survey-summary
+            *ngFor="let item of SurveySummaryList; let odd=odd; let even=even; let index=index"
+            [SurveySummary]="item"
+            [ngClass]="{odd: odd, even: even, first: index===0 }"
+            >
+        </survey-summary>
+    </div>
     <div class="flex-item survey-summary-list-actions" fxFlex="30%" >
         <i class="icon-plus" (click)="onAddSurvey()"></i>
     </div>

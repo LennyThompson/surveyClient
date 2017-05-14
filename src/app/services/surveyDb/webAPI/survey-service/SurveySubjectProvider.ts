@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Survey} from "./../../types";
 
@@ -10,7 +10,7 @@ import { SurveyServiceHttp } from "./SurveyServiceHttp";
 import { SurveyPointSummarySubjectProvider } from "./../survey-point-summary-service/SurveyPointSummarySubjectProvider";
 import { SurveySummarySubjectProvider } from "./../survey-summary-service/SurveySummarySubjectProvider";
 
-import { CurrentSurveyProvider }from "./../survey-service/SurveySimpleProvider";
+import { CurrentSurveyProvider } from "./../survey-service/SurveySimpleProvider";
 
 
 
@@ -33,31 +33,31 @@ export class SurveySubjectProvider
 
     getSurveySummaries(): Observable<Survey[]>
     {
-        if(!this._summary)
+        if (!this._summary)
         {
             this._summary = new BehaviorSubject<Survey[]>([]);
             this.beginUpdateSubscription();
+            this.update();
         }
-        this.update();
         return this._summary.asObservable();
     }
 
     getSurveySummary(): Observable<Survey>
     {
-        if(this._SurveyCurrent.Survey)
+        if (this._SurveyCurrent.Survey)
         {
             let key: number = this._SurveyCurrent.Survey.ID;
-            if(!this._SurveySummaries)
+            if (!this._SurveySummaries)
             {
                 this._SurveySummaries = new Map<number, BehaviorSubject<Survey>>();
             }
-            if(!this._SurveySummaries.has(key))
+            if (!this._SurveySummaries.has(key))
             {
                 this._SurveySummaries.set(key, new BehaviorSubject<Survey>(null));
                 this.beginUpdateSubscription();
+                this.update();
             }
 
-            this.update();
             return this._SurveySummaries.get(key).asObservable();
         }
         throw new Error("No Survey current context is provided");
@@ -89,7 +89,7 @@ export class SurveySubjectProvider
                     result => this._SurveySummaries.get(ID).next(result)
                 );
         }
-        if(this._summary)
+        if (this._summary)
         {
             this._SurveyHttp.loadAllFromDatabase()
                 .subscribe(
@@ -105,7 +105,7 @@ export class SurveySubjectProvider
 
     private beginUpdateSubscription()
     {
-        if(!this._accessSubscription)
+        if (!this._accessSubscription)
         {
             this._accessSubscription = this._SurveyService.updateSubject.subscribe(
                 (next) => this.update()

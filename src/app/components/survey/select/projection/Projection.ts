@@ -1,11 +1,11 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
-import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional} from "@angular/core";
+import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional, OnInit, OnDestroy } from "@angular/core";
 import {MdSelect, MdOption} from "@angular/material";
 import {ElementBase} from "./../../utils/element-base";
 import {NG_ASYNC_VALIDATORS, NG_VALIDATORS, NgModel, NG_VALUE_ACCESSOR} from "@angular/forms";
-import { Observable } from "rxjs/Rx";
+import { Observable, Subscription } from "rxjs/Rx";
 
 import {Projection} from "./../../../../services/surveyDb/types";
 import {ProjectionSubjectProvider} from "./../../../../services/surveyDb/webAPI";
@@ -28,9 +28,11 @@ import * as lodash from "lodash";
 
     }
 )
-export class ProjectionSelectComponent extends ElementBase<Projection>
+export class ProjectionSelectComponent extends ElementBase<Projection> implements OnInit, OnDestroy
 {
-    protected _listProjection: Observable<Projection[]>;
+    protected _listProjection: Projection[] = [];
+    protected _listSubscribe: Subscription;
+    protected _initialSelectComplete: boolean;
     @ViewChild(MdSelect) select: MdSelect;
     @ViewChildren(MdOption) options: QueryList<MdOption>;
 
@@ -48,32 +50,71 @@ export class ProjectionSelectComponent extends ElementBase<Projection>
     )
     {
         super(validators, asyncValidators);
-        this._listProjection = this._serviceProjection.getProjectionSummaries();
     }
 
-    get Projection(): Observable<Projection[]>
+    get Projection(): Projection[]
     {
         return this._listProjection;
     }
 
-    updateValue()
+    public ngOnInit(): void
     {
-        if(this._listProjection && this._currentProjection)
+        if(!this._listSubscribe)
         {
-            let subscriber = this._listProjection.subscribe(
-                (list) => {
-                    let currentType = lodash(list).find(type => type.ID === this._currentProjection.ID).value();
-                    super.writeValue(currentType);
-                    //subscriber.unsubscribe();
-                }
-            );
+            const summaries = this._serviceProjection.getProjectionSummaries();
+            this._listSubscribe = summaries
+                .takeUntil(summaries.filter(list => this._listProjection.length > 0))
+                .subscribe(
+                    list =>
+                    {
+                        this._listProjection = list;
+                        console.log("Projection list is ready...", list.length);
+                        this.updateSelectedValue();
+                    }
+                );
         }
     }
 
-    writeValue(value: Projection)
+    public ngOnDestroy(): void
     {
-        this._currentProjection = value;
-        this.updateValue();
+        if (this._listSubscribe)
+        {
+            this._listSubscribe.unsubscribe();
+        }
+    }
+
+    writeValue(value: Projection): void
+    {
+        super.writeValue(value);
+        console.log("Projection select model is ready...");
+        this.updateSelectedValue();
+    }
+
+    private isSelectedOption(item: Projection): boolean
+    {
+        return this.value ? this.value.ID === item.ID : false;
+    }
+
+    private updateSelectedValue(): boolean
+    {
+        if
+        (
+            !this._initialSelectComplete
+            &&
+            this._listProjection
+            &&
+            this._listProjection.length
+            &&
+            this.value
+        )
+        {
+            const currentType = lodash(this._listProjection).filter(item => this.isSelectedOption(item)).first();
+            console.log("Projection selection is ready...", currentType);
+            super.writeValue(currentType);
+            this._initialSelectComplete = true;
+            return true;
+        }
+        return false;
     }
 
     private onAddNewProjection()

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Component, OnInit, Input} from "@angular/core";
 
@@ -15,7 +15,9 @@ import {SurveyImage} from "./../../../../services/surveyDb/types";
 export class SurveyImageComponent implements OnInit
 {
     private _SurveyImage: SurveyImage;
-    constructor()
+    constructor
+    (
+    )
     {
         this._SurveyImage = new SurveyImage();
     }
@@ -34,4 +36,5 @@ export class SurveyImageComponent implements OnInit
     {
         return this._SurveyImage;
     }
+
 }

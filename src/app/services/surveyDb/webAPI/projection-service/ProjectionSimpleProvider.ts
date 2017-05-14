@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {Projection} from "./../../types";
@@ -14,7 +14,7 @@ export class CurrentProjectionProvider
 
     public get Projection(): Projection
     {
-        if(!this._Projection && this._ID <= 0)
+        if (!this._Projection && this._ID <= 0)
         {
             this._Projection = new Projection();
         }
@@ -29,7 +29,7 @@ export class CurrentProjectionProvider
 
     public get Projection_ID(): number
     {
-        if(this.Projection)
+        if (this.Projection)
         {
             return this.Projection.ID;
         }
@@ -43,7 +43,7 @@ export class CurrentProjectionProvider
 
     public reset()
     {
-        if(this.Projection)
+        if (this.Projection)
         {
             this._Projection = null;
         }
@@ -65,7 +65,7 @@ export class CurrentProjectionListProvider
 
     get Projections(): Projection[]
     {
-        if(!this.m_listProjection)
+        if (!this.m_listProjection)
         {
             this.m_listProjection = new Array<Projection>();
         }

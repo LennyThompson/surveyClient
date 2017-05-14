@@ -1,11 +1,11 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
-import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional} from "@angular/core";
+import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional, OnInit, OnDestroy } from "@angular/core";
 import {MdSelect, MdOption} from "@angular/material";
 import {ElementBase} from "./../../utils/element-base";
 import {NG_ASYNC_VALIDATORS, NG_VALIDATORS, NgModel, NG_VALUE_ACCESSOR} from "@angular/forms";
-import { Observable } from "rxjs/Rx";
+import { Observable, Subscription } from "rxjs/Rx";
 
 import {SurveyReference} from "./../../../../services/surveyDb/types";
 import {SurveyReferenceSubjectProvider} from "./../../../../services/surveyDb/webAPI";
@@ -28,9 +28,11 @@ import * as lodash from "lodash";
 
     }
 )
-export class SurveyReferenceSelectComponent extends ElementBase<SurveyReference>
+export class SurveyReferenceSelectComponent extends ElementBase<SurveyReference> implements OnInit, OnDestroy
 {
-    protected _listSurveyReference: Observable<SurveyReference[]>;
+    protected _listSurveyReference: SurveyReference[] = [];
+    protected _listSubscribe: Subscription;
+    protected _initialSelectComplete: boolean;
     @ViewChild(MdSelect) select: MdSelect;
     @ViewChildren(MdOption) options: QueryList<MdOption>;
 
@@ -48,32 +50,71 @@ export class SurveyReferenceSelectComponent extends ElementBase<SurveyReference>
     )
     {
         super(validators, asyncValidators);
-        this._listSurveyReference = this._serviceSurveyReference.getSurveyReferenceSummaries();
     }
 
-    get SurveyReference(): Observable<SurveyReference[]>
+    get SurveyReference(): SurveyReference[]
     {
         return this._listSurveyReference;
     }
 
-    updateValue()
+    public ngOnInit(): void
     {
-        if(this._listSurveyReference && this._currentSurveyReference)
+        if(!this._listSubscribe)
         {
-            let subscriber = this._listSurveyReference.subscribe(
-                (list) => {
-                    let currentType = lodash(list).find(type => type.ID === this._currentSurveyReference.ID).value();
-                    super.writeValue(currentType);
-                    //subscriber.unsubscribe();
-                }
-            );
+            const summaries = this._serviceSurveyReference.getSurveyReferenceSummaries();
+            this._listSubscribe = summaries
+                .takeUntil(summaries.filter(list => this._listSurveyReference.length > 0))
+                .subscribe(
+                    list =>
+                    {
+                        this._listSurveyReference = list;
+                        console.log("SurveyReference list is ready...", list.length);
+                        this.updateSelectedValue();
+                    }
+                );
         }
     }
 
-    writeValue(value: SurveyReference)
+    public ngOnDestroy(): void
     {
-        this._currentSurveyReference = value;
-        this.updateValue();
+        if (this._listSubscribe)
+        {
+            this._listSubscribe.unsubscribe();
+        }
+    }
+
+    writeValue(value: SurveyReference): void
+    {
+        super.writeValue(value);
+        console.log("SurveyReference select model is ready...");
+        this.updateSelectedValue();
+    }
+
+    private isSelectedOption(item: SurveyReference): boolean
+    {
+        return this.value ? this.value.ID === item.ID : false;
+    }
+
+    private updateSelectedValue(): boolean
+    {
+        if
+        (
+            !this._initialSelectComplete
+            &&
+            this._listSurveyReference
+            &&
+            this._listSurveyReference.length
+            &&
+            this.value
+        )
+        {
+            const currentType = lodash(this._listSurveyReference).filter(item => this.isSelectedOption(item)).first();
+            console.log("SurveyReference selection is ready...", currentType);
+            super.writeValue(currentType);
+            this._initialSelectComplete = true;
+            return true;
+        }
+        return false;
     }
 
     private onAddNewSurveyReference()

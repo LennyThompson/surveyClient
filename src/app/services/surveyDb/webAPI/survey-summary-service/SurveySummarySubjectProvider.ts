@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {SurveySummary} from "./../../types";
 
@@ -33,7 +33,7 @@ export class SurveySummarySubjectProvider
 
     getSurveySummarySummaries(): Observable<SurveySummary[]>
     {
-        if(!this._summary)
+        if (!this._summary)
         {
             this._summary = new BehaviorSubject<SurveySummary[]>([]);
             this.beginUpdateSubscription();
@@ -44,7 +44,7 @@ export class SurveySummarySubjectProvider
 
     update()
     {
-        if(this._summary)
+        if (this._summary)
         {
             this._SurveySummaryHttp.loadAllFromDatabase()
                 .subscribe(
@@ -86,11 +86,11 @@ export class SurveySummarySubjectProvider
 
     private beginUpdateSubscription()
     {
-        if(!this._accessSubscription)
+        if (!this._accessSubscription)
         {
-            // this._accessSubscription = this._SurveySummaryService.updateSubject.subscribe(
-            //     (next) => this.update()
-            // );
+            this._accessSubscription = this._SurveySummaryService.updateSubject.subscribe(
+                (next) => this.update()
+            );
         }
     }
 }

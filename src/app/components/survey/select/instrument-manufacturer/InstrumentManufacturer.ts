@@ -1,11 +1,11 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
-import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional} from "@angular/core";
+import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional, OnInit, OnDestroy } from "@angular/core";
 import {MdSelect, MdOption} from "@angular/material";
 import {ElementBase} from "./../../utils/element-base";
 import {NG_ASYNC_VALIDATORS, NG_VALIDATORS, NgModel, NG_VALUE_ACCESSOR} from "@angular/forms";
-import { Observable } from "rxjs/Rx";
+import { Observable, Subscription } from "rxjs/Rx";
 
 import {InstrumentManufacturer} from "./../../../../services/surveyDb/types";
 import {InstrumentManufacturerSubjectProvider} from "./../../../../services/surveyDb/webAPI";
@@ -28,9 +28,11 @@ import * as lodash from "lodash";
 
     }
 )
-export class InstrumentManufacturerSelectComponent extends ElementBase<InstrumentManufacturer>
+export class InstrumentManufacturerSelectComponent extends ElementBase<InstrumentManufacturer> implements OnInit, OnDestroy
 {
-    protected _listInstrumentManufacturer: Observable<InstrumentManufacturer[]>;
+    protected _listInstrumentManufacturer: InstrumentManufacturer[] = [];
+    protected _listSubscribe: Subscription;
+    protected _initialSelectComplete: boolean;
     @ViewChild(MdSelect) select: MdSelect;
     @ViewChildren(MdOption) options: QueryList<MdOption>;
 
@@ -48,32 +50,71 @@ export class InstrumentManufacturerSelectComponent extends ElementBase<Instrumen
     )
     {
         super(validators, asyncValidators);
-        this._listInstrumentManufacturer = this._serviceInstrumentManufacturer.getInstrumentManufacturerSummaries();
     }
 
-    get InstrumentManufacturer(): Observable<InstrumentManufacturer[]>
+    get InstrumentManufacturer(): InstrumentManufacturer[]
     {
         return this._listInstrumentManufacturer;
     }
 
-    updateValue()
+    public ngOnInit(): void
     {
-        if(this._listInstrumentManufacturer && this._currentInstrumentManufacturer)
+        if(!this._listSubscribe)
         {
-            let subscriber = this._listInstrumentManufacturer.subscribe(
-                (list) => {
-                    let currentType = lodash(list).find(type => type.ID === this._currentInstrumentManufacturer.ID).value();
-                    super.writeValue(currentType);
-                    //subscriber.unsubscribe();
-                }
-            );
+            const summaries = this._serviceInstrumentManufacturer.getInstrumentManufacturerSummaries();
+            this._listSubscribe = summaries
+                .takeUntil(summaries.filter(list => this._listInstrumentManufacturer.length > 0))
+                .subscribe(
+                    list =>
+                    {
+                        this._listInstrumentManufacturer = list;
+                        console.log("InstrumentManufacturer list is ready...", list.length);
+                        this.updateSelectedValue();
+                    }
+                );
         }
     }
 
-    writeValue(value: InstrumentManufacturer)
+    public ngOnDestroy(): void
     {
-        this._currentInstrumentManufacturer = value;
-        this.updateValue();
+        if (this._listSubscribe)
+        {
+            this._listSubscribe.unsubscribe();
+        }
+    }
+
+    writeValue(value: InstrumentManufacturer): void
+    {
+        super.writeValue(value);
+        console.log("InstrumentManufacturer select model is ready...");
+        this.updateSelectedValue();
+    }
+
+    private isSelectedOption(item: InstrumentManufacturer): boolean
+    {
+        return this.value ? this.value.ID === item.ID : false;
+    }
+
+    private updateSelectedValue(): boolean
+    {
+        if
+        (
+            !this._initialSelectComplete
+            &&
+            this._listInstrumentManufacturer
+            &&
+            this._listInstrumentManufacturer.length
+            &&
+            this.value
+        )
+        {
+            const currentType = lodash(this._listInstrumentManufacturer).filter(item => this.isSelectedOption(item)).first();
+            console.log("InstrumentManufacturer selection is ready...", currentType);
+            super.writeValue(currentType);
+            this._initialSelectComplete = true;
+            return true;
+        }
+        return false;
     }
 
     private onAddNewInstrumentManufacturer()

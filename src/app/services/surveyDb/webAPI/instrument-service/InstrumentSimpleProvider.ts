@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {Instrument} from "./../../types";
@@ -14,7 +14,7 @@ export class CurrentInstrumentProvider
 
     public get Instrument(): Instrument
     {
-        if(!this._Instrument && this._ID <= 0)
+        if (!this._Instrument && this._ID <= 0)
         {
             this._Instrument = new Instrument();
         }
@@ -29,7 +29,7 @@ export class CurrentInstrumentProvider
 
     public get Instrument_ID(): number
     {
-        if(this.Instrument)
+        if (this.Instrument)
         {
             return this.Instrument.ID;
         }
@@ -43,7 +43,7 @@ export class CurrentInstrumentProvider
 
     public reset()
     {
-        if(this.Instrument)
+        if (this.Instrument)
         {
             this._Instrument = null;
         }
@@ -65,7 +65,7 @@ export class CurrentInstrumentListProvider
 
     get Instruments(): Instrument[]
     {
-        if(!this.m_listInstrument)
+        if (!this.m_listInstrument)
         {
             this.m_listInstrument = new Array<Instrument>();
         }

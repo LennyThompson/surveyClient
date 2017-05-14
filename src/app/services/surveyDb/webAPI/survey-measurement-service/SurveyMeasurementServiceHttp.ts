@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {SurveyMeasurement} from "./../../types";
 
@@ -61,7 +61,7 @@ export class SurveyMeasurementServiceHttp
         let strPath : string = SurveyMeasurementServiceHttp.buildPath();
         strPath += "/addSurveyMeasurementToTraverse";
         let parentID: number = this._TraverseProvider.Traverse ? this._TraverseProvider.Traverse.ID : this._TraverseProvider.Traverse_ID;
-        if(parentID > 0)
+        if (parentID > 0)
         {
             let strJsonBody : string = "{ \"ID\": " + parentID + ", SurveyMeasurement: " + typeSurveyMeasurement.toJson() + " }";
             let headers = new Headers({ "Content-Type": "application/json" });

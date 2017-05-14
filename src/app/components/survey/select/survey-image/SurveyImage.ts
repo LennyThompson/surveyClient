@@ -1,11 +1,11 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
-import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional} from "@angular/core";
+import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional, OnInit, OnDestroy } from "@angular/core";
 import {MdSelect, MdOption} from "@angular/material";
 import {ElementBase} from "./../../utils/element-base";
 import {NG_ASYNC_VALIDATORS, NG_VALIDATORS, NgModel, NG_VALUE_ACCESSOR} from "@angular/forms";
-import { Observable } from "rxjs/Rx";
+import { Observable, Subscription } from "rxjs/Rx";
 
 import {SurveyImage} from "./../../../../services/surveyDb/types";
 import {SurveyImageSubjectProvider} from "./../../../../services/surveyDb/webAPI";
@@ -28,9 +28,11 @@ import * as lodash from "lodash";
 
     }
 )
-export class SurveyImageSelectComponent extends ElementBase<SurveyImage>
+export class SurveyImageSelectComponent extends ElementBase<SurveyImage> implements OnInit, OnDestroy
 {
-    protected _listSurveyImage: Observable<SurveyImage[]>;
+    protected _listSurveyImage: SurveyImage[] = [];
+    protected _listSubscribe: Subscription;
+    protected _initialSelectComplete: boolean;
     @ViewChild(MdSelect) select: MdSelect;
     @ViewChildren(MdOption) options: QueryList<MdOption>;
 
@@ -48,32 +50,71 @@ export class SurveyImageSelectComponent extends ElementBase<SurveyImage>
     )
     {
         super(validators, asyncValidators);
-        this._listSurveyImage = this._serviceSurveyImage.getSurveyImageSummaries();
     }
 
-    get SurveyImage(): Observable<SurveyImage[]>
+    get SurveyImage(): SurveyImage[]
     {
         return this._listSurveyImage;
     }
 
-    updateValue()
+    public ngOnInit(): void
     {
-        if(this._listSurveyImage && this._currentSurveyImage)
+        if(!this._listSubscribe)
         {
-            let subscriber = this._listSurveyImage.subscribe(
-                (list) => {
-                    let currentType = lodash(list).find(type => type.ID === this._currentSurveyImage.ID).value();
-                    super.writeValue(currentType);
-                    //subscriber.unsubscribe();
-                }
-            );
+            const summaries = this._serviceSurveyImage.getSurveyImageSummaries();
+            this._listSubscribe = summaries
+                .takeUntil(summaries.filter(list => this._listSurveyImage.length > 0))
+                .subscribe(
+                    list =>
+                    {
+                        this._listSurveyImage = list;
+                        console.log("SurveyImage list is ready...", list.length);
+                        this.updateSelectedValue();
+                    }
+                );
         }
     }
 
-    writeValue(value: SurveyImage)
+    public ngOnDestroy(): void
     {
-        this._currentSurveyImage = value;
-        this.updateValue();
+        if (this._listSubscribe)
+        {
+            this._listSubscribe.unsubscribe();
+        }
+    }
+
+    writeValue(value: SurveyImage): void
+    {
+        super.writeValue(value);
+        console.log("SurveyImage select model is ready...");
+        this.updateSelectedValue();
+    }
+
+    private isSelectedOption(item: SurveyImage): boolean
+    {
+        return this.value ? this.value.ID === item.ID : false;
+    }
+
+    private updateSelectedValue(): boolean
+    {
+        if
+        (
+            !this._initialSelectComplete
+            &&
+            this._listSurveyImage
+            &&
+            this._listSurveyImage.length
+            &&
+            this.value
+        )
+        {
+            const currentType = lodash(this._listSurveyImage).filter(item => this.isSelectedOption(item)).first();
+            console.log("SurveyImage selection is ready...", currentType);
+            super.writeValue(currentType);
+            this._initialSelectComplete = true;
+            return true;
+        }
+        return false;
     }
 
     private onAddNewSurveyImage()

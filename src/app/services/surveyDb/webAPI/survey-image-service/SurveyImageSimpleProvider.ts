@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {SurveyImage} from "./../../types";
@@ -14,7 +14,7 @@ export class CurrentSurveyImageProvider
 
     public get SurveyImage(): SurveyImage
     {
-        if(!this._SurveyImage && this._ID <= 0)
+        if (!this._SurveyImage && this._ID <= 0)
         {
             this._SurveyImage = new SurveyImage();
         }
@@ -29,7 +29,7 @@ export class CurrentSurveyImageProvider
 
     public get SurveyImage_ID(): number
     {
-        if(this.SurveyImage)
+        if (this.SurveyImage)
         {
             return this.SurveyImage.ID;
         }
@@ -43,7 +43,7 @@ export class CurrentSurveyImageProvider
 
     public reset()
     {
-        if(this.SurveyImage)
+        if (this.SurveyImage)
         {
             this._SurveyImage = null;
         }
@@ -65,7 +65,7 @@ export class CurrentSurveyImageListProvider
 
     get SurveyImages(): SurveyImage[]
     {
-        if(!this.m_listSurveyImage)
+        if (!this.m_listSurveyImage)
         {
             this.m_listSurveyImage = new Array<SurveyImage>();
         }

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {Traverse} from "./../../types";
@@ -14,7 +14,7 @@ export class CurrentTraverseProvider
 
     public get Traverse(): Traverse
     {
-        if(!this._Traverse && this._ID <= 0)
+        if (!this._Traverse && this._ID <= 0)
         {
             this._Traverse = new Traverse();
         }
@@ -29,7 +29,7 @@ export class CurrentTraverseProvider
 
     public get Traverse_ID(): number
     {
-        if(this.Traverse)
+        if (this.Traverse)
         {
             return this.Traverse.ID;
         }
@@ -43,7 +43,7 @@ export class CurrentTraverseProvider
 
     public reset()
     {
-        if(this.Traverse)
+        if (this.Traverse)
         {
             this._Traverse = null;
         }
@@ -65,7 +65,7 @@ export class CurrentTraverseListProvider
 
     get Traverses(): Traverse[]
     {
-        if(!this.m_listTraverse)
+        if (!this.m_listTraverse)
         {
             this.m_listTraverse = new Array<Traverse>();
         }

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {SurveyMeasurement} from "./../../types";
 
@@ -9,7 +9,7 @@ import { SurveyMeasurementSubjectAccessor } from "./SurveyMeasurementSubjectAcce
 import { SurveyMeasurementServiceHttp } from "./SurveyMeasurementServiceHttp";
 import { TraverseMeasurementSummarySubjectProvider } from "./../traverse-measurement-summary-service/TraverseMeasurementSummarySubjectProvider";
 
-import { CurrentSurveyMeasurementProvider }from "./../survey-measurement-service/SurveyMeasurementSimpleProvider";
+import { CurrentSurveyMeasurementProvider } from "./../survey-measurement-service/SurveyMeasurementSimpleProvider";
 
 import { CurrentTraverseProvider } from "./../traverse-service/TraverseSimpleProvider";
 
@@ -34,31 +34,31 @@ export class SurveyMeasurementSubjectProvider
 
     getSurveyMeasurementSummaries(): Observable<SurveyMeasurement[]>
     {
-        if(!this._summary)
+        if (!this._summary)
         {
             this._summary = new BehaviorSubject<SurveyMeasurement[]>([]);
             this.beginUpdateSubscription();
+            this.update();
         }
-        this.update();
         return this._summary.asObservable();
     }
 
     getSurveyMeasurementSummary(): Observable<SurveyMeasurement>
     {
-        if(this._SurveyMeasurementCurrent.SurveyMeasurement)
+        if (this._SurveyMeasurementCurrent.SurveyMeasurement)
         {
             let key: number = this._SurveyMeasurementCurrent.SurveyMeasurement.ID;
-            if(!this._SurveyMeasurementSummaries)
+            if (!this._SurveyMeasurementSummaries)
             {
                 this._SurveyMeasurementSummaries = new Map<number, BehaviorSubject<SurveyMeasurement>>();
             }
-            if(!this._SurveyMeasurementSummaries.has(key))
+            if (!this._SurveyMeasurementSummaries.has(key))
             {
                 this._SurveyMeasurementSummaries.set(key, new BehaviorSubject<SurveyMeasurement>(null));
                 this.beginUpdateSubscription();
+                this.update();
             }
 
-            this.update();
             return this._SurveyMeasurementSummaries.get(key).asObservable();
         }
         throw new Error("No SurveyMeasurement current context is provided");
@@ -90,7 +90,7 @@ export class SurveyMeasurementSubjectProvider
                     result => this._SurveyMeasurementSummaries.get(ID).next(result)
                 );
         }
-        if(this._summary)
+        if (this._summary)
         {
             this._SurveyMeasurementHttp.loadAllFromDatabase()
                 .subscribe(
@@ -106,7 +106,7 @@ export class SurveyMeasurementSubjectProvider
 
     private beginUpdateSubscription()
     {
-        if(!this._accessSubscription)
+        if (!this._accessSubscription)
         {
             this._accessSubscription = this._SurveyMeasurementService.updateSubject.subscribe(
                 (next) => this.update()

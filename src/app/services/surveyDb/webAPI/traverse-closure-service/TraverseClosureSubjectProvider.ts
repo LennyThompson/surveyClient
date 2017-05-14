@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {TraverseClosure} from "./../../types";
 
@@ -7,7 +7,7 @@ import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
 import { TraverseClosureSubjectAccessor } from "./TraverseClosureSubjectAccessor";
 import { TraverseClosureServiceHttp } from "./TraverseClosureServiceHttp";
-import { CurrentTraverseClosureProvider }from "./../traverse-closure-service/TraverseClosureSimpleProvider";
+import { CurrentTraverseClosureProvider } from "./../traverse-closure-service/TraverseClosureSimpleProvider";
 
 
 
@@ -30,31 +30,31 @@ export class TraverseClosureSubjectProvider
 
     getTraverseClosureSummaries(): Observable<TraverseClosure[]>
     {
-        if(!this._summary)
+        if (!this._summary)
         {
             this._summary = new BehaviorSubject<TraverseClosure[]>([]);
             this.beginUpdateSubscription();
+            this.update();
         }
-        this.update();
         return this._summary.asObservable();
     }
 
     getTraverseClosureSummary(): Observable<TraverseClosure>
     {
-        if(this._TraverseClosureCurrent.TraverseClosure)
+        if (this._TraverseClosureCurrent.TraverseClosure)
         {
             let key: number = this._TraverseClosureCurrent.TraverseClosure.ID;
-            if(!this._TraverseClosureSummaries)
+            if (!this._TraverseClosureSummaries)
             {
                 this._TraverseClosureSummaries = new Map<number, BehaviorSubject<TraverseClosure>>();
             }
-            if(!this._TraverseClosureSummaries.has(key))
+            if (!this._TraverseClosureSummaries.has(key))
             {
                 this._TraverseClosureSummaries.set(key, new BehaviorSubject<TraverseClosure>(null));
                 this.beginUpdateSubscription();
+                this.update();
             }
 
-            this.update();
             return this._TraverseClosureSummaries.get(key).asObservable();
         }
         throw new Error("No TraverseClosure current context is provided");
@@ -86,7 +86,7 @@ export class TraverseClosureSubjectProvider
                     result => this._TraverseClosureSummaries.get(ID).next(result)
                 );
         }
-        if(this._summary)
+        if (this._summary)
         {
             this._TraverseClosureHttp.loadAllFromDatabase()
                 .subscribe(
@@ -102,7 +102,7 @@ export class TraverseClosureSubjectProvider
 
     private beginUpdateSubscription()
     {
-        if(!this._accessSubscription)
+        if (!this._accessSubscription)
         {
             this._accessSubscription = this._TraverseClosureService.updateSubject.subscribe(
                 (next) => this.update()

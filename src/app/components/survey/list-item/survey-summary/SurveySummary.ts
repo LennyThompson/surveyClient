@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Component, OnInit, Input} from "@angular/core";
 
@@ -20,6 +20,7 @@ import {SurveySummary_Trav} from "./../../../../services/surveyDb/types/SurveySu
 export class SurveySummaryListRowComponent implements OnInit
 {
         private _SurveySummary: SurveySummary;
+        private _expanded: boolean = false;
         constructor(
             protected _editProvider: EditSurveyProvider
             , protected _currentProvider: CurrentSurveyProvider
@@ -52,7 +53,6 @@ export class SurveySummaryListRowComponent implements OnInit
             //this._deleteProvider.delete(this.SurveySummary.ID);
         }
 
-        private _expanded: boolean = false;
         get isExpanded(): boolean
         {
             return this._expanded;

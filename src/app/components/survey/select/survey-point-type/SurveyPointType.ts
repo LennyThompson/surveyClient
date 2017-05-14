@@ -1,11 +1,11 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
-import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional} from "@angular/core";
+import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional, OnInit, OnDestroy } from "@angular/core";
 import {MdSelect, MdOption} from "@angular/material";
 import {ElementBase} from "./../../utils/element-base";
 import {NG_ASYNC_VALIDATORS, NG_VALIDATORS, NgModel, NG_VALUE_ACCESSOR} from "@angular/forms";
-import { Observable } from "rxjs/Rx";
+import { Observable, Subscription } from "rxjs/Rx";
 
 import {SurveyPointType} from "./../../../../services/surveyDb/types";
 import {SurveyPointTypeSubjectProvider} from "./../../../../services/surveyDb/webAPI";
@@ -28,9 +28,11 @@ import * as lodash from "lodash";
 
     }
 )
-export class SurveyPointTypeSelectComponent extends ElementBase<SurveyPointType>
+export class SurveyPointTypeSelectComponent extends ElementBase<SurveyPointType> implements OnInit, OnDestroy
 {
-    protected _listSurveyPointType: Observable<SurveyPointType[]>;
+    protected _listSurveyPointType: SurveyPointType[] = [];
+    protected _listSubscribe: Subscription;
+    protected _initialSelectComplete: boolean;
     @ViewChild(MdSelect) select: MdSelect;
     @ViewChildren(MdOption) options: QueryList<MdOption>;
 
@@ -48,32 +50,71 @@ export class SurveyPointTypeSelectComponent extends ElementBase<SurveyPointType>
     )
     {
         super(validators, asyncValidators);
-        this._listSurveyPointType = this._serviceSurveyPointType.getSurveyPointTypeSummaries();
     }
 
-    get SurveyPointType(): Observable<SurveyPointType[]>
+    get SurveyPointType(): SurveyPointType[]
     {
         return this._listSurveyPointType;
     }
 
-    updateValue()
+    public ngOnInit(): void
     {
-        if(this._listSurveyPointType && this._currentSurveyPointType)
+        if(!this._listSubscribe)
         {
-            let subscriber = this._listSurveyPointType.subscribe(
-                (list) => {
-                    let currentType = lodash(list).find(type => type.ID === this._currentSurveyPointType.ID).value();
-                    super.writeValue(currentType);
-                    //subscriber.unsubscribe();
-                }
-            );
+            const summaries = this._serviceSurveyPointType.getSurveyPointTypeSummaries();
+            this._listSubscribe = summaries
+                .takeUntil(summaries.filter(list => this._listSurveyPointType.length > 0))
+                .subscribe(
+                    list =>
+                    {
+                        this._listSurveyPointType = list;
+                        console.log("SurveyPointType list is ready...", list.length);
+                        this.updateSelectedValue();
+                    }
+                );
         }
     }
 
-    writeValue(value: SurveyPointType)
+    public ngOnDestroy(): void
     {
-        this._currentSurveyPointType = value;
-        this.updateValue();
+        if (this._listSubscribe)
+        {
+            this._listSubscribe.unsubscribe();
+        }
+    }
+
+    writeValue(value: SurveyPointType): void
+    {
+        super.writeValue(value);
+        console.log("SurveyPointType select model is ready...");
+        this.updateSelectedValue();
+    }
+
+    private isSelectedOption(item: SurveyPointType): boolean
+    {
+        return this.value ? this.value.ID === item.ID : false;
+    }
+
+    private updateSelectedValue(): boolean
+    {
+        if
+        (
+            !this._initialSelectComplete
+            &&
+            this._listSurveyPointType
+            &&
+            this._listSurveyPointType.length
+            &&
+            this.value
+        )
+        {
+            const currentType = lodash(this._listSurveyPointType).filter(item => this.isSelectedOption(item)).first();
+            console.log("SurveyPointType selection is ready...", currentType);
+            super.writeValue(currentType);
+            this._initialSelectComplete = true;
+            return true;
+        }
+        return false;
     }
 
     private onAddNewSurveyPointType()

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Component, OnInit, Input} from "@angular/core";
 
@@ -15,7 +15,9 @@ import {SurveyMeasurement} from "./../../../../services/surveyDb/types";
 export class SurveyMeasurementComponent implements OnInit
 {
     private _SurveyMeasurement: SurveyMeasurement;
-    constructor()
+    constructor
+    (
+    )
     {
         this._SurveyMeasurement = new SurveyMeasurement();
     }
@@ -34,4 +36,5 @@ export class SurveyMeasurementComponent implements OnInit
     {
         return this._SurveyMeasurement;
     }
+
 }

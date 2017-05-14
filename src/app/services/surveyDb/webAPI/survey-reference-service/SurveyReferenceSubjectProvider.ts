@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {SurveyReference} from "./../../types";
 
@@ -10,7 +10,7 @@ import { SurveyReferenceServiceHttp } from "./SurveyReferenceServiceHttp";
 import { SurveyPointSummarySubjectProvider } from "./../survey-point-summary-service/SurveyPointSummarySubjectProvider";
 import { SurveySummarySubjectProvider } from "./../survey-summary-service/SurveySummarySubjectProvider";
 
-import { CurrentSurveyReferenceProvider }from "./../survey-reference-service/SurveyReferenceSimpleProvider";
+import { CurrentSurveyReferenceProvider } from "./../survey-reference-service/SurveyReferenceSimpleProvider";
 
 
 
@@ -33,31 +33,31 @@ export class SurveyReferenceSubjectProvider
 
     getSurveyReferenceSummaries(): Observable<SurveyReference[]>
     {
-        if(!this._summary)
+        if (!this._summary)
         {
             this._summary = new BehaviorSubject<SurveyReference[]>([]);
             this.beginUpdateSubscription();
+            this.update();
         }
-        this.update();
         return this._summary.asObservable();
     }
 
     getSurveyReferenceSummary(): Observable<SurveyReference>
     {
-        if(this._SurveyReferenceCurrent.SurveyReference)
+        if (this._SurveyReferenceCurrent.SurveyReference)
         {
             let key: number = this._SurveyReferenceCurrent.SurveyReference.ID;
-            if(!this._SurveyReferenceSummaries)
+            if (!this._SurveyReferenceSummaries)
             {
                 this._SurveyReferenceSummaries = new Map<number, BehaviorSubject<SurveyReference>>();
             }
-            if(!this._SurveyReferenceSummaries.has(key))
+            if (!this._SurveyReferenceSummaries.has(key))
             {
                 this._SurveyReferenceSummaries.set(key, new BehaviorSubject<SurveyReference>(null));
                 this.beginUpdateSubscription();
+                this.update();
             }
 
-            this.update();
             return this._SurveyReferenceSummaries.get(key).asObservable();
         }
         throw new Error("No SurveyReference current context is provided");
@@ -89,7 +89,7 @@ export class SurveyReferenceSubjectProvider
                     result => this._SurveyReferenceSummaries.get(ID).next(result)
                 );
         }
-        if(this._summary)
+        if (this._summary)
         {
             this._SurveyReferenceHttp.loadAllFromDatabase()
                 .subscribe(
@@ -105,7 +105,7 @@ export class SurveyReferenceSubjectProvider
 
     private beginUpdateSubscription()
     {
-        if(!this._accessSubscription)
+        if (!this._accessSubscription)
         {
             this._accessSubscription = this._SurveyReferenceService.updateSubject.subscribe(
                 (next) => this.update()

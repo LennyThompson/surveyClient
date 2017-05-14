@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {TraverseMeasurementSummary} from "./../../types";
 
@@ -40,20 +40,20 @@ export class TraverseMeasurementSummarySubjectProvider
          if(this._SurveyCurrent.Survey)
         {
             let key: number = this._SurveyCurrent.Survey_ID;
-            if(!this._SurveySummaries)
+            if (!this._SurveySummaries)
             {
                 this._SurveySummaries = new Map<number, BehaviorSubject<TraverseMeasurementSummary[]>>();
             }
-            if(!this._SurveySummaries.has(key))
+            if (!this._SurveySummaries.has(key))
             {
                 this._SurveySummaries.set(key, new BehaviorSubject<TraverseMeasurementSummary[]>([]));
+                this.update();
             }
-            this.update();
             return this._SurveySummaries.get(key).asObservable();
         }
 
 
-        if(!this._summary)
+        if (!this._summary)
         {
             this._summary = new BehaviorSubject<TraverseMeasurementSummary[]>([]);
             this.beginUpdateSubscription();
@@ -67,11 +67,11 @@ export class TraverseMeasurementSummarySubjectProvider
         if(this._TraverseCurrent.Traverse)
         {
             let key: number = this._TraverseCurrent.Traverse_ID;
-            if(!this._TraverseSummary)
+            if (!this._TraverseSummary)
             {
                 this._TraverseSummary = new Map<number, BehaviorSubject<TraverseMeasurementSummary>>();
             }
-            if(!this._TraverseSummary.has(key))
+            if (!this._TraverseSummary.has(key))
             {
                 this._TraverseSummary.set(key, new BehaviorSubject<TraverseMeasurementSummary>(null));
                 this.update();
@@ -116,7 +116,7 @@ export class TraverseMeasurementSummarySubjectProvider
                 );
         }
 
-        if(this._summary)
+        if (this._summary)
         {
             this._TraverseMeasurementSummaryHttp.loadAllFromDatabase()
                 .subscribe(
@@ -146,11 +146,11 @@ export class TraverseMeasurementSummarySubjectProvider
 
     private beginUpdateSubscription()
     {
-        if(!this._accessSubscription)
+        if (!this._accessSubscription)
         {
-            // this._accessSubscription = this._TraverseMeasurementSummaryService.updateSubject.subscribe(
-            //     (next) => this.update()
-            // );
+            this._accessSubscription = this._TraverseMeasurementSummaryService.updateSubject.subscribe(
+                (next) => this.update()
+            );
         }
     }
 }

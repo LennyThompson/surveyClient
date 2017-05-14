@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {SurveyPoint} from "./../../types";
 
@@ -12,7 +12,7 @@ import { SurveySummarySubjectProvider } from "./../survey-summary-service/Survey
 import { TraverseSummarySubjectProvider } from "./../traverse-summary-service/TraverseSummarySubjectProvider";
 import { TraverseMeasurementSummarySubjectProvider } from "./../traverse-measurement-summary-service/TraverseMeasurementSummarySubjectProvider";
 
-import { CurrentSurveyPointProvider }from "./../survey-point-service/SurveyPointSimpleProvider";
+import { CurrentSurveyPointProvider } from "./../survey-point-service/SurveyPointSimpleProvider";
 
 import { CurrentSurveyProvider } from "./../survey-service/SurveySimpleProvider";
 
@@ -37,7 +37,7 @@ export class SurveyPointSubjectProvider
 
     getSurveyPointSummaries(): Observable<SurveyPoint[]>
     {
-        if(!this._summary)
+        if (!this._summary)
         {
             this._summary = new BehaviorSubject<SurveyPoint[]>([]);
             this.beginUpdateSubscription();
@@ -48,14 +48,14 @@ export class SurveyPointSubjectProvider
 
     getSurveyPointSummary(): Observable<SurveyPoint>
     {
-        if(this._SurveyPointCurrent.SurveyPoint)
+        if (this._SurveyPointCurrent.SurveyPoint)
         {
             let key: number = this._SurveyPointCurrent.SurveyPoint.ID;
-            if(!this._SurveyPointSummaries)
+            if (!this._SurveyPointSummaries)
             {
                 this._SurveyPointSummaries = new Map<number, BehaviorSubject<SurveyPoint>>();
             }
-            if(!this._SurveyPointSummaries.has(key))
+            if (!this._SurveyPointSummaries.has(key))
             {
                 this._SurveyPointSummaries.set(key, new BehaviorSubject<SurveyPoint>(null));
                 this.beginUpdateSubscription();
@@ -93,15 +93,11 @@ export class SurveyPointSubjectProvider
                     result => this._SurveyPointSummaries.get(ID).next(result)
                 );
         }
-        if(this._summary)
+        if (this._summary)
         {
             this._SurveyPointHttp.loadAllFromDatabase()
                 .subscribe(
-
-                    result => {
-                        console.log("Survey Point incoming...");
-                        this._summary.next(result)
-                    }
+                    result => this._summary.next(result)
                 );
         }
     }
@@ -113,15 +109,10 @@ export class SurveyPointSubjectProvider
 
     private beginUpdateSubscription()
     {
-        if(!this._accessSubscription)
+        if (!this._accessSubscription)
         {
             this._accessSubscription = this._SurveyPointService.updateSubject.subscribe(
-                (next) => {
-                    if(next)
-                    {
-                        this.update();
-                    }
-                }
+                (next) => this.update()
             );
         }
     }

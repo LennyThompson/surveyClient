@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {TraverseSummary} from "./../../types";
 
@@ -41,25 +41,25 @@ export class TraverseSummarySubjectProvider
          if(this._SurveyCurrent.Survey)
         {
             let key: number = this._SurveyCurrent.Survey_ID;
-            if(!this._SurveySummaries)
+            if (!this._SurveySummaries)
             {
                 this._SurveySummaries = new Map<number, BehaviorSubject<TraverseSummary[]>>();
             }
-            if(!this._SurveySummaries.has(key))
+            if (!this._SurveySummaries.has(key))
             {
                 this._SurveySummaries.set(key, new BehaviorSubject<TraverseSummary[]>([]));
+                this.update();
             }
-            this.update();
             return this._SurveySummaries.get(key).asObservable();
         }
 
 
-        if(!this._summary)
+        if (!this._summary)
         {
             this._summary = new BehaviorSubject<TraverseSummary[]>([]);
             this.beginUpdateSubscription();
+            this.update();
         }
-        this.update();
         return this._summary.asObservable();
     }
 
@@ -68,16 +68,16 @@ export class TraverseSummarySubjectProvider
         if(this._TraverseCurrent.Traverse)
         {
             let key: number = this._TraverseCurrent.Traverse_ID;
-            if(!this._TraverseSummary)
+            if (!this._TraverseSummary)
             {
                 this._TraverseSummary = new Map<number, BehaviorSubject<TraverseSummary>>();
             }
-            if(!this._TraverseSummary.has(key))
+            if (!this._TraverseSummary.has(key))
             {
                 this._TraverseSummary.set(key, new BehaviorSubject<TraverseSummary>(null));
+                this.update();
             }
 
-            this.update();
             return this._TraverseSummary.get(key).asObservable();
         }
         throw new Error("No Traverse current context is provided");
@@ -117,7 +117,7 @@ export class TraverseSummarySubjectProvider
                 );
         }
 
-        if(this._summary)
+        if (this._summary)
         {
             this._TraverseSummaryHttp.loadAllFromDatabase()
                 .subscribe(
@@ -143,7 +143,7 @@ export class TraverseSummarySubjectProvider
 
     private beginUpdateSubscription()
     {
-        if(!this._accessSubscription)
+        if (!this._accessSubscription)
         {
             this._accessSubscription = this._TraverseSummaryService.updateSubject.subscribe(
                 (next) => this.update()

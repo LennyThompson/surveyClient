@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {SurveyPoint} from "./../../types";
 
@@ -67,7 +67,7 @@ export class SurveyPointServiceHttp
         let strPath : string = SurveyPointServiceHttp.buildPath();
         strPath += "/addSurveyPointToSurvey";
         let parentID: number = this._SurveyProvider.Survey ? this._SurveyProvider.Survey.ID : this._SurveyProvider.Survey_ID;
-        if(parentID > 0)
+        if (parentID > 0)
         {
             let strJsonBody : string = "{ \"ID\": " + parentID + ", SurveyPoint: " + typeSurveyPoint.toJson() + " }";
             let headers = new Headers({ "Content-Type": "application/json" });

@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Component} from "@angular/core";
 import {MdDialogRef} from "@angular/material";
@@ -39,13 +39,8 @@ export class AddSurveyPointComponent
         this._SurveyPointProvider.SurveyPoint = value;
     }
 
-    protected onClose()
+    protected onClose(bOk: boolean)
     {
-        return this._dialog.close(this.SurveyPoint);
-    }
-
-    protected onCancel()
-    {
-        return this._dialog.close(null);
+        return this._dialog.close(bOk ? this.SurveyPoint : null);
     }
 }

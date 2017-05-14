@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Projection} from "./../../types";
 
@@ -9,7 +9,7 @@ import { ProjectionSubjectAccessor } from "./ProjectionSubjectAccessor";
 import { ProjectionServiceHttp } from "./ProjectionServiceHttp";
 import { SurveySummarySubjectProvider } from "./../survey-summary-service/SurveySummarySubjectProvider";
 
-import { CurrentProjectionProvider }from "./../projection-service/ProjectionSimpleProvider";
+import { CurrentProjectionProvider } from "./../projection-service/ProjectionSimpleProvider";
 
 
 
@@ -32,31 +32,31 @@ export class ProjectionSubjectProvider
 
     getProjectionSummaries(): Observable<Projection[]>
     {
-        if(!this._summary)
+        if (!this._summary)
         {
             this._summary = new BehaviorSubject<Projection[]>([]);
             this.beginUpdateSubscription();
+            this.update();
         }
-        this.update();
         return this._summary.asObservable();
     }
 
     getProjectionSummary(): Observable<Projection>
     {
-        if(this._ProjectionCurrent.Projection)
+        if (this._ProjectionCurrent.Projection)
         {
             let key: number = this._ProjectionCurrent.Projection.ID;
-            if(!this._ProjectionSummaries)
+            if (!this._ProjectionSummaries)
             {
                 this._ProjectionSummaries = new Map<number, BehaviorSubject<Projection>>();
             }
-            if(!this._ProjectionSummaries.has(key))
+            if (!this._ProjectionSummaries.has(key))
             {
                 this._ProjectionSummaries.set(key, new BehaviorSubject<Projection>(null));
                 this.beginUpdateSubscription();
+                this.update();
             }
 
-            this.update();
             return this._ProjectionSummaries.get(key).asObservable();
         }
         throw new Error("No Projection current context is provided");
@@ -88,7 +88,7 @@ export class ProjectionSubjectProvider
                     result => this._ProjectionSummaries.get(ID).next(result)
                 );
         }
-        if(this._summary)
+        if (this._summary)
         {
             this._ProjectionHttp.loadAllFromDatabase()
                 .subscribe(
@@ -104,7 +104,7 @@ export class ProjectionSubjectProvider
 
     private beginUpdateSubscription()
     {
-        if(!this._accessSubscription)
+        if (!this._accessSubscription)
         {
             this._accessSubscription = this._ProjectionService.updateSubject.subscribe(
                 (next) => this.update()

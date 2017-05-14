@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {TraverseClosure} from "./../../types";
@@ -14,7 +14,7 @@ export class CurrentTraverseClosureProvider
 
     public get TraverseClosure(): TraverseClosure
     {
-        if(!this._TraverseClosure && this._ID <= 0)
+        if (!this._TraverseClosure && this._ID <= 0)
         {
             this._TraverseClosure = new TraverseClosure();
         }
@@ -29,7 +29,7 @@ export class CurrentTraverseClosureProvider
 
     public get TraverseClosure_ID(): number
     {
-        if(this.TraverseClosure)
+        if (this.TraverseClosure)
         {
             return this.TraverseClosure.ID;
         }
@@ -43,7 +43,7 @@ export class CurrentTraverseClosureProvider
 
     public reset()
     {
-        if(this.TraverseClosure)
+        if (this.TraverseClosure)
         {
             this._TraverseClosure = null;
         }
@@ -65,7 +65,7 @@ export class CurrentTraverseClosureListProvider
 
     get TraverseClosures(): TraverseClosure[]
     {
-        if(!this.m_listTraverseClosure)
+        if (!this.m_listTraverseClosure)
         {
             this.m_listTraverseClosure = new Array<TraverseClosure>();
         }

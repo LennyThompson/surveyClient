@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Injectable} from "@angular/core";
 import {SurveyPoint} from "./../../types";
@@ -14,7 +14,7 @@ export class CurrentSurveyPointProvider
 
     public get SurveyPoint(): SurveyPoint
     {
-        if(!this._SurveyPoint && this._ID <= 0)
+        if (!this._SurveyPoint && this._ID <= 0)
         {
             this._SurveyPoint = new SurveyPoint();
         }
@@ -29,7 +29,7 @@ export class CurrentSurveyPointProvider
 
     public get SurveyPoint_ID(): number
     {
-        if(this.SurveyPoint)
+        if (this.SurveyPoint)
         {
             return this.SurveyPoint.ID;
         }
@@ -43,7 +43,7 @@ export class CurrentSurveyPointProvider
 
     public reset()
     {
-        if(this.SurveyPoint)
+        if (this.SurveyPoint)
         {
             this._SurveyPoint = null;
         }
@@ -65,7 +65,7 @@ export class CurrentSurveyPointListProvider
 
     get SurveyPoints(): SurveyPoint[]
     {
-        if(!this.m_listSurveyPoint)
+        if (!this.m_listSurveyPoint)
         {
             this.m_listSurveyPoint = new Array<SurveyPoint>();
         }

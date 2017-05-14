@@ -1,14 +1,11 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
-import {
-    Component, ViewChild, ViewChildren, QueryList, Inject, Optional, OnInit, OnDestroy,
-    AfterContentInit
-} from "@angular/core";
+import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional, OnInit, OnDestroy } from "@angular/core";
 import {MdSelect, MdOption} from "@angular/material";
 import {ElementBase} from "./../../utils/element-base";
 import {NG_ASYNC_VALIDATORS, NG_VALIDATORS, NgModel, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {Observable, Subscription} from "rxjs/Rx";
+import { Observable, Subscription } from "rxjs/Rx";
 
 import {SurveyPoint} from "./../../../../services/surveyDb/types";
 import {SurveyPointSubjectProvider} from "./../../../../services/surveyDb/webAPI";
@@ -31,16 +28,17 @@ import * as lodash from "lodash";
 
     }
 )
-export class SurveyPointSelectComponent extends ElementBase<SurveyPoint> implements OnInit, OnDestroy, AfterContentInit
+export class SurveyPointSelectComponent extends ElementBase<SurveyPoint> implements OnInit, OnDestroy
 {
-    protected _listSurveyPoint: SurveyPoint[];
+    protected _listSurveyPoint: SurveyPoint[] = [];
     protected _listSubscribe: Subscription;
+    protected _initialSelectComplete: boolean;
     @ViewChild(MdSelect) select: MdSelect;
     @ViewChildren(MdOption) options: QueryList<MdOption>;
 
     @ViewChild(NgModel) model: NgModel;
 
-    // protected _currentSurveyPoint: SurveyPoint;
+    protected _currentSurveyPoint: SurveyPoint;
 
     constructor
     (
@@ -54,16 +52,23 @@ export class SurveyPointSelectComponent extends ElementBase<SurveyPoint> impleme
         super(validators, asyncValidators);
     }
 
+    get SurveyPoint(): SurveyPoint[]
+    {
+        return this._listSurveyPoint;
+    }
+
     public ngOnInit(): void
     {
         if(!this._listSubscribe)
         {
-            this._listSubscribe = this._serviceSurveyPoint.getSurveyPointSummaries().takeUntil(Observable.of(this._listSurveyPoint !== null && this._listSurveyPoint.length > 0))
+            const summaries = this._serviceSurveyPoint.getSurveyPointSummaries();
+            this._listSubscribe = summaries
+                .takeUntil(summaries.filter(list => this._listSurveyPoint.length > 0))
                 .subscribe(
                     list =>
                     {
                         this._listSurveyPoint = list;
-                        console.log("list is ready...", list.length);
+                        console.log("SurveyPoint list is ready...", list.length);
                         this.updateSelectedValue();
                     }
                 );
@@ -72,40 +77,25 @@ export class SurveyPointSelectComponent extends ElementBase<SurveyPoint> impleme
 
     public ngOnDestroy(): void
     {
-        if(this._listSubscribe)
+        if (this._listSubscribe)
         {
             this._listSubscribe.unsubscribe();
         }
     }
 
-    ngAfterContentInit(): void
-    {
-        // this.updateSelectedValue();
-    }
-
-    get SurveyPoint(): SurveyPoint[]
-    {
-        if(this._listSurveyPoint && this._listSurveyPoint.length)
-        {
-            // this.updateSelectedValue();
-        }
-        return this._listSurveyPoint;
-    }
-
-    writeValue(value: SurveyPoint)
+    writeValue(value: SurveyPoint): void
     {
         super.writeValue(value);
-        console.log("model is ready...");
+        console.log("SurveyPoint select model is ready...");
         this.updateSelectedValue();
     }
 
-    isSelectedOption(item: SurveyPoint): boolean
+    private isSelectedOption(item: SurveyPoint): boolean
     {
         return this.value ? this.value.ID === item.ID : false;
     }
 
-    protected _initialSelectComplete: boolean;
-    updateSelectedValue()
+    private updateSelectedValue(): boolean
     {
         if
         (
@@ -118,11 +108,13 @@ export class SurveyPointSelectComponent extends ElementBase<SurveyPoint> impleme
             this.value
         )
         {
-            let currentType = lodash(this._listSurveyPoint).filter(type => type.ID === this.value.ID).first();
-            console.log("select is ready...", currentType);
+            const currentType = lodash(this._listSurveyPoint).filter(item => this.isSelectedOption(item)).first();
+            console.log("SurveyPoint selection is ready...", currentType);
             super.writeValue(currentType);
             this._initialSelectComplete = true;
+            return true;
         }
+        return false;
     }
 
     private onAddNewSurveyPoint()

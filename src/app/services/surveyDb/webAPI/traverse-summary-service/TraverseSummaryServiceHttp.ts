@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {TraverseSummary} from "./../../types";
 
@@ -43,11 +43,11 @@ export class TraverseSummaryServiceHttp
     {
         let strPath : string = TraverseSummaryServiceHttp.buildPath();
         let params = new URLSearchParams();
-        if(surveyID > 0)
+        if (surveyID > 0)
         {
             params.set('surveyID', surveyID.toString());
         }
-        if(travID > 0)
+        if (travID > 0)
         {
             params.set('travID', travID.toString());
         }

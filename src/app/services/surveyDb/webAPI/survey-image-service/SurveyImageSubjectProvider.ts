@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {SurveyImage} from "./../../types";
 
@@ -7,7 +7,7 @@ import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
 import { SurveyImageSubjectAccessor } from "./SurveyImageSubjectAccessor";
 import { SurveyImageServiceHttp } from "./SurveyImageServiceHttp";
-import { CurrentSurveyImageProvider }from "./../survey-image-service/SurveyImageSimpleProvider";
+import { CurrentSurveyImageProvider } from "./../survey-image-service/SurveyImageSimpleProvider";
 
 
 
@@ -30,31 +30,31 @@ export class SurveyImageSubjectProvider
 
     getSurveyImageSummaries(): Observable<SurveyImage[]>
     {
-        if(!this._summary)
+        if (!this._summary)
         {
             this._summary = new BehaviorSubject<SurveyImage[]>([]);
             this.beginUpdateSubscription();
+            this.update();
         }
-        this.update();
         return this._summary.asObservable();
     }
 
     getSurveyImageSummary(): Observable<SurveyImage>
     {
-        if(this._SurveyImageCurrent.SurveyImage)
+        if (this._SurveyImageCurrent.SurveyImage)
         {
             let key: number = this._SurveyImageCurrent.SurveyImage.ID;
-            if(!this._SurveyImageSummaries)
+            if (!this._SurveyImageSummaries)
             {
                 this._SurveyImageSummaries = new Map<number, BehaviorSubject<SurveyImage>>();
             }
-            if(!this._SurveyImageSummaries.has(key))
+            if (!this._SurveyImageSummaries.has(key))
             {
                 this._SurveyImageSummaries.set(key, new BehaviorSubject<SurveyImage>(null));
                 this.beginUpdateSubscription();
+                this.update();
             }
 
-            this.update();
             return this._SurveyImageSummaries.get(key).asObservable();
         }
         throw new Error("No SurveyImage current context is provided");
@@ -86,7 +86,7 @@ export class SurveyImageSubjectProvider
                     result => this._SurveyImageSummaries.get(ID).next(result)
                 );
         }
-        if(this._summary)
+        if (this._summary)
         {
             this._SurveyImageHttp.loadAllFromDatabase()
                 .subscribe(
@@ -102,7 +102,7 @@ export class SurveyImageSubjectProvider
 
     private beginUpdateSubscription()
     {
-        if(!this._accessSubscription)
+        if (!this._accessSubscription)
         {
             this._accessSubscription = this._SurveyImageService.updateSubject.subscribe(
                 (next) => this.update()

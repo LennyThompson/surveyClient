@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {Traverse} from "./../../types";
 
@@ -11,7 +11,7 @@ import { SurveySummarySubjectProvider } from "./../survey-summary-service/Survey
 import { TraverseSummarySubjectProvider } from "./../traverse-summary-service/TraverseSummarySubjectProvider";
 import { TraverseMeasurementSummarySubjectProvider } from "./../traverse-measurement-summary-service/TraverseMeasurementSummarySubjectProvider";
 
-import { CurrentTraverseProvider }from "./../traverse-service/TraverseSimpleProvider";
+import { CurrentTraverseProvider } from "./../traverse-service/TraverseSimpleProvider";
 
 
 
@@ -34,31 +34,31 @@ export class TraverseSubjectProvider
 
     getTraverseSummaries(): Observable<Traverse[]>
     {
-        if(!this._summary)
+        if (!this._summary)
         {
             this._summary = new BehaviorSubject<Traverse[]>([]);
             this.beginUpdateSubscription();
+            this.update();
         }
-        this.update();
         return this._summary.asObservable();
     }
 
     getTraverseSummary(): Observable<Traverse>
     {
-        if(this._TraverseCurrent.Traverse)
+        if (this._TraverseCurrent.Traverse)
         {
             let key: number = this._TraverseCurrent.Traverse.ID;
-            if(!this._TraverseSummaries)
+            if (!this._TraverseSummaries)
             {
                 this._TraverseSummaries = new Map<number, BehaviorSubject<Traverse>>();
             }
-            if(!this._TraverseSummaries.has(key))
+            if (!this._TraverseSummaries.has(key))
             {
                 this._TraverseSummaries.set(key, new BehaviorSubject<Traverse>(null));
                 this.beginUpdateSubscription();
+                this.update();
             }
 
-            this.update();
             return this._TraverseSummaries.get(key).asObservable();
         }
         throw new Error("No Traverse current context is provided");
@@ -90,7 +90,7 @@ export class TraverseSubjectProvider
                     result => this._TraverseSummaries.get(ID).next(result)
                 );
         }
-        if(this._summary)
+        if (this._summary)
         {
             this._TraverseHttp.loadAllFromDatabase()
                 .subscribe(
@@ -106,7 +106,7 @@ export class TraverseSubjectProvider
 
     private beginUpdateSubscription()
     {
-        if(!this._accessSubscription)
+        if (!this._accessSubscription)
         {
             this._accessSubscription = this._TraverseService.updateSubject.subscribe(
                 (next) => this.update()

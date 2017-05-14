@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {SurveyAdjustment} from "./../../types";
 
@@ -7,7 +7,7 @@ import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
 import { SurveyAdjustmentSubjectAccessor } from "./SurveyAdjustmentSubjectAccessor";
 import { SurveyAdjustmentServiceHttp } from "./SurveyAdjustmentServiceHttp";
-import { CurrentSurveyAdjustmentProvider }from "./../survey-adjustment-service/SurveyAdjustmentSimpleProvider";
+import { CurrentSurveyAdjustmentProvider } from "./../survey-adjustment-service/SurveyAdjustmentSimpleProvider";
 
 
 
@@ -30,31 +30,31 @@ export class SurveyAdjustmentSubjectProvider
 
     getSurveyAdjustmentSummaries(): Observable<SurveyAdjustment[]>
     {
-        if(!this._summary)
+        if (!this._summary)
         {
             this._summary = new BehaviorSubject<SurveyAdjustment[]>([]);
             this.beginUpdateSubscription();
+            this.update();
         }
-        this.update();
         return this._summary.asObservable();
     }
 
     getSurveyAdjustmentSummary(): Observable<SurveyAdjustment>
     {
-        if(this._SurveyAdjustmentCurrent.SurveyAdjustment)
+        if (this._SurveyAdjustmentCurrent.SurveyAdjustment)
         {
             let key: number = this._SurveyAdjustmentCurrent.SurveyAdjustment.ID;
-            if(!this._SurveyAdjustmentSummaries)
+            if (!this._SurveyAdjustmentSummaries)
             {
                 this._SurveyAdjustmentSummaries = new Map<number, BehaviorSubject<SurveyAdjustment>>();
             }
-            if(!this._SurveyAdjustmentSummaries.has(key))
+            if (!this._SurveyAdjustmentSummaries.has(key))
             {
                 this._SurveyAdjustmentSummaries.set(key, new BehaviorSubject<SurveyAdjustment>(null));
                 this.beginUpdateSubscription();
+                this.update();
             }
 
-            this.update();
             return this._SurveyAdjustmentSummaries.get(key).asObservable();
         }
         throw new Error("No SurveyAdjustment current context is provided");
@@ -86,7 +86,7 @@ export class SurveyAdjustmentSubjectProvider
                     result => this._SurveyAdjustmentSummaries.get(ID).next(result)
                 );
         }
-        if(this._summary)
+        if (this._summary)
         {
             this._SurveyAdjustmentHttp.loadAllFromDatabase()
                 .subscribe(
@@ -102,7 +102,7 @@ export class SurveyAdjustmentSubjectProvider
 
     private beginUpdateSubscription()
     {
-        if(!this._accessSubscription)
+        if (!this._accessSubscription)
         {
             this._accessSubscription = this._SurveyAdjustmentService.updateSubject.subscribe(
                 (next) => this.update()

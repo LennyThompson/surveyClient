@@ -1,11 +1,11 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
-import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional} from "@angular/core";
+import { Component, ViewChild, ViewChildren, QueryList, Inject, Optional, OnInit, OnDestroy } from "@angular/core";
 import {MdSelect, MdOption} from "@angular/material";
 import {ElementBase} from "./../../utils/element-base";
 import {NG_ASYNC_VALIDATORS, NG_VALIDATORS, NgModel, NG_VALUE_ACCESSOR} from "@angular/forms";
-import { Observable } from "rxjs/Rx";
+import { Observable, Subscription } from "rxjs/Rx";
 
 import {Traverse} from "./../../../../services/surveyDb/types";
 import {TraverseSubjectProvider} from "./../../../../services/surveyDb/webAPI";
@@ -28,9 +28,11 @@ import * as lodash from "lodash";
 
     }
 )
-export class TraverseSelectComponent extends ElementBase<Traverse>
+export class TraverseSelectComponent extends ElementBase<Traverse> implements OnInit, OnDestroy
 {
-    protected _listTraverse: Observable<Traverse[]>;
+    protected _listTraverse: Traverse[] = [];
+    protected _listSubscribe: Subscription;
+    protected _initialSelectComplete: boolean;
     @ViewChild(MdSelect) select: MdSelect;
     @ViewChildren(MdOption) options: QueryList<MdOption>;
 
@@ -46,32 +48,71 @@ export class TraverseSelectComponent extends ElementBase<Traverse>
     )
     {
         super(validators, asyncValidators);
-        this._listTraverse = this._serviceTraverse.getTraverseSummaries();
     }
 
-    get Traverse(): Observable<Traverse[]>
+    get Traverse(): Traverse[]
     {
         return this._listTraverse;
     }
 
-    updateValue()
+    public ngOnInit(): void
     {
-        if(this._listTraverse && this._currentTraverse)
+        if(!this._listSubscribe)
         {
-            let subscriber = this._listTraverse.subscribe(
-                (list) => {
-                    let currentType = lodash(list).find(type => type.ID === this._currentTraverse.ID).value();
-                    super.writeValue(currentType);
-                    //subscriber.unsubscribe();
-                }
-            );
+            const summaries = this._serviceTraverse.getTraverseSummaries();
+            this._listSubscribe = summaries
+                .takeUntil(summaries.filter(list => this._listTraverse.length > 0))
+                .subscribe(
+                    list =>
+                    {
+                        this._listTraverse = list;
+                        console.log("Traverse list is ready...", list.length);
+                        this.updateSelectedValue();
+                    }
+                );
         }
     }
 
-    writeValue(value: Traverse)
+    public ngOnDestroy(): void
     {
-        this._currentTraverse = value;
-        this.updateValue();
+        if (this._listSubscribe)
+        {
+            this._listSubscribe.unsubscribe();
+        }
+    }
+
+    writeValue(value: Traverse): void
+    {
+        super.writeValue(value);
+        console.log("Traverse select model is ready...");
+        this.updateSelectedValue();
+    }
+
+    private isSelectedOption(item: Traverse): boolean
+    {
+        return this.value ? this.value.ID === item.ID : false;
+    }
+
+    private updateSelectedValue(): boolean
+    {
+        if
+        (
+            !this._initialSelectComplete
+            &&
+            this._listTraverse
+            &&
+            this._listTraverse.length
+            &&
+            this.value
+        )
+        {
+            const currentType = lodash(this._listTraverse).filter(item => this.isSelectedOption(item)).first();
+            console.log("Traverse selection is ready...", currentType);
+            super.writeValue(currentType);
+            this._initialSelectComplete = true;
+            return true;
+        }
+        return false;
     }
 
 }

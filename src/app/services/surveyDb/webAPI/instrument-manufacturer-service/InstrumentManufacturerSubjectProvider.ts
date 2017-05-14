@@ -1,5 +1,5 @@
 // ****THIS IS A CODE GENERATED FILE DO NOT EDIT****
-// Generated on Mon May 08 11:01:26 AEST 2017
+// Generated on Sun May 14 18:02:31 AEST 2017
 
 import {InstrumentManufacturer} from "./../../types";
 
@@ -7,7 +7,7 @@ import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs/Rx";
 import { InstrumentManufacturerSubjectAccessor } from "./InstrumentManufacturerSubjectAccessor";
 import { InstrumentManufacturerServiceHttp } from "./InstrumentManufacturerServiceHttp";
-import { CurrentInstrumentManufacturerProvider }from "./../instrument-manufacturer-service/InstrumentManufacturerSimpleProvider";
+import { CurrentInstrumentManufacturerProvider } from "./../instrument-manufacturer-service/InstrumentManufacturerSimpleProvider";
 
 
 
@@ -30,31 +30,31 @@ export class InstrumentManufacturerSubjectProvider
 
     getInstrumentManufacturerSummaries(): Observable<InstrumentManufacturer[]>
     {
-        if(!this._summary)
+        if (!this._summary)
         {
             this._summary = new BehaviorSubject<InstrumentManufacturer[]>([]);
             this.beginUpdateSubscription();
+            this.update();
         }
-        this.update();
         return this._summary.asObservable();
     }
 
     getInstrumentManufacturerSummary(): Observable<InstrumentManufacturer>
     {
-        if(this._InstrumentManufacturerCurrent.InstrumentManufacturer)
+        if (this._InstrumentManufacturerCurrent.InstrumentManufacturer)
         {
             let key: number = this._InstrumentManufacturerCurrent.InstrumentManufacturer.ID;
-            if(!this._InstrumentManufacturerSummaries)
+            if (!this._InstrumentManufacturerSummaries)
             {
                 this._InstrumentManufacturerSummaries = new Map<number, BehaviorSubject<InstrumentManufacturer>>();
             }
-            if(!this._InstrumentManufacturerSummaries.has(key))
+            if (!this._InstrumentManufacturerSummaries.has(key))
             {
                 this._InstrumentManufacturerSummaries.set(key, new BehaviorSubject<InstrumentManufacturer>(null));
                 this.beginUpdateSubscription();
+                this.update();
             }
 
-            this.update();
             return this._InstrumentManufacturerSummaries.get(key).asObservable();
         }
         throw new Error("No InstrumentManufacturer current context is provided");
@@ -86,7 +86,7 @@ export class InstrumentManufacturerSubjectProvider
                     result => this._InstrumentManufacturerSummaries.get(ID).next(result)
                 );
         }
-        if(this._summary)
+        if (this._summary)
         {
             this._InstrumentManufacturerHttp.loadAllFromDatabase()
                 .subscribe(
@@ -102,7 +102,7 @@ export class InstrumentManufacturerSubjectProvider
 
     private beginUpdateSubscription()
     {
-        if(!this._accessSubscription)
+        if (!this._accessSubscription)
         {
             this._accessSubscription = this._InstrumentManufacturerService.updateSubject.subscribe(
                 (next) => this.update()
