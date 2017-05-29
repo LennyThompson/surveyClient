@@ -4,6 +4,8 @@
 import {Component, OnInit, Input} from "@angular/core";
 import {EditSurveyMeasurementProvider} from "../../edit-providers/survey-measurement/SurveyMeasurement";
 import {TraverseMeasurementSummary} from "./../../../../services/surveyDb/types";
+import { CurrentSurveyPointProvider } from "./../../../../services/surveyDb/webAPI";
+import * as lodash from "lodash";
 
 @Component (
     {
@@ -14,34 +16,39 @@ import {TraverseMeasurementSummary} from "./../../../../services/surveyDb/types"
 )
 export class TraverseMeasurementSummaryListComponent implements OnInit
 {
-        _TraverseMeasurementSummary: TraverseMeasurementSummary;
-        constructor(
-            private _addSurveyMeasurement: EditSurveyMeasurementProvider
-        )
-        {
-        }
+_TraverseMeasurementSummary: TraverseMeasurementSummary;
+constructor(
+    private _addSurveyMeasurement: EditSurveyMeasurementProvider
+    , private _currentSurveyPoint: CurrentSurveyPointProvider
+)
+{
+}
 
-        ngOnInit(): void
-        {
-        }
+ngOnInit(): void
+{
+}
 
-        @Input()
-        set TraverseMeasurementSummary(value: TraverseMeasurementSummary)
-        {
-            this._TraverseMeasurementSummary = value;
-        }
-        get TraverseMeasurementSummary(): TraverseMeasurementSummary
-        {
-            return this._TraverseMeasurementSummary;
-        }
+@Input()
+set TraverseMeasurementSummary(value: TraverseMeasurementSummary)
+{
+    this._TraverseMeasurementSummary = value;
+}
+get TraverseMeasurementSummary(): TraverseMeasurementSummary
+{
+    return this._TraverseMeasurementSummary;
+}
 
-        get hasValidList(): boolean
-        {
-            return this.TraverseMeasurementSummary !== undefined && this.TraverseMeasurementSummary !== null;
-        }
+get hasValidList(): boolean
+{
+    return this.TraverseMeasurementSummary !== undefined && this.TraverseMeasurementSummary !== null;
+}
 
-        onAddSurveyMeasurement()
+onAddSurveyMeasurement()
+{
+        if(this.TraverseMeasurementSummary.SurvMeass && this.TraverseMeasurementSummary.SurvMeass.length)
         {
-            this._addSurveyMeasurement.addSurveyMeasurement();
+                this._currentSurveyPoint.SurveyPoint_ID = lodash(this.TraverseMeasurementSummary.SurvMeass).last().value().PtTo.PtToID;
         }
+    this._addSurveyMeasurement.addSurveyMeasurement();
+}
 }
